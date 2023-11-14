@@ -1,0 +1,17 @@
+namespace App;
+
+use Runtime.re;
+use Runtime.lib;
+use Runtime.BaseObject;
+
+class Test
+{
+	/**
+	 * Test
+	 */
+	string test(int a, int b)
+	{
+		return a + b;
+	}
+	
+}

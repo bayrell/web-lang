@@ -1,0 +1,9 @@
+{
+  "name": "web_lang",
+  "version": "0.12.0",
+  "description": "Bay Lang development web environment",
+  "main": "index.js",
+  "author": "Ildar Bikmamatov <ildar@bayrell.org>",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/bayrell/web-lang"
+}
