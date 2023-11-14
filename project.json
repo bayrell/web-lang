@@ -3,16 +3,16 @@
 	"assets":
 	[
 		{
+			"type": "js",
 			"dest": "public/assets/runtime.js",
-			"lang": "es6",
 			"modules":
 			[
 				"Runtime"
 			]
 		},
 		{
+			"type": "js",
 			"dest": "public/assets/lang.js",
-			"lang": "es6",
 			"modules":
 			[
 				"Bayrell.Lang"

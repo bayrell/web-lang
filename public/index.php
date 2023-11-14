@@ -47,7 +47,7 @@ body{ margin: 0; padding: 0; }
 	window['use'] = function(s){ return Runtime.rtl.find_class(s); }
 	
 	$.ajax({
-		'url': '/prg.ui',
+		'url': '/prg.bay',
 		'cache': false,
 		success: function(result){
 			$('.text--in').val(result);

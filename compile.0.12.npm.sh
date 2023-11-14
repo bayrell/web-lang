@@ -2,6 +2,9 @@
 
 echo "Compiler 0.12"
 
+rm -rf ./node_modules/bayrell-lang-nodejs
+rm -rf ./node_modules/bayrell-runtime-nodejs
+
 bay-lang-nodejs make Runtime nodejs
 bay-lang-nodejs make Runtime.Console nodejs
 bay-lang-nodejs make Bayrell.Lang nodejs
