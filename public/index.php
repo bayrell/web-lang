@@ -1,4 +1,7 @@
-<html>
+<?php
+	$filename = isset($_GET["filename"]) ? $_GET["filename"] : "/prg.bay";
+	$lang = isset($_GET["lang"]) ? $_GET["lang"] : "php";
+?><html>
 
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />	
@@ -41,13 +44,12 @@ body{ margin: 0; padding: 0; }
 	<div class='result'></div>
 </center>
 
-
 <script>
 	
 	window['use'] = function(s){ return Runtime.rtl.find_class(s); }
 	
 	$.ajax({
-		'url': '/prg.bay',
+		'url': <?= json_encode($filename) ?>,
 		'cache': false,
 		success: function(result){
 			$('.text--in').val(result);
@@ -79,11 +81,7 @@ body{ margin: 0; padding: 0; }
 			var parser = new Bayrell.Lang.LangBay.ParserBay();
 			
 			/* Create translator */
-			var lang;
-			
-			lang = "php";
-			//lang = "es6";
-			//lang = "nodejs";
+			var lang = <?= json_encode($lang) ?>;
 			
 			var translator = Bayrell.Lang.LangUtils.createTranslator(lang);
 			//var translator = translator_node;
