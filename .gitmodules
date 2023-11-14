@@ -1,0 +1,12 @@
+[submodule "lib/Runtime"]
+	path = lib/Runtime
+	url = https://github.com/bayrell/Runtime
+[submodule "lib/Runtime.Console"]
+	path = lib/Runtime.Console
+	url = https://github.com/bayrell/Runtime.Console
+[submodule "lib/Bayrell.Lang"]
+	path = lib/Bayrell.Lang
+	url = https://github.com/bayrell/Bayrell.Lang
+[submodule "bay-lang"]
+	path = bay-lang
+	url = https://github.com/bayrell/bay-lang-nodejs
