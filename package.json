@@ -5,5 +5,10 @@
   "main": "index.js",
   "author": "Ildar Bikmamatov <ildar@bayrell.org>",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/bayrell/web-lang"
+  "homepage": "https://github.com/bayrell/web-lang",
+  "dependencies": {
+    "bayrell-lang-nodejs": "^0.11.7",
+    "bayrell-runtime-nodejs": "^0.11.5-1",
+    "chokidar": "^3.5.3"
+  }
 }

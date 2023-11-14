@@ -1,0 +1,30 @@
+{
+	"name": "Test lang",
+	"assets":
+	[
+		{
+			"dest": "public/assets/runtime.js",
+			"lang": "es6",
+			"modules":
+			[
+				"Runtime"
+			]
+		},
+		{
+			"dest": "public/assets/lang.js",
+			"lang": "es6",
+			"modules":
+			[
+				"Bayrell.Lang"
+			]
+		}
+	],
+	"languages": ["php", "es6", "nodejs"],
+	"modules":
+	[
+		{
+			"src": "lib",
+			"type": "folder"
+		}
+	]
+}
