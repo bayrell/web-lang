@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+    
+    <div id="app"></div>
+    
+    <script src="/assets/runtime.js"></script>
+    <script src="/vue/vue.runtime.global.js"></script>
+    <script src="/vue/script.js"></script>
+    
+    <script>
+        window["save_footer"] = document.querySelector(".footer")
+        window["save_layout"] = document.querySelector(".main_layout")
+        
+        let layout = Vue.reactive(new App.Component.Layout());
+        //let app = Vue.createSSRApp(App.Component.LayoutWidget);
+        let app = Vue.createApp(App.Component.LayoutWidget);
+        app.use(createLayout(layout));
+        app.mount('#app', true);
+    </script>
+    
+</body>
+</html>

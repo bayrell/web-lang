@@ -6,7 +6,6 @@ rm -rf ./node_modules/bayrell-lang-nodejs
 rm -rf ./node_modules/bayrell-runtime-nodejs
 
 bay-lang-nodejs make Runtime nodejs
-bay-lang-nodejs make Runtime.Console nodejs
 bay-lang-nodejs make Bayrell.Lang nodejs
 
 yes | cp -rT ./lib/Runtime/nodejs/ ./node_modules/bayrell-runtime-nodejs/

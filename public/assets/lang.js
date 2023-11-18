@@ -33,31 +33,6 @@ Object.assign(Bayrell.Lang.Caret.prototype,
 		this.x = 0;
 		this.y = 0;
 	},
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Caret)
-		{
-			this.pos = o.pos;
-			this.x = o.x;
-			this.y = o.y;
-		}
-		Runtime.BaseStruct.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		if (k == "pos")this.pos = v;
-		else if (k == "x")this.x = v;
-		else if (k == "y")this.y = v;
-		else Runtime.BaseStruct.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		if (k == "pos")return this.pos;
-		else if (k == "x")return this.x;
-		else if (k == "y")return this.y;
-		return Runtime.BaseStruct.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Caret, Runtime.BaseStruct);
 Object.assign(Bayrell.Lang.Caret,
@@ -77,10 +52,10 @@ Object.assign(Bayrell.Lang.Caret,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -90,25 +65,25 @@ Object.assign(Bayrell.Lang.Caret,
 		a.push("pos");
 		a.push("x");
 		a.push("y");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "pos") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "pos") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "x") return Dict.from({
+		if (field_name == "x") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "y") return Dict.from({
+		if (field_name == "y") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -117,7 +92,7 @@ Object.assign(Bayrell.Lang.Caret,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -172,40 +147,6 @@ Object.assign(Bayrell.Lang.CoreParser.prototype,
 		this.caret = null;
 		this.find_ident = true;
 	},
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.CoreParser)
-		{
-			this.tab_size = o.tab_size;
-			this.file_name = o.file_name;
-			this.content = o.content;
-			this.content_sz = o.content_sz;
-			this.caret = o.caret;
-			this.find_ident = o.find_ident;
-		}
-		Runtime.BaseStruct.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		if (k == "tab_size")this.tab_size = v;
-		else if (k == "file_name")this.file_name = v;
-		else if (k == "content")this.content = v;
-		else if (k == "content_sz")this.content_sz = v;
-		else if (k == "caret")this.caret = v;
-		else if (k == "find_ident")this.find_ident = v;
-		else Runtime.BaseStruct.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		if (k == "tab_size")return this.tab_size;
-		else if (k == "file_name")return this.file_name;
-		else if (k == "content")return this.content;
-		else if (k == "content_sz")return this.content_sz;
-		else if (k == "caret")return this.caret;
-		else if (k == "find_ident")return this.find_ident;
-		return Runtime.BaseStruct.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.CoreParser, Runtime.BaseStruct);
 Object.assign(Bayrell.Lang.CoreParser,
@@ -215,14 +156,14 @@ Object.assign(Bayrell.Lang.CoreParser,
 	 */
 	reset: function(parser)
 	{
-		return parser.copy(Runtime.Dict.from({"caret":new Bayrell.Lang.Caret(Runtime.Dict.from({})),"token":null}));
+		return parser.copy(Runtime.Map.from({"caret":new Bayrell.Lang.Caret(Runtime.Map.from({})),"token":null}));
 	},
 	/**
 	 * Set content
 	 */
 	setContent: function(parser, content)
 	{
-		return parser.copy(Runtime.Dict.from({"content":new Runtime.Reference(content),"content_sz":Runtime.rs.strlen(content)}));
+		return parser.copy(Runtime.Map.from({"content":new Runtime.Reference(content),"content_sz":Runtime.rs.strlen(content)}));
 	},
 	/**
 	 * Parse file and convert to BaseOpCode
@@ -252,10 +193,10 @@ Object.assign(Bayrell.Lang.CoreParser,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -268,40 +209,40 @@ Object.assign(Bayrell.Lang.CoreParser,
 		a.push("content_sz");
 		a.push("caret");
 		a.push("find_ident");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "tab_size") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "tab_size") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "file_name") return Dict.from({
+		if (field_name == "file_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "content") return Dict.from({
+		if (field_name == "content") return Map.from({
 			"t": "Runtime.Reference",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "content_sz") return Dict.from({
+		if (field_name == "content_sz") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "caret") return Dict.from({
+		if (field_name == "caret") return Map.from({
 			"t": "Bayrell.Lang.Caret",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "find_ident") return Dict.from({
+		if (field_name == "find_ident") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -314,7 +255,7 @@ Object.assign(Bayrell.Lang.CoreParser,
 			"setContent",
 			"parse",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -390,10 +331,10 @@ Object.assign(Bayrell.Lang.CoreToken,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -405,35 +346,35 @@ Object.assign(Bayrell.Lang.CoreToken,
 		a.push("caret_start");
 		a.push("caret_end");
 		a.push("eof");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "kind") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "content") return Dict.from({
+		if (field_name == "content") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "caret_start") return Dict.from({
+		if (field_name == "caret_start") return Map.from({
 			"t": "Bayrell.Lang.Caret",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "caret_end") return Dict.from({
+		if (field_name == "caret_end") return Map.from({
 			"t": "Bayrell.Lang.Caret",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "eof") return Dict.from({
+		if (field_name == "eof") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -442,7 +383,7 @@ Object.assign(Bayrell.Lang.CoreToken,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -492,14 +433,14 @@ Object.assign(Bayrell.Lang.CoreTranslator.prototype,
 	 */
 	levelInc: function()
 	{
-		return this.copy(Runtime.Dict.from({"indent_level":this.indent_level + 1}));
+		return this.copy(Runtime.Map.from({"indent_level":this.indent_level + 1}));
 	},
 	/**
 	 * Decrease indent level
 	 */
 	levelDec: function()
 	{
-		return this.copy(Runtime.Dict.from({"indent_level":this.indent_level - 1}));
+		return this.copy(Runtime.Map.from({"indent_level":this.indent_level - 1}));
 	},
 	/**
 	 * Output content with indent
@@ -607,8 +548,8 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 	{
 		var var_name = this.nextSaveOpCode(t);
 		var save_op_code_inc = t.save_op_code_inc + 1;
-		t = t.copy(Runtime.Dict.from({"save_op_code_inc":save_op_code_inc}));
-		return Runtime.Collection.from([t,var_name]);
+		t = t.copy(Runtime.Map.from({"save_op_code_inc":save_op_code_inc}));
+		return Runtime.Vector.from([t,var_name]);
 	},
 	/**
 	 * Add save op code
@@ -626,8 +567,8 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 			save_op_code_inc += 1;
 		}
 		var s = new Bayrell.Lang.SaveOpCode(data);
-		t = t.copy(Runtime.Dict.from({"save_op_codes":t.save_op_codes.pushIm(s),"save_op_code_inc":save_op_code_inc}));
-		return Runtime.Collection.from([t,var_name]);
+		t = t.copy(Runtime.Map.from({"save_op_codes":t.save_op_codes.pushIm(s),"save_op_code_inc":save_op_code_inc}));
+		return Runtime.Vector.from([t,var_name]);
 	},
 	/**
 	 * Clear save op code
@@ -662,7 +603,7 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 		/* Restore save op codes */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-		return Runtime.Collection.from([t,save,value]);
+		return Runtime.Vector.from([t,save,value]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -679,10 +620,10 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -708,110 +649,110 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 		a.push("crlf");
 		a.push("flag_struct_check_types");
 		a.push("preprocessor_flags");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "current_namespace_name") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "current_namespace_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_name") return Dict.from({
+		if (field_name == "current_class_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_full_name") return Dict.from({
+		if (field_name == "current_class_full_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_extends_name") return Dict.from({
+		if (field_name == "current_class_extends_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class") return Dict.from({
+		if (field_name == "current_class") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDeclareClass",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_function") return Dict.from({
+		if (field_name == "current_function") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDeclareFunction",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "modules") return Dict.from({
+		if (field_name == "modules") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "vars") return Dict.from({
+		if (field_name == "vars") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["bool"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "save_vars") return Dict.from({
+		if (field_name == "save_vars") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "save_op_codes") return Dict.from({
+		if (field_name == "save_op_codes") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.SaveOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "save_op_code_inc") return Dict.from({
+		if (field_name == "save_op_code_inc") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_static_function") return Dict.from({
+		if (field_name == "is_static_function") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_operation") return Dict.from({
+		if (field_name == "is_operation") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "opcode_level") return Dict.from({
+		if (field_name == "opcode_level") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "indent_level") return Dict.from({
+		if (field_name == "indent_level") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "indent") return Dict.from({
+		if (field_name == "indent") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "crlf") return Dict.from({
+		if (field_name == "crlf") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "flag_struct_check_types") return Dict.from({
+		if (field_name == "flag_struct_check_types") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "preprocessor_flags") return Dict.from({
+		if (field_name == "preprocessor_flags") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["bool"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -833,7 +774,7 @@ Object.assign(Bayrell.Lang.CoreTranslator,
 			"outputSaveOpCode",
 			"saveOpCodeCall",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -868,19 +809,6 @@ Bayrell.Lang.LangConstant = function()
 };
 Object.assign(Bayrell.Lang.LangConstant.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangConstant)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangConstant,
 {
@@ -902,29 +830,29 @@ Object.assign(Bayrell.Lang.LangConstant,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -959,19 +887,6 @@ Bayrell.Lang.LangUtils = function()
 };
 Object.assign(Bayrell.Lang.LangUtils.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangUtils)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangUtils,
 {
@@ -1027,22 +942,22 @@ Object.assign(Bayrell.Lang.LangUtils,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1052,7 +967,7 @@ Object.assign(Bayrell.Lang.LangUtils,
 			"translate",
 			"createTranslator",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1126,10 +1041,10 @@ Object.assign(Bayrell.Lang.SaveOpCode,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -1140,30 +1055,30 @@ Object.assign(Bayrell.Lang.SaveOpCode,
 		a.push("var_content");
 		a.push("content");
 		a.push("op_code");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "var_name") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "var_content") return Dict.from({
+		if (field_name == "var_content") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "content") return Dict.from({
+		if (field_name == "content") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "op_code") return Dict.from({
+		if (field_name == "op_code") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -1172,7 +1087,7 @@ Object.assign(Bayrell.Lang.SaveOpCode,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1216,22 +1131,6 @@ Bayrell.Lang.Exceptions.ParserUnknownError.prototype = Object.create(Runtime.Exc
 Bayrell.Lang.Exceptions.ParserUnknownError.prototype.constructor = Bayrell.Lang.Exceptions.ParserUnknownError;
 Object.assign(Bayrell.Lang.Exceptions.ParserUnknownError.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Exceptions.ParserUnknownError)
-		{
-		}
-		Runtime.Exceptions.RuntimeException.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Runtime.Exceptions.RuntimeException.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Runtime.Exceptions.RuntimeException.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Exceptions.ParserUnknownError, Runtime.Exceptions.RuntimeException);
 Object.assign(Bayrell.Lang.Exceptions.ParserUnknownError,
@@ -1251,22 +1150,22 @@ Object.assign(Bayrell.Lang.Exceptions.ParserUnknownError,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1274,7 +1173,7 @@ Object.assign(Bayrell.Lang.Exceptions.ParserUnknownError,
 		var a=[
 			"constructor",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1334,22 +1233,6 @@ Object.assign(Bayrell.Lang.Exceptions.ParserError.prototype,
 		}
 		return error_str;
 	},
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Exceptions.ParserError)
-		{
-		}
-		Bayrell.Lang.Exceptions.ParserUnknownError.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Bayrell.Lang.Exceptions.ParserUnknownError.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Bayrell.Lang.Exceptions.ParserUnknownError.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Exceptions.ParserError, Bayrell.Lang.Exceptions.ParserUnknownError);
 Object.assign(Bayrell.Lang.Exceptions.ParserError,
@@ -1369,22 +1252,22 @@ Object.assign(Bayrell.Lang.Exceptions.ParserError,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1393,7 +1276,7 @@ Object.assign(Bayrell.Lang.Exceptions.ParserError,
 			"constructor",
 			"buildMessage",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1433,22 +1316,6 @@ Bayrell.Lang.Exceptions.ParserEOF.prototype = Object.create(Bayrell.Lang.Excepti
 Bayrell.Lang.Exceptions.ParserEOF.prototype.constructor = Bayrell.Lang.Exceptions.ParserEOF;
 Object.assign(Bayrell.Lang.Exceptions.ParserEOF.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Exceptions.ParserEOF)
-		{
-		}
-		Bayrell.Lang.Exceptions.ParserUnknownError.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Bayrell.Lang.Exceptions.ParserUnknownError.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Bayrell.Lang.Exceptions.ParserUnknownError.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Exceptions.ParserEOF, Bayrell.Lang.Exceptions.ParserUnknownError);
 Object.assign(Bayrell.Lang.Exceptions.ParserEOF,
@@ -1468,22 +1335,22 @@ Object.assign(Bayrell.Lang.Exceptions.ParserEOF,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1491,7 +1358,7 @@ Object.assign(Bayrell.Lang.Exceptions.ParserEOF,
 		var a=[
 			"constructor",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1532,22 +1399,6 @@ Bayrell.Lang.Exceptions.ParserExpected.prototype = Object.create(Bayrell.Lang.Ex
 Bayrell.Lang.Exceptions.ParserExpected.prototype.constructor = Bayrell.Lang.Exceptions.ParserExpected;
 Object.assign(Bayrell.Lang.Exceptions.ParserExpected.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Exceptions.ParserExpected)
-		{
-		}
-		Bayrell.Lang.Exceptions.ParserError.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Bayrell.Lang.Exceptions.ParserError.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Bayrell.Lang.Exceptions.ParserError.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Exceptions.ParserExpected, Bayrell.Lang.Exceptions.ParserError);
 Object.assign(Bayrell.Lang.Exceptions.ParserExpected,
@@ -1567,22 +1418,22 @@ Object.assign(Bayrell.Lang.Exceptions.ParserExpected,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1590,7 +1441,7 @@ Object.assign(Bayrell.Lang.Exceptions.ParserExpected,
 		var a=[
 			"constructor",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1630,22 +1481,6 @@ Bayrell.Lang.Exceptions.DeclaredClass.prototype = Object.create(Runtime.Exceptio
 Bayrell.Lang.Exceptions.DeclaredClass.prototype.constructor = Bayrell.Lang.Exceptions.DeclaredClass;
 Object.assign(Bayrell.Lang.Exceptions.DeclaredClass.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.Exceptions.DeclaredClass)
-		{
-		}
-		Runtime.Exceptions.RuntimeException.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Runtime.Exceptions.RuntimeException.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Runtime.Exceptions.RuntimeException.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.Exceptions.DeclaredClass, Runtime.Exceptions.RuntimeException);
 Object.assign(Bayrell.Lang.Exceptions.DeclaredClass,
@@ -1665,22 +1500,22 @@ Object.assign(Bayrell.Lang.Exceptions.DeclaredClass,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -1688,7 +1523,7 @@ Object.assign(Bayrell.Lang.Exceptions.DeclaredClass,
 		var a=[
 			"constructor",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -1752,85 +1587,6 @@ Object.assign(Bayrell.Lang.LangBay.ParserBay.prototype,
 		this.parser_preprocessor = null;
 		this.parser_program = null;
 	},
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBay)
-		{
-			this.vars = o.vars;
-			this.uses = o.uses;
-			this.current_namespace = o.current_namespace;
-			this.current_class = o.current_class;
-			this.current_namespace_name = o.current_namespace_name;
-			this.current_class_name = o.current_class_name;
-			this.current_class_kind = o.current_class_kind;
-			this.current_class_abstract = o.current_class_abstract;
-			this.current_class_declare = o.current_class_declare;
-			this.find_identifier = o.find_identifier;
-			this.skip_comments = o.skip_comments;
-			this.pipe_kind = o.pipe_kind;
-			this.is_pipe = o.is_pipe;
-			this.is_html = o.is_html;
-			this.is_local_css = o.is_local_css;
-			this.parser_base = o.parser_base;
-			this.parser_expression = o.parser_expression;
-			this.parser_html = o.parser_html;
-			this.parser_operator = o.parser_operator;
-			this.parser_preprocessor = o.parser_preprocessor;
-			this.parser_program = o.parser_program;
-		}
-		Bayrell.Lang.CoreParser.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		if (k == "vars")this.vars = v;
-		else if (k == "uses")this.uses = v;
-		else if (k == "current_namespace")this.current_namespace = v;
-		else if (k == "current_class")this.current_class = v;
-		else if (k == "current_namespace_name")this.current_namespace_name = v;
-		else if (k == "current_class_name")this.current_class_name = v;
-		else if (k == "current_class_kind")this.current_class_kind = v;
-		else if (k == "current_class_abstract")this.current_class_abstract = v;
-		else if (k == "current_class_declare")this.current_class_declare = v;
-		else if (k == "find_identifier")this.find_identifier = v;
-		else if (k == "skip_comments")this.skip_comments = v;
-		else if (k == "pipe_kind")this.pipe_kind = v;
-		else if (k == "is_pipe")this.is_pipe = v;
-		else if (k == "is_html")this.is_html = v;
-		else if (k == "is_local_css")this.is_local_css = v;
-		else if (k == "parser_base")this.parser_base = v;
-		else if (k == "parser_expression")this.parser_expression = v;
-		else if (k == "parser_html")this.parser_html = v;
-		else if (k == "parser_operator")this.parser_operator = v;
-		else if (k == "parser_preprocessor")this.parser_preprocessor = v;
-		else if (k == "parser_program")this.parser_program = v;
-		else Bayrell.Lang.CoreParser.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		if (k == "vars")return this.vars;
-		else if (k == "uses")return this.uses;
-		else if (k == "current_namespace")return this.current_namespace;
-		else if (k == "current_class")return this.current_class;
-		else if (k == "current_namespace_name")return this.current_namespace_name;
-		else if (k == "current_class_name")return this.current_class_name;
-		else if (k == "current_class_kind")return this.current_class_kind;
-		else if (k == "current_class_abstract")return this.current_class_abstract;
-		else if (k == "current_class_declare")return this.current_class_declare;
-		else if (k == "find_identifier")return this.find_identifier;
-		else if (k == "skip_comments")return this.skip_comments;
-		else if (k == "pipe_kind")return this.pipe_kind;
-		else if (k == "is_pipe")return this.is_pipe;
-		else if (k == "is_html")return this.is_html;
-		else if (k == "is_local_css")return this.is_local_css;
-		else if (k == "parser_base")return this.parser_base;
-		else if (k == "parser_expression")return this.parser_expression;
-		else if (k == "parser_html")return this.parser_html;
-		else if (k == "parser_operator")return this.parser_operator;
-		else if (k == "parser_preprocessor")return this.parser_preprocessor;
-		else if (k == "parser_program")return this.parser_program;
-		return Bayrell.Lang.CoreParser.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBay, Bayrell.Lang.CoreParser);
 Object.assign(Bayrell.Lang.LangBay.ParserBay,
@@ -1840,7 +1596,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBay,
 	 */
 	reset: function(parser)
 	{
-		return parser.copy(Runtime.Dict.from({"vars":new Runtime.Dict(),"uses":new Runtime.Dict(),"caret":new Bayrell.Lang.Caret(Runtime.Dict.from({})),"token":null,"parser_base":new Bayrell.Lang.LangBay.ParserBayBase(),"parser_expression":new Bayrell.Lang.LangBay.ParserBayExpression(),"parser_html":new Bayrell.Lang.LangBay.ParserBayHtml(),"parser_operator":new Bayrell.Lang.LangBay.ParserBayOperator(),"parser_preprocessor":new Bayrell.Lang.LangBay.ParserBayPreprocessor(),"parser_program":new Bayrell.Lang.LangBay.ParserBayProgram()}));
+		return parser.copy(Runtime.Map.from({"vars":new Runtime.Dict(),"uses":new Runtime.Dict(),"caret":new Bayrell.Lang.Caret(Runtime.Map.from({})),"token":null,"parser_base":new Bayrell.Lang.LangBay.ParserBayBase(),"parser_expression":new Bayrell.Lang.LangBay.ParserBayExpression(),"parser_html":new Bayrell.Lang.LangBay.ParserBayHtml(),"parser_operator":new Bayrell.Lang.LangBay.ParserBayOperator(),"parser_preprocessor":new Bayrell.Lang.LangBay.ParserBayPreprocessor(),"parser_program":new Bayrell.Lang.LangBay.ParserBayProgram()}));
 	},
 	/**
 	 * Parse file and convert to BaseOpCode
@@ -1905,10 +1661,10 @@ Object.assign(Bayrell.Lang.LangBay.ParserBay,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -1936,117 +1692,117 @@ Object.assign(Bayrell.Lang.LangBay.ParserBay,
 		a.push("parser_operator");
 		a.push("parser_preprocessor");
 		a.push("parser_program");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "vars") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "vars") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["bool"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "uses") return Dict.from({
+		if (field_name == "uses") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_namespace") return Dict.from({
+		if (field_name == "current_namespace") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpNamespace",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class") return Dict.from({
+		if (field_name == "current_class") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDeclareClass",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_namespace_name") return Dict.from({
+		if (field_name == "current_namespace_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_name") return Dict.from({
+		if (field_name == "current_class_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_kind") return Dict.from({
+		if (field_name == "current_class_kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_abstract") return Dict.from({
+		if (field_name == "current_class_abstract") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "current_class_declare") return Dict.from({
+		if (field_name == "current_class_declare") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "find_identifier") return Dict.from({
+		if (field_name == "find_identifier") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "skip_comments") return Dict.from({
+		if (field_name == "skip_comments") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pipe_kind") return Dict.from({
+		if (field_name == "pipe_kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_pipe") return Dict.from({
+		if (field_name == "is_pipe") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html") return Dict.from({
+		if (field_name == "is_html") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_local_css") return Dict.from({
+		if (field_name == "is_local_css") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_base") return Dict.from({
+		if (field_name == "parser_base") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayBase",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_expression") return Dict.from({
+		if (field_name == "parser_expression") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayExpression",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_html") return Dict.from({
+		if (field_name == "parser_html") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayHtml",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_operator") return Dict.from({
+		if (field_name == "parser_operator") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayOperator",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_preprocessor") return Dict.from({
+		if (field_name == "parser_preprocessor") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayPreprocessor",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "parser_program") return Dict.from({
+		if (field_name == "parser_program") return Map.from({
 			"t": "Bayrell.Lang.LangBay.ParserBayProgram",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -2058,7 +1814,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBay,
 			"parse",
 			"findModuleName",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -2094,19 +1850,6 @@ Bayrell.Lang.LangBay.ParserBayBase = function()
 };
 Object.assign(Bayrell.Lang.LangBay.ParserBayBase.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayBase)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 {
@@ -2159,7 +1902,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var __memorize_value = Runtime.rtl._memorizeValue("Bayrell.Lang.LangBay.ParserBayBase.isStringOfNumbers", arguments);
 		if (__memorize_value != Runtime.rtl._memorize_not_found) return __memorize_value;
 		var sz = Runtime.rs.strlen(s);
-		for (var i = 0;i < sz;i++)
+		for (var i = 0; i < sz; i++)
 		{
 			if (!this.isNumber(Runtime.rs.charAt(s, i)))
 			{
@@ -2347,7 +2090,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			return __memorize_value;
 		}
 		var sz = Runtime.rs.strlen(name);
-		for (var i = 0;i < sz;i++)
+		for (var i = 0; i < sz; i++)
 		{
 			var ch = Runtime.rs.charAt(name, i);
 			if (this.isChar(ch) || this.isNumber(ch) || ch == "_")
@@ -2503,14 +2246,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 	next: function(parser, s, x, y, pos)
 	{
 		var sz = Runtime.rs.strlen(s);
-		for (var i = 0;i < sz;i++)
+		for (var i = 0; i < sz; i++)
 		{
 			var ch = Runtime.rs.substr(s, i, 1);
 			x = this.nextX(parser, ch, x);
 			y = this.nextY(parser, ch, y);
 			pos = pos + 1;
 		}
-		return Runtime.Collection.from([x,y,pos]);
+		return Runtime.Vector.from([x,y,pos]);
 	},
 	/**
 	 * Open comment
@@ -2601,7 +2344,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			ch2 = Runtime.rs.substr(content.ref, pos, 2);
 			ch4 = Runtime.rs.substr(content.ref, pos, 4);
 		}
-		return new Bayrell.Lang.Caret(Runtime.Dict.from({"pos":pos,"x":x,"y":y}));
+		return new Bayrell.Lang.Caret(Runtime.Map.from({"pos":pos,"x":x,"y":y}));
 	},
 	/**
 	 * Read special token
@@ -2665,14 +2408,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		if (s != "")
 		{
 			var sz = Runtime.rs.strlen(s);
-			for (var i = 0;i < sz;i++)
+			for (var i = 0; i < sz; i++)
 			{
 				var ch = Runtime.rs.charAt(s, i);
 				x = this.nextX(parser, ch, x);
 				y = this.nextY(parser, ch, y);
 				pos = pos + 1;
 			}
-			return new Bayrell.Lang.Caret(Runtime.Dict.from({"pos":pos,"x":x,"y":y}));
+			return new Bayrell.Lang.Caret(Runtime.Map.from({"pos":pos,"x":x,"y":y}));
 		}
 		var ch = Runtime.rs.charAt(content.ref, pos);
 		if (!this.isTokenChar(ch))
@@ -2695,7 +2438,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				ch = Runtime.rs.charAt(content.ref, pos);
 			}
 		}
-		return new Bayrell.Lang.Caret(Runtime.Dict.from({"pos":pos,"x":x,"y":y}));
+		return new Bayrell.Lang.Caret(Runtime.Map.from({"pos":pos,"x":x,"y":y}));
 	},
 	/**
 	 * Read back
@@ -2722,7 +2465,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				break;
 			}
 		}
-		return parser.copy(Runtime.Dict.from({"caret":new Bayrell.Lang.Caret(Runtime.Dict.from({"pos":pos,"x":x,"y":y}))}));
+		return parser.copy(Runtime.Map.from({"caret":new Bayrell.Lang.Caret(Runtime.Map.from({"pos":pos,"x":x,"y":y}))}));
 	},
 	/**
 	 * Read next token
@@ -2764,7 +2507,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				throw _ex;
 			}
 		}
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"caret":caret_end})),new Bayrell.Lang.CoreToken(Runtime.Dict.from({"content":Runtime.rs.substr(parser.content.ref, caret_start.pos, caret_end.pos - caret_start.pos),"caret_start":caret_start,"caret_end":caret_end,"eof":eof}))]);
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"caret":caret_end})),new Bayrell.Lang.CoreToken(Runtime.Map.from({"content":Runtime.rs.substr(parser.content.ref, caret_start.pos, caret_end.pos - caret_start.pos),"caret_start":caret_start,"caret_end":caret_end,"eof":eof}))]);
 	},
 	/**
 	 * Look next token
@@ -2793,7 +2536,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			x = Runtime.rtl.get(res, 0);
 			y = Runtime.rtl.get(res, 1);
 			pos = Runtime.rtl.get(res, 2);
-			caret_end = new Bayrell.Lang.Caret(Runtime.Dict.from({"pos":pos,"x":x,"y":y}));
+			caret_end = new Bayrell.Lang.Caret(Runtime.Map.from({"pos":pos,"x":x,"y":y}));
 		}
 		catch (_ex)
 		{
@@ -2822,7 +2565,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				throw _ex;
 			}
 		}
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"caret":caret_end})),new Bayrell.Lang.CoreToken(Runtime.Dict.from({"content":token_content,"caret_start":caret_start,"caret_end":caret_end,"eof":eof})),find]);
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"caret":caret_end})),new Bayrell.Lang.CoreToken(Runtime.Map.from({"content":token_content,"caret_start":caret_start,"caret_end":caret_end,"eof":eof})),find]);
 	},
 	/**
 	 * Match next token
@@ -2839,7 +2582,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		{
 			throw new Bayrell.Lang.Exceptions.ParserExpected(next_token, token.caret_start, parser.file_name)
 		}
-		return Runtime.Collection.from([parser,token]);
+		return Runtime.Vector.from([parser,token]);
 	},
 	/**
 	 * Match next string
@@ -2854,9 +2597,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			throw new Bayrell.Lang.Exceptions.ParserExpected(str1, caret, parser.file_name)
 		}
 		var res = this.next(parser, str1, caret.x, caret.y, caret.pos);
-		caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":Runtime.rtl.get(res, 0),"y":Runtime.rtl.get(res, 1),"pos":Runtime.rtl.get(res, 2)}));
+		caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":Runtime.rtl.get(res, 0),"y":Runtime.rtl.get(res, 1),"pos":Runtime.rtl.get(res, 2)}));
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read number
@@ -2878,7 +2621,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		{
 			throw new Bayrell.Lang.Exceptions.ParserExpected("Number", caret_start, parser.file_name)
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpNumber(Runtime.Dict.from({"value":token.content,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpNumber(Runtime.Map.from({"value":token.content,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read string
@@ -2896,7 +2639,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		/* Search next string in arr */
 		var search = (pos) => 
 		{
-			for (var i = 0;i < arr.count();i++)
+			for (var i = 0; i < arr.count(); i++)
 			{
 				var item = arr.item(i);
 				var sz = Runtime.rs.strlen(item);
@@ -2922,13 +2665,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			pos = pos + 1;
 			if (pos >= content_sz)
 			{
-				throw new Bayrell.Lang.Exceptions.ParserExpected(Runtime.rs.join(",", arr), new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), parser.file_name)
+				throw new Bayrell.Lang.Exceptions.ParserExpected(Runtime.rs.join(",", arr), new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), parser.file_name)
 			}
 			arr_pos = search(pos);
 		}
 		if (arr_pos == -1)
 		{
-			throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), parser.file_name)
+			throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), parser.file_name)
 		}
 		if (!flag_include)
 		{
@@ -2938,7 +2681,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		{
 			var item = arr.item(arr_pos);
 			var sz = Runtime.rs.strlen(item);
-			for (var i = 0;i < sz;i++)
+			for (var i = 0; i < sz; i++)
 			{
 				ch = Runtime.rs.charAt(content.ref, pos);
 				x = this.nextX(parser, ch, x);
@@ -2948,8 +2691,8 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			end_pos = pos;
 		}
 		/* Return result */
-		var caret_end = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":end_pos}));
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"caret":caret_end})),Runtime.rs.substr(content.ref, start_pos, end_pos - start_pos)]);
+		var caret_end = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":end_pos}));
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"caret":caret_end})),Runtime.rs.substr(content.ref, start_pos, end_pos - start_pos)]);
 	},
 	/**
 	 * Read string
@@ -2986,7 +2729,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				pos = pos + 1;
 				if (pos >= content_sz)
 				{
-					throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), parser.file_name)
+					throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), parser.file_name)
 				}
 				var ch2 = Runtime.rs.charAt(content.ref, pos);
 				if (ch2 == "n")
@@ -3034,21 +2777,21 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			}
 			if (pos >= content_sz)
 			{
-				throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), parser.file_name)
+				throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), parser.file_name)
 			}
 			ch = Runtime.rs.charAt(content.ref, pos);
 		}
 		/* Read end string char */
 		if (ch != "'" && ch != "\"")
 		{
-			throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), parser.file_name)
+			throw new Bayrell.Lang.Exceptions.ParserExpected("End of string", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), parser.file_name)
 		}
 		x = this.nextX(parser, ch, x);
 		y = this.nextY(parser, ch, y);
 		pos = pos + 1;
 		/* Return result */
-		var caret_end = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
+		var caret_end = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
 	},
 	/**
 	 * Read comment
@@ -3095,14 +2838,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			}
 			else
 			{
-				throw new Bayrell.Lang.Exceptions.ParserExpected("End of comment", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), start.file_name)
+				throw new Bayrell.Lang.Exceptions.ParserExpected("End of comment", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), start.file_name)
 			}
 			/* Return result */
 			var value_str = Runtime.rs.substr(content.ref, pos_start + 1, pos_end - pos_start - 1);
-			var caret_end = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
-			return Runtime.Collection.from([start.copy(Runtime.Dict.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpComment(Runtime.Dict.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
+			var caret_end = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
+			return Runtime.Vector.from([start.copy(Runtime.Map.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpComment(Runtime.Map.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
 		}
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read identifier
@@ -3135,7 +2878,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		{
 			throw new Bayrell.Lang.Exceptions.ParserError("Unknown identifier '" + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("'"), token.caret_start, parser.file_name)
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"kind":kind,"value":name,"caret_start":token.caret_start,"caret_end":token.caret_end}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"kind":kind,"value":name,"caret_start":token.caret_start,"caret_end":token.caret_end}))]);
 	},
 	/**
 	 * Read entity name
@@ -3169,7 +2912,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"names":names.toCollection()}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"names":names.toCollection()}))]);
 	},
 	/**
 	 * Read type identifier
@@ -3226,7 +2969,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			var res = this.matchToken(parser, ">");
 			parser = Runtime.rtl.get(res, 0);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Dict.from({"entity_name":entity_name,"template":(template) ? (template.toCollection()) : (null),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Map.from({"entity_name":entity_name,"template":(template) ? (template.toCollection()) : (null),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read collection
@@ -3280,7 +3023,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			}
 			if (flag_ifdef)
 			{
-				parser_value = new Bayrell.Lang.OpCodes.OpPreprocessorIfDef(Runtime.Dict.from({"items":parser_value,"condition":ifdef_condition}));
+				parser_value = new Bayrell.Lang.OpCodes.OpPreprocessorIfDef(Runtime.Map.from({"items":parser_value,"condition":ifdef_condition}));
 			}
 			values.pushValue(parser_value);
 			var res = parser.parser_base.constructor.readToken(parser);
@@ -3299,7 +3042,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var res = this.matchToken(parser, "]");
 		parser = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpCollection(Runtime.Dict.from({"values":values.toCollection(),"caret_start":caret_start,"caret_end":token.caret_end}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpCollection(Runtime.Map.from({"values":values.toCollection(),"caret_start":caret_start,"caret_end":token.caret_end}))]);
 	},
 	/**
 	 * Read collection
@@ -3353,7 +3096,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			{
 				parser = look;
 			}
-			values.pushValue(new Bayrell.Lang.OpCodes.OpDictPair(Runtime.Dict.from({"key":key,"value":parser_value,"condition":ifdef_condition})));
+			values.pushValue(new Bayrell.Lang.OpCodes.OpDictPair(Runtime.Map.from({"key":key,"value":parser_value,"condition":ifdef_condition})));
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
@@ -3370,7 +3113,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var res = this.matchToken(parser, "}");
 		parser = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpDict(Runtime.Dict.from({"values":values.toCollection(),"caret_start":caret_start,"caret_end":token.caret_end}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpDict(Runtime.Map.from({"values":values.toCollection(),"caret_start":caret_start,"caret_end":token.caret_end}))]);
 	},
 	/**
 	 * Read fixed
@@ -3414,7 +3157,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		/* Read Number */
 		if (this.isStringOfNumbers(token.content))
 		{
-			return Runtime.Collection.from([look,new Bayrell.Lang.OpCodes.OpNumber(Runtime.Dict.from({"value":token.content,"caret_start":token.caret_start,"caret_end":look.caret,"negative":flag_negative}))]);
+			return Runtime.Vector.from([look,new Bayrell.Lang.OpCodes.OpNumber(Runtime.Map.from({"value":token.content,"caret_start":token.caret_start,"caret_end":look.caret,"negative":flag_negative}))]);
 		}
 		return this.readIdentifier(parser, true);
 	},
@@ -3434,7 +3177,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			var res = this.readDict(parser);
 			parser = Runtime.rtl.get(res, 0);
 			var d = Runtime.rtl.get(res, 1);
-			items = Runtime.Collection.from([d]);
+			items = Runtime.Vector.from([d]);
 		}
 		else if (token.content == "(")
 		{
@@ -3464,7 +3207,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			var res = this.matchToken(parser, ")");
 			parser = Runtime.rtl.get(res, 0);
 		}
-		return Runtime.Collection.from([parser,items.toCollection()]);
+		return Runtime.Vector.from([parser,items.toCollection()]);
 	},
 	/**
 	 * Read new instance
@@ -3476,7 +3219,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var token = null;
 		var op_code = null;
 		var caret_start = parser.caret;
-		var args = Runtime.Collection.from([]);
+		var args = Runtime.Vector.from([]);
 		if (match_new)
 		{
 			var res = this.matchToken(parser, "new");
@@ -3495,7 +3238,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			parser = Runtime.rtl.get(res, 0);
 			args = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpNew(Runtime.Dict.from({"args":args,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpNew(Runtime.Map.from({"args":args,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read method
@@ -3586,7 +3329,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		{
 			throw new Bayrell.Lang.Exceptions.ParserExpected("'.' or '::'", parser.caret, parser.file_name)
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpMethod(Runtime.Dict.from({"value1":value1,"value2":value2,"kind":kind,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpMethod(Runtime.Map.from({"value1":value1,"value2":value2,"kind":kind,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read curry
@@ -3623,7 +3366,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 					pos = Runtime.rtl.to(token.content, {"e":"int"});
 					parser = look;
 				}
-				arg = new Bayrell.Lang.OpCodes.OpCurryArg(Runtime.Dict.from({"pos":pos}));
+				arg = new Bayrell.Lang.OpCodes.OpCurryArg(Runtime.Map.from({"pos":pos}));
 				args.pushValue(arg);
 			}
 			else
@@ -3646,7 +3389,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		}
 		var res = this.matchToken(parser, ")");
 		parser = Runtime.rtl.get(res, 0);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpCurry(Runtime.Dict.from({"obj":obj,"args":args}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpCurry(Runtime.Map.from({"obj":obj,"args":args}))]);
 	},
 	/**
 	 * Read base item
@@ -3702,7 +3445,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 					var res = this.readDynamic(parser);
 					parser = Runtime.rtl.get(res, 0);
 					op_code = Runtime.rtl.get(res, 1);
-					return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpTypeConvert(Runtime.Dict.from({"pattern":op_type,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+					return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpTypeConvert(Runtime.Map.from({"pattern":op_type,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 				}
 			}
 			catch (_ex)
@@ -3731,7 +3474,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read classof
@@ -3748,7 +3491,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var res = this.readEntityName(parser);
 		parser = Runtime.rtl.get(res, 0);
 		op_code = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpClassOf(Runtime.Dict.from({"entity_name":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpClassOf(Runtime.Map.from({"entity_name":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read classref
@@ -3765,7 +3508,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		var res = parser.parser_expression.constructor.readExpression(parser);
 		parser = Runtime.rtl.get(res, 0);
 		op_code = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpClassRef(Runtime.Dict.from({"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpClassRef(Runtime.Map.from({"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read dynamic
@@ -3879,7 +3622,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 		/* If is pipe */
 		if (parser.is_pipe && op_code instanceof Bayrell.Lang.OpCodes.OpIdentifier)
 		{
-			op_code = new Bayrell.Lang.OpCodes.OpAttr(Runtime.Dict.from({"kind":parser.pipe_kind,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_PIPE,"caret_start":op_code.caret_start,"caret_end":op_code.caret_end})),"value":op_code,"caret_start":op_code.caret_start,"caret_end":op_code.caret_end}));
+			op_code = new Bayrell.Lang.OpCodes.OpAttr(Runtime.Map.from({"kind":parser.pipe_kind,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_PIPE,"caret_start":op_code.caret_start,"caret_end":op_code.caret_end})),"value":op_code,"caret_start":op_code.caret_start,"caret_end":op_code.caret_end}));
 		}
 		while (!token.eof && f_next(token.content))
 		{
@@ -3899,7 +3642,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				var res = this.readCallArgs(parser);
 				parser = Runtime.rtl.get(res, 0);
 				parser_items = Runtime.rtl.get(res, 1);
-				op_code = new Bayrell.Lang.OpCodes.OpCall(Runtime.Dict.from({"obj":op_code,"args":parser_items,"caret_start":caret_start,"caret_end":parser.caret,"is_await":is_await,"is_context":is_context_call}));
+				op_code = new Bayrell.Lang.OpCodes.OpCall(Runtime.Map.from({"obj":op_code,"args":parser_items,"caret_start":caret_start,"caret_end":parser.caret,"is_await":is_await,"is_context":is_context_call}));
 				is_context_call = true;
 			}
 			else if (token_content == "." || token_content == "::" || token_content == "[")
@@ -3978,7 +3721,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 					parser = Runtime.rtl.get(res, 0);
 					look_value = Runtime.rtl.get(res, 1);
 				}
-				op_code = new Bayrell.Lang.OpCodes.OpAttr(Runtime.Dict.from({"kind":kind,"obj":op_code,"attrs":(look_values != null) ? (look_values.toCollection()) : (null),"value":(look_values == null) ? (look_value) : (null),"caret_start":caret_start,"caret_end":parser.caret}));
+				op_code = new Bayrell.Lang.OpCodes.OpAttr(Runtime.Map.from({"kind":kind,"obj":op_code,"attrs":(look_values != null) ? (look_values.toCollection()) : (null),"value":(look_values == null) ? (look_value) : (null),"caret_start":caret_start,"caret_end":parser.caret}));
 			}
 			else
 			{
@@ -3992,7 +3735,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 				throw new Bayrell.Lang.Exceptions.ParserExpected("Call", token.caret_start, parser.file_name)
 			}
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -4009,22 +3752,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -4072,7 +3815,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayBase,
 			"readClassRef",
 			"readDynamic",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -4108,19 +3851,6 @@ Bayrell.Lang.LangBay.ParserBayExpression = function()
 };
 Object.assign(Bayrell.Lang.LangBay.ParserBayExpression.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayExpression)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 {
@@ -4141,7 +3871,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = parser.parser_base.constructor.readDynamic(look);
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
-			return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"math":"!","caret_start":caret_start,"caret_end":parser.caret}))]);
+			return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"math":"!","caret_start":caret_start,"caret_end":parser.caret}))]);
 		}
 		return parser.parser_base.constructor.readDynamic(parser);
 	},
@@ -4168,13 +3898,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readBitNot(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read bit and
@@ -4199,13 +3929,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readBitShift(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read bit or
@@ -4230,13 +3960,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readBitAnd(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read factor
@@ -4261,13 +3991,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readBitOr(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read arithmetic
@@ -4292,13 +4022,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readFactor(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read concat
@@ -4323,13 +4053,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readArithmetic(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read compare
@@ -4354,7 +4084,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readConcat(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":parser.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":parser.caret}));
 			parser = look;
 		}
 		else if (content == "is" || content == "implements" || content == "instanceof")
@@ -4363,10 +4093,10 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = parser.parser_base.constructor.readTypeIdentifier(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":parser.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":math,"caret_start":caret_start,"caret_end":parser.caret}));
 			parser = look;
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read not
@@ -4386,7 +4116,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readCompare(look);
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
-			return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"math":"not","caret_start":caret_start,"caret_end":parser.caret}))]);
+			return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"math":"not","caret_start":caret_start,"caret_end":parser.caret}))]);
 		}
 		return this.readCompare(parser);
 	},
@@ -4413,13 +4143,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readNot(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":"and","caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":"and","caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read or
@@ -4444,13 +4174,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			var res = this.readAnd(look);
 			look = Runtime.rtl.get(res, 0);
 			look_value = Runtime.rtl.get(res, 1);
-			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"value1":op_code,"value2":look_value,"math":"or","caret_start":caret_start,"caret_end":look.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"value1":op_code,"value2":look_value,"math":"or","caret_start":caret_start,"caret_end":look.caret}));
 			parser = look;
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read element
@@ -4497,9 +4227,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 				parser = Runtime.rtl.get(res, 0);
 				if_false = Runtime.rtl.get(res, 1);
 			}
-			op_code = new Bayrell.Lang.OpCodes.OpTernary(Runtime.Dict.from({"condition":condition,"if_true":if_true,"if_false":if_false,"caret_start":caret_start,"caret_end":parser.caret}));
+			op_code = new Bayrell.Lang.OpCodes.OpTernary(Runtime.Map.from({"condition":condition,"if_true":if_true,"if_false":if_false,"caret_start":caret_start,"caret_end":parser.caret}));
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read pipe
@@ -4595,8 +4325,8 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 						var res = this.readTernary(parser);
 						parser = Runtime.rtl.get(res, 0);
 						arg2 = Runtime.rtl.get(res, 1);
-						arg1 = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"value":parser.constructor.findModuleName(parser, arg1.value),"caret_start":arg1.caret_start,"caret_end":arg1.caret_end}));
-						value = new Bayrell.Lang.OpCodes.OpCall(Runtime.Dict.from({"args":Runtime.Collection.from([arg1,arg2]),"obj":new Bayrell.Lang.OpCodes.OpAttr(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpAttr.KIND_STATIC,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE,"caret_start":caret_start,"caret_end":parser.caret,"value":"rtl"})),"value":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value":"m_to"})),"caret_start":caret_start,"caret_end":parser.caret})),"caret_start":caret_start,"caret_end":parser.caret}));
+						arg1 = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"value":parser.constructor.findModuleName(parser, arg1.value),"caret_start":arg1.caret_start,"caret_end":arg1.caret_end}));
+						value = new Bayrell.Lang.OpCodes.OpCall(Runtime.Map.from({"args":Runtime.Vector.from([arg1,arg2]),"obj":new Bayrell.Lang.OpCodes.OpAttr(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpAttr.KIND_STATIC,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE,"caret_start":caret_start,"caret_end":parser.caret,"value":"rtl"})),"value":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value":"m_to"})),"caret_start":caret_start,"caret_end":parser.caret})),"caret_start":caret_start,"caret_end":parser.caret}));
 					}
 					catch (_ex)
 					{
@@ -4616,7 +4346,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 						var res = this.readTernary(look);
 						parser = Runtime.rtl.get(res, 0);
 						arg2 = Runtime.rtl.get(res, 1);
-						value = new Bayrell.Lang.OpCodes.OpCall(Runtime.Dict.from({"args":Runtime.Collection.from([arg2]),"obj":new Bayrell.Lang.OpCodes.OpAttr(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpAttr.KIND_STATIC,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE,"caret_start":caret_start,"caret_end":parser.caret,"value":"rtl"})),"value":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value":"m_def"})),"caret_start":caret_start,"caret_end":parser.caret})),"caret_start":caret_start,"caret_end":parser.caret}));
+						value = new Bayrell.Lang.OpCodes.OpCall(Runtime.Map.from({"args":Runtime.Vector.from([arg2]),"obj":new Bayrell.Lang.OpCodes.OpAttr(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpAttr.KIND_STATIC,"obj":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE,"caret_start":caret_start,"caret_end":parser.caret,"value":"rtl"})),"value":new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value":"m_def"})),"caret_start":caret_start,"caret_end":parser.caret})),"caret_start":caret_start,"caret_end":parser.caret}));
 					}
 				}
 				else if (look_token.content == "method" || look_token.content == "." || look_token.content == ":" || look_token.content == "::")
@@ -4657,14 +4387,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 					parser = Runtime.rtl.get(res, 0);
 					value = Runtime.rtl.get(res, 1);
 				}
-				op_code = new Bayrell.Lang.OpCodes.OpPipe(Runtime.Dict.from({"obj":op_code,"kind":kind,"value":value,"is_async":is_async,"is_monad":is_monad,"caret_start":caret_start,"caret_end":parser.caret}));
+				op_code = new Bayrell.Lang.OpCodes.OpPipe(Runtime.Map.from({"obj":op_code,"kind":kind,"value":value,"is_async":is_async,"is_monad":is_monad,"caret_start":caret_start,"caret_end":parser.caret}));
 				var res = parser.parser_base.constructor.readToken(parser);
 				look = Runtime.rtl.get(res, 0);
 				look_token = Runtime.rtl.get(res, 1);
 				is_next_attr = false;
 			}
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read expression
@@ -4705,22 +4435,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -4742,7 +4472,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayExpression,
 			"ExpressionPipe",
 			"readExpression",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -4781,26 +4511,54 @@ Bayrell.Lang.LangBay.ParserBayHtml.prototype = Object.create(Runtime.BaseObject.
 Bayrell.Lang.LangBay.ParserBayHtml.prototype.constructor = Bayrell.Lang.LangBay.ParserBayHtml;
 Object.assign(Bayrell.Lang.LangBay.ParserBayHtml.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayHtml)
-		{
-		}
-		Runtime.BaseObject.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Runtime.BaseObject.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Runtime.BaseObject.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayHtml, Runtime.BaseObject);
 Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 {
+	/**
+	 * Hash function
+	 * @param string
+	 * @return int hash
+	 */
+	hash: function(s, last, x, p)
+	{
+		if (last == undefined) last = true;
+		if (x == undefined) x = 257;
+		if (p == undefined) p = 1000000007;
+		var h = 0;
+		var sz = Runtime.rs.strlen(s);
+		for (var i = 0; i < sz; i++)
+		{
+			var ch = Runtime.rs.ord(Runtime.rs.substr(s, i, 1));
+			h = (h * x + ch) % p;
+		}
+		if (last)
+		{
+			h = h * x % p;
+		}
+		return h;
+	},
+	/**
+	 * Convert int to hex
+	 * @param int
+	 * @return string
+	 */
+	toHex: function(h)
+	{
+		var r = "";
+		var a = "0123456789abcdef";
+		while (h >= 0)
+		{
+			var c = h & 15;
+			h = h >> 4;
+			r = Runtime.rs.substr(a, c, 1) + Runtime.rtl.toStr(r);
+			if (h == 0)
+			{
+				break;
+			}
+		}
+		return r;
+	},
 	/**
 	 * Retuns css hash
 	 * @param string component class name
@@ -4810,24 +4568,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 	{
 		var __memorize_value = Runtime.rtl._memorizeValue("Bayrell.Lang.LangBay.ParserBayHtml.getCssHash", arguments);
 		if (__memorize_value != Runtime.rtl._memorize_not_found) return __memorize_value;
-		var r = "";
-		var a = "1234567890abcdef";
-		var sz = Runtime.rs.strlen(s);
-		var h = 0;
-		for (var i = 0;i < sz;i++)
-		{
-			var c = Runtime.rs.ord(Runtime.rs.substr(s, i, 1));
-			h = (h << 2) + (h >> 14) + c & 65535;
-		}
-		var p = 0;
-		while (h != 0 || p < 4)
-		{
-			var c = h & 15;
-			h = h >> 4;
-			r += Runtime.rtl.toStr(Runtime.rs.substr(a, c, 1));
-			p = p + 1;
-		}
-		var __memorize_value = r;
+		var h = this.hash(s, true, 337, 65537) + 65537;
+		var res = this.toHex(h);
+		var __memorize_value = Runtime.rs.substr(res, -4);
 		Runtime.rtl._memorizeSave("Bayrell.Lang.LangBay.ParserBayHtml.getCssHash", arguments, __memorize_value);
 		return __memorize_value;
 	},
@@ -4876,9 +4619,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		}
 		var postfix = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
 		var selector = "." + Runtime.rtl.toStr(postfix) + Runtime.rtl.toStr(".h-") + Runtime.rtl.toStr(this.getCssHash(class_name));
-		var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+		var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
-		return Runtime.Collection.from([parser,selector]);
+		return Runtime.Vector.from([parser,selector]);
 	},
 	/**
 	 * Read css body
@@ -4888,7 +4631,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		if (flags == undefined) flags = null;
 		if (flags == null)
 		{
-			flags = Runtime.Dict.from({"expression":true,"css_selector":true});
+			flags = Runtime.Map.from({"expression":true,"css_selector":true});
 		}
 		else
 		{
@@ -4934,18 +4677,18 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				css_str = Runtime.rs.replace("\n", "", css_str);
 				if (css_str != "")
 				{
-					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
+					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
 					if (op_code == null)
 					{
 						op_code = css_str_op_code;
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
 					}
 				}
 				/* Read CSS Selector */
-				var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
 				var res = parser.parser_expression.constructor.ExpressionPipe(parser);
 				parser = Runtime.rtl.get(res, 0);
@@ -4961,7 +4704,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
 					}
 				}
 				/* Set pos, x, y */
@@ -4996,22 +4739,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				css_str = Runtime.rs.replace("\n", "", css_str);
 				if (css_str != "")
 				{
-					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
+					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
 					if (op_code == null)
 					{
 						op_code = css_str_op_code;
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
 					}
 				}
 				/* Read CSS Block */
-				var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
 				var res = parser.parser_base.constructor.matchToken(parser, "{");
 				parser = Runtime.rtl.get(res, 0);
-				var res = this.readCssBody(parser, Runtime.Dict.from({"css_selector":true}));
+				var res = this.readCssBody(parser, Runtime.Map.from({"css_selector":true}));
 				parser = Runtime.rtl.get(res, 0);
 				var expr = Runtime.rtl.get(res, 1);
 				var res = parser.parser_base.constructor.matchToken(parser, "}");
@@ -5025,7 +4768,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
 					}
 				}
 				/* Set pos, x, y */
@@ -5051,7 +4794,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 					css_str += Runtime.rtl.toStr(value);
 				}
 				/* Read CSS Selector */
-				var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
 				var res = this.readCssSelector(parser);
 				parser = Runtime.rtl.get(res, 0);
@@ -5079,22 +4822,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				css_str = Runtime.rs.replace("\n", "", css_str);
 				if (css_str != "")
 				{
-					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
+					var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
 					if (op_code == null)
 					{
 						op_code = css_str_op_code;
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
 					}
 				}
 				/* Read CSS Block */
-				var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
 				var res = parser.parser_base.constructor.matchToken(parser, "{");
 				parser = Runtime.rtl.get(res, 0);
-				var res = this.readCssBody(parser, Runtime.Dict.from({"css_selector":false}));
+				var res = this.readCssBody(parser, Runtime.Map.from({"css_selector":false}));
 				parser = Runtime.rtl.get(res, 0);
 				var expr = Runtime.rtl.get(res, 1);
 				var res = parser.parser_base.constructor.matchToken(parser, "}");
@@ -5108,7 +4851,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 					}
 					else
 					{
-						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
+						op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":expr,"math":"~"}));
 					}
 				}
 				/* Set pos, x, y */
@@ -5138,7 +4881,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		}
 		/* Push item */
 		var value = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
-		var caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+		var caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 		if (value != "")
 		{
 			css_str += Runtime.rtl.toStr(value);
@@ -5148,18 +4891,18 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		css_str = Runtime.rs.replace("\n", "", css_str);
 		if (css_str != "")
 		{
-			var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
+			var css_str_op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":caret_last,"caret_end":parser.caret,"value":css_str}));
 			if (op_code == null)
 			{
 				op_code = css_str_op_code;
 			}
 			else
 			{
-				op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
+				op_code = new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value1":op_code,"value2":css_str_op_code,"math":"~"}));
 			}
 		}
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read css
@@ -5176,9 +4919,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		var op_code = Runtime.rtl.get(res, 1);
 		if (op_code == null)
 		{
-			op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"value":""}));
+			op_code = new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"value":""}));
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read style
@@ -5211,7 +4954,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		var res = parser.parser_base.constructor.matchToken(parser, ">");
 		parser = Runtime.rtl.get(res, 0);
 		var find_pos = -1;
-		for (var items_i = 0;items_i < items.count();items_i++)
+		for (var items_i = 0; items_i < items.count(); items_i++)
 		{
 			var f = Runtime.rtl.get(items, items_i);
 			if (f instanceof Bayrell.Lang.OpCodes.OpDeclareFunction)
@@ -5225,12 +4968,12 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		}
 		if (find_pos == -1)
 		{
-			var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Dict.from({"args":Runtime.Collection.from([new Bayrell.Lang.OpCodes.OpDeclareFunctionArg(Runtime.Dict.from({"name":"vars","caret_start":caret_start,"caret_end":parser.caret}))]),"vars":Runtime.Collection.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Dict.from({"p_static":true,"p_pure":true})),"name":"css","result_type":"html","expression":css_op_code,"items":null,"caret_start":caret_start,"caret_end":parser.caret}));
-			return Runtime.Collection.from([parser,f,-1]);
+			var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Map.from({"args":Runtime.Vector.from([new Bayrell.Lang.OpCodes.OpDeclareFunctionArg(Runtime.Map.from({"name":"vars","caret_start":caret_start,"caret_end":parser.caret}))]),"vars":Runtime.Vector.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Map.from({"p_static":true,"p_pure":true})),"name":"css","result_type":"html","expression":css_op_code,"items":null,"caret_start":caret_start,"caret_end":parser.caret}));
+			return Runtime.Vector.from([parser,f,-1]);
 		}
 		var f = Runtime.rtl.get(items, find_pos);
-		f = Runtime.rtl.setAttr(f, Runtime.Collection.from(["expression"]), new Bayrell.Lang.OpCodes.OpMath(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"math":"~","value1":f.expression,"value2":css_op_code})));
-		return Runtime.Collection.from([parser,f,find_pos]);
+		f = Runtime.rtl.setAttr(f, Runtime.Collection.from(["expression"]), new Bayrell.Lang.OpCodes.OpMath(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"math":"~","value1":f.expression,"value2":css_op_code})));
+		return Runtime.Vector.from([parser,f,find_pos]);
 	},
 	/**
 	 * Read html comment
@@ -5274,14 +5017,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		}
 		else
 		{
-			throw new Bayrell.Lang.Exceptions.ParserExpected("End of comment", new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos})), start.file_name)
+			throw new Bayrell.Lang.Exceptions.ParserExpected("End of comment", new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos})), start.file_name)
 		}
 		/* Return result */
 		var value_str = Runtime.rs.substr(content.ref, pos_start, pos_end - pos_start);
-		var caret_end = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+		var caret_end = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
-		return Runtime.Collection.from([start.copy(Runtime.Dict.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpComment(Runtime.Dict.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([start.copy(Runtime.Map.from({"caret":caret_end})),new Bayrell.Lang.OpCodes.OpComment(Runtime.Map.from({"value":value_str,"caret_start":caret_start,"caret_end":caret_end}))]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read html value
@@ -5353,7 +5096,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				y = Runtime.rtl.get(res, 1);
 				pos = Runtime.rtl.get(res, 2);
 			}
-			caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+			caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["caret"]), caret);
 			var res = parser.parser_base.constructor.matchToken(parser, "{");
 			parser = Runtime.rtl.get(res, 0);
@@ -5370,15 +5113,15 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			item = Runtime.rtl.get(res, 1);
 			if (ch3 == "raw")
 			{
-				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW,"value":item,"caret_start":caret,"caret_end":parser.caret}));
+				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW,"value":item,"caret_start":caret,"caret_end":parser.caret}));
 			}
 			else if (ch4 == "json")
 			{
-				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON,"value":item,"caret_start":caret,"caret_end":parser.caret}));
+				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON,"value":item,"caret_start":caret,"caret_end":parser.caret}));
 			}
 			else if (ch4 == "html")
 			{
-				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_HTML,"value":item,"caret_start":caret,"caret_end":parser.caret}));
+				item = new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_HTML,"value":item,"caret_start":caret,"caret_end":parser.caret}));
 			}
 			var res = parser.parser_base.constructor.matchToken(parser, "}");
 			parser = Runtime.rtl.get(res, 0);
@@ -5388,7 +5131,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				parser = Runtime.rtl.get(res, 0);
 			}
 		}
-		return Runtime.Collection.from([parser,item]);
+		return Runtime.Vector.from([parser,item]);
 	},
 	/**
 	 * Read html attribute key
@@ -5440,7 +5183,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			ident = Runtime.rtl.get(res, 1);
 			key += Runtime.rtl.toStr(ident.value);
 		}
-		return Runtime.Collection.from([parser,key]);
+		return Runtime.Vector.from([parser,key]);
 	},
 	/**
 	 * Read html attribute value
@@ -5481,7 +5224,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				}
 				/* Add msg to vars */
 				var parser_vars = parser.vars;
-				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.concat(Runtime.Dict.from({"component":true,"msg":true})));
+				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.concat(Runtime.Map.from({"component":true,"msg":true})));
 				/* Read expression */
 				var res = parser.parser_expression.constructor.readExpression(parser);
 				parser = Runtime.rtl.get(res, 0);
@@ -5546,7 +5289,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read html attributes
@@ -5575,7 +5318,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				var res = parser.parser_base.constructor.readIdentifier(look);
 				parser = Runtime.rtl.get(res, 0);
 				ident = Runtime.rtl.get(res, 1);
-				items.pushValue(new Bayrell.Lang.OpCodes.OpHtmlAttribute(Runtime.Dict.from({"value":ident,"is_spread":true,"caret_start":caret_start,"caret_end":parser.caret})));
+				items.pushValue(new Bayrell.Lang.OpCodes.OpHtmlAttribute(Runtime.Map.from({"value":ident,"is_spread":true,"caret_start":caret_start,"caret_end":parser.caret})));
 			}
 			else
 			{
@@ -5587,7 +5330,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				var res = this.readHTMLAttrValue(parser, key);
 				parser = Runtime.rtl.get(res, 0);
 				var value = Runtime.rtl.get(res, 1);
-				items.pushValue(new Bayrell.Lang.OpCodes.OpHtmlAttribute(Runtime.Dict.from({"key":key,"value":value,"caret_start":caret_start,"caret_end":parser.caret})));
+				items.pushValue(new Bayrell.Lang.OpCodes.OpHtmlAttribute(Runtime.Map.from({"key":key,"value":value,"caret_start":caret_start,"caret_end":parser.caret})));
 			}
 			caret = parser.parser_base.constructor.skipChar(parser, content, parser.caret);
 			ch = Runtime.rs.substr(content.ref, caret.pos, 1);
@@ -5597,7 +5340,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				break;
 			}
 		}
-		return Runtime.Collection.from([parser,items.toCollection()]);
+		return Runtime.Vector.from([parser,items.toCollection()]);
 	},
 	/**
 	 * Read html template
@@ -5636,12 +5379,12 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			if (ch4 == "<!--")
 			{
 				var value = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
-				caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				value = Runtime.rs.trim(value, "\t\r\n");
 				value = Runtime.rs.trim(value, " ");
 				if (value != "")
 				{
-					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Dict.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
+					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Map.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
 					items.pushValue(item);
 				}
 				/* Read HTML Comment */
@@ -5659,7 +5402,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			else if (ch == "<" || ch2 == "{{" || ch == "@")
 			{
 				var value = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
-				caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				value = Runtime.rs.trim(value, "\t\r\n");
 				if (flag_first && first_html_tag)
 				{
@@ -5667,7 +5410,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				}
 				if (value != "")
 				{
-					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Dict.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
+					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Map.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
 					items.pushValue(item);
 				}
 				/* Read HTML Value */
@@ -5686,12 +5429,12 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			else if (ch3 == "%if" || ch4 == "%for" || ch4 == "%var" || ch4 == "%set" || ch6 == "%while" || ch7 == "%render")
 			{
 				var value = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
-				caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+				caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 				value = Runtime.rs.trim(value, "\t\r\n");
 				value = Runtime.rs.trim(value, " ");
 				if (value != "")
 				{
-					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Dict.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
+					item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Map.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
 					items.pushValue(item);
 				}
 				/* Read HTML Operator */
@@ -5722,17 +5465,17 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		/* Push item */
 		var value = Runtime.rs.substr(content.ref, start_pos, pos - start_pos);
 		value = Runtime.rs.trim(value, "\t\r\n");
-		caret = new Bayrell.Lang.Caret(Runtime.Dict.from({"x":x,"y":y,"pos":pos}));
+		caret = new Bayrell.Lang.Caret(Runtime.Map.from({"x":x,"y":y,"pos":pos}));
 		if (first_html_tag)
 		{
 			value = Runtime.rs.trim(value, " ");
 		}
 		if (value != "")
 		{
-			item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Dict.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
+			item = new Bayrell.Lang.OpCodes.OpHtmlContent(Runtime.Map.from({"value":value,"caret_start":caret_start,"caret_end":caret}));
 			items.pushValue(item);
 		}
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"caret":caret})),items]);
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"caret":caret})),items]);
 	},
 	/**
 	 * Read html tag
@@ -5800,11 +5543,11 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		{
 			if (tag_name == "svg")
 			{
-				var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Collection.from(["</svg>"]), false);
+				var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Vector.from(["</svg>"]), false);
 				parser = Runtime.rtl.get(res, 0);
 				var content = Runtime.rtl.get(res, 1);
 				content = Runtime.re.replace("[\t\n]", "", content);
-				var items = Runtime.Collection.from([new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW,"value":new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":parser.caret,"caret_end":parser.caret,"value":content})),"caret_start":caret_start,"caret_end":parser.caret}))]);
+				var items = Runtime.Vector.from([new Bayrell.Lang.OpCodes.OpHtmlValue(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW,"value":new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":parser.caret,"caret_end":parser.caret,"value":content})),"caret_start":caret_start,"caret_end":parser.caret}))]);
 			}
 			else
 			{
@@ -5845,8 +5588,8 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				parser = Runtime.rtl.get(res, 0);
 			}
 		}
-		var op_code = new Bayrell.Lang.OpCodes.OpHtmlTag(Runtime.Dict.from({"attrs":attrs,"tag_name":tag_name,"op_code_name":op_code_name,"caret_start":caret_start,"caret_end":parser.caret,"items":(items != null) ? (new Bayrell.Lang.OpCodes.OpHtmlItems(Runtime.Dict.from({"caret_start":caret_items_start,"caret_end":caret_items_end,"items":items.toCollection()}))) : (null)}));
-		return Runtime.Collection.from([parser,op_code]);
+		var op_code = new Bayrell.Lang.OpCodes.OpHtmlTag(Runtime.Map.from({"attrs":attrs,"tag_name":tag_name,"op_code_name":op_code_name,"caret_start":caret_start,"caret_end":parser.caret,"items":(items != null) ? (new Bayrell.Lang.OpCodes.OpHtmlItems(Runtime.Map.from({"caret_start":caret_items_start,"caret_end":caret_items_end,"items":items.toCollection()}))) : (null)}));
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read html operator
@@ -5880,7 +5623,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			op_code = Runtime.rtl.get(res, 1);
 			var res = parser.parser_base.constructor.matchToken(parser, ";");
 			parser = Runtime.rtl.get(res, 0);
-			return Runtime.Collection.from([parser,op_code]);
+			return Runtime.Vector.from([parser,op_code]);
 		}
 		else if (token.content == "%set")
 		{
@@ -5892,7 +5635,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			op_code = Runtime.rtl.get(res, 1);
 			var res = parser.parser_base.constructor.matchToken(parser, ";");
 			parser = Runtime.rtl.get(res, 0);
-			return Runtime.Collection.from([parser,op_code]);
+			return Runtime.Vector.from([parser,op_code]);
 		}
 		else if (token.content == "%render")
 		{
@@ -5908,9 +5651,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			}
 			var res = parser.parser_base.constructor.matchToken(parser, ";");
 			parser = Runtime.rtl.get(res, 0);
-			return Runtime.Collection.from([parser,op_code]);
+			return Runtime.Vector.from([parser,op_code]);
 		}
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read html operator
@@ -5925,10 +5668,10 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		var res = this.readHTMLContent(parser, end_tag);
 		parser = Runtime.rtl.get(res, 0);
 		var items = Runtime.rtl.get(res, 1);
-		var op_code = new Bayrell.Lang.OpCodes.OpHtmlItems(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"items":items}));
+		var op_code = new Bayrell.Lang.OpCodes.OpHtmlItems(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"items":items}));
 		/* Disable html flag */
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["is_html"]), save_is_html);
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read html operator
@@ -5937,7 +5680,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 	{
 		var fn_name = item_attrs.get("name", "render");
 		var fn_args_str = item_attrs.get("args", "");
-		var parser2_vars = Runtime.Dict.from({});
+		var parser2_vars = Runtime.Map.from({});
 		/*
 		Collection<OpDeclareFunctionArg> fn_args =
 		[
@@ -5973,11 +5716,11 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			},
 		];
 		*/
-		var fn_args = Runtime.Collection.from([]);
+		var fn_args = Runtime.Vector.from([]);
 		if (item_attrs.has("args"))
 		{
 			var parser2 = parser.constructor.setContent(parser, fn_args_str);
-			parser2 = Runtime.rtl.setAttr(parser2, Runtime.Collection.from(["caret"]), new Bayrell.Lang.Caret(Runtime.Dict.from({})));
+			parser2 = Runtime.rtl.setAttr(parser2, Runtime.Collection.from(["caret"]), new Bayrell.Lang.Caret(Runtime.Map.from({})));
 			/* Parse args */
 			var res = parser.parser_operator.constructor.readDeclareFunctionArgs(parser2, false, false);
 			parser2 = Runtime.rtl.get(res, 0);
@@ -6003,8 +5746,8 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		parser = Runtime.rtl.get(res, 0);
 		var res = parser.parser_base.constructor.matchToken(parser, ">");
 		parser = Runtime.rtl.get(res, 0);
-		var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Dict.from({"args":fn_args,"vars":Runtime.Collection.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Dict.from({"p_static":true,"p_pure":true})),"name":fn_name,"result_type":"html","is_html":true,"expression":expression,"items":null,"caret_start":caret_start,"caret_end":parser.caret}));
-		return Runtime.Collection.from([parser,f]);
+		var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Map.from({"args":fn_args,"vars":Runtime.Vector.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Map.from({"p_static":false,"p_pure":false})),"name":fn_name,"result_type":"html","is_html":true,"expression":expression,"items":null,"caret_start":caret_start,"caret_end":parser.caret}));
+		return Runtime.Vector.from([parser,f]);
 	},
 	/**
 	 * Read html attributes
@@ -6054,7 +5797,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 				break;
 			}
 		}
-		return Runtime.Collection.from([parser,items.toDict()]);
+		return Runtime.Vector.from([parser,items.toDict()]);
 	},
 	/**
 	 * Read UI
@@ -6088,7 +5831,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		parser = Runtime.rtl.get(res, 0);
 		var attrs = Runtime.rtl.get(res, 1);
 		class_name = attrs.get("name", "");
-		class_extends = attrs.get("extends", "Runtime.Web.Component");
+		class_extends = attrs.get("extends", "Runtime.Render.Component");
 		class_version = attrs.get("version", "1.0");
 		class_model = attrs.get("model", "Runtime.Dict");
 		var res = parser.parser_base.constructor.matchToken(parser, ">");
@@ -6096,9 +5839,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		var getClassShortName = (class_name) => 
 		{
 			var __v0 = new Runtime.Monad(class_name);
-			var __v1 = (__varg0) => Runtime.rs.split("\\.", __varg0);
+			var __v1 = (__varg0) => Runtime.rs.split(".", __varg0);
 			__v0 = __v0.call(__v1);
-			try{ __v0=(__v0.val!=null && __v0.err==null) ? new Runtime.Monad(__v0.val.last()) : __v0; } catch (err) { __v0=new Runtime.Monad(null, err); }
+			__v0 = __v0.callMethod("last", []);
 			return __v0.value();
 		};
 		if (class_name != "")
@@ -6108,7 +5851,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		if (class_extends != "")
 		{
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["uses"]), parser.uses.setIm(getClassShortName(class_extends), class_extends));
-			if (class_extends != "Runtime.Web.Component")
+			if (class_extends != "Runtime.Render.Component")
 			{
 				components.pushValue(class_extends);
 			}
@@ -6117,13 +5860,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		{
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["uses"]), parser.uses.setIm(getClassShortName(class_model), class_model));
 		}
-		var class_name_arr = Runtime.rs.split("\\.", class_name);
+		var class_name_arr = Runtime.rs.split(".", class_name);
 		class_name_last = class_name_arr.last();
 		class_name_arr = class_name_arr.removeLastIm();
 		namespace_name = Runtime.rs.join(".", class_name_arr);
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["current_class_name"]), class_name_last);
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["current_namespace_name"]), namespace_name);
-		var class_extend_op_code = new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Dict.from({"entity_name":new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Dict.from({"caret_start":class_caret_start,"caret_end":parser.caret,"names":Runtime.rs.split("\\.", class_extends)})),"template":null,"caret_start":class_caret_start,"caret_end":parser.caret}));
+		var class_extend_op_code = new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Map.from({"entity_name":new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Map.from({"caret_start":class_caret_start,"caret_end":parser.caret,"names":Runtime.rs.split(".", class_extends)})),"template":null,"caret_start":class_caret_start,"caret_end":parser.caret}));
 		/* Read class body */
 		var caret = parser.parser_base.constructor.skipChar(parser, content, parser.caret);
 		var ch2 = Runtime.rs.substr(content.ref, caret.pos, 2);
@@ -6154,7 +5897,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			{
 				var annotation_name = item_attrs.get("name", "");
 				var annotation_op_code = item_attrs.get("value", null);
-				class_annotations.pushValue(new Bayrell.Lang.OpCodes.OpAnnotation(Runtime.Dict.from({"name":new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Dict.from({"entity_name":new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Dict.from({"names":Runtime.rs.split("\\.", annotation_name)}))})),"params":annotation_op_code})));
+				class_annotations.pushValue(new Bayrell.Lang.OpCodes.OpAnnotation(Runtime.Map.from({"name":new Bayrell.Lang.OpCodes.OpTypeIdentifier(Runtime.Map.from({"entity_name":new Bayrell.Lang.OpCodes.OpEntityName(Runtime.Map.from({"names":Runtime.rs.split(".", annotation_name)}))})),"params":annotation_op_code})));
 			}
 			else if (item_name == "use")
 			{
@@ -6250,9 +5993,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		/* Add components function */
 		if (components.count() > 0)
 		{
-			var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Dict.from({"args":Runtime.Collection.from([]),"vars":Runtime.Collection.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Dict.from({"p_static":true,"p_pure":true})),"name":"components","result_type":"var","expression":new Bayrell.Lang.OpCodes.OpCollection(Runtime.Dict.from({"caret_start":parser.caret,"caret_end":parser.caret,"values":components.toCollection().map((class_name) => 
+			var f = new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Map.from({"args":Runtime.Vector.from([]),"vars":Runtime.Vector.from([]),"flags":new Bayrell.Lang.OpCodes.OpFlags(Runtime.Map.from({"p_static":true,"p_pure":true})),"name":"components","result_type":"var","expression":new Bayrell.Lang.OpCodes.OpCollection(Runtime.Map.from({"caret_start":parser.caret,"caret_end":parser.caret,"values":components.toCollection().map((class_name) => 
 			{
-				return new Bayrell.Lang.OpCodes.OpString(Runtime.Dict.from({"caret_start":parser.caret,"caret_end":parser.caret,"value":class_name}));
+				return new Bayrell.Lang.OpCodes.OpString(Runtime.Map.from({"caret_start":parser.caret,"caret_end":parser.caret,"value":class_name}));
 			})})),"items":null,"caret_start":parser.caret,"caret_end":parser.caret}));
 			items.pushValue(f);
 		}
@@ -6267,7 +6010,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 		parser = Runtime.rtl.get(res, 0);
 		/* Analyze class body */
 		var class_body = parser.parser_program.constructor.classBodyAnalyze(parser, items);
-		return Runtime.Collection.from([parser,Runtime.Collection.from([new Bayrell.Lang.OpCodes.OpNamespace(Runtime.Dict.from({"name":namespace_name})),new Bayrell.Lang.OpCodes.OpDeclareClass(Runtime.Dict.from({"kind":Bayrell.Lang.OpCodes.OpDeclareClass.KIND_CLASS,"name":class_name_last,"is_static":true,"is_declare":false,"class_extends":class_extend_op_code,"class_implements":null,"annotations":Runtime.Collection.from([]),"template":null,"vars":class_body.item("vars"),"annotations":class_annotations.toCollection(),"functions":class_body.item("functions"),"fn_create":class_body.item("fn_create"),"fn_destroy":class_body.item("fn_destroy"),"items":items,"caret_start":class_caret_start,"caret_end":parser.caret}))])]);
+		return Runtime.Vector.from([parser,Runtime.Vector.from([new Bayrell.Lang.OpCodes.OpNamespace(Runtime.Map.from({"name":namespace_name})),new Bayrell.Lang.OpCodes.OpDeclareClass(Runtime.Map.from({"kind":Bayrell.Lang.OpCodes.OpDeclareClass.KIND_CLASS,"name":class_name_last,"is_static":true,"is_component":true,"is_declare":false,"class_extends":class_extend_op_code,"class_implements":null,"annotations":Runtime.Vector.from([]),"template":null,"vars":class_body.item("vars"),"annotations":class_annotations.toCollection(),"functions":class_body.item("functions"),"fn_create":class_body.item("fn_create"),"fn_destroy":class_body.item("fn_destroy"),"items":items,"caret_start":class_caret_start,"caret_end":parser.caret}))])]);
 	},
 	/**
 	 * Read UI
@@ -6308,7 +6051,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			token = Runtime.rtl.get(res, 1);
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpModule(Runtime.Dict.from({"uses":parser.uses.toDict(),"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpModule(Runtime.Map.from({"uses":parser.uses.toDict(),"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -6325,27 +6068,29 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
 	{
 		var a=[
+			"hash",
+			"toHex",
 			"getCssHash",
 			"readCssSelector",
 			"readCssBody",
@@ -6365,7 +6110,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayHtml,
 			"readUIClass",
 			"readUI",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -6401,19 +6146,6 @@ Bayrell.Lang.LangBay.ParserBayOperator = function()
 };
 Object.assign(Bayrell.Lang.LangBay.ParserBayOperator.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayOperator)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 {
@@ -6438,7 +6170,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpReturn(Runtime.Dict.from({"expression":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpReturn(Runtime.Map.from({"expression":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read delete
@@ -6454,7 +6186,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var res = parser.parser_base.constructor.readDynamic(parser);
 		parser = Runtime.rtl.get(res, 0);
 		op_code = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpDelete(Runtime.Dict.from({"op_code":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpDelete(Runtime.Map.from({"op_code":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read throw
@@ -6470,7 +6202,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var res = parser.parser_expression.constructor.readExpression(parser);
 		parser = Runtime.rtl.get(res, 0);
 		op_code = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpThrow(Runtime.Dict.from({"expression":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpThrow(Runtime.Map.from({"expression":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read try
@@ -6521,13 +6253,13 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			op_catch = Runtime.rtl.get(res, 1);
 			/* Restore vars */
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), save_vars);
-			var item = new Bayrell.Lang.OpCodes.OpTryCatchItem(Runtime.Dict.from({"name":var_name,"pattern":pattern,"value":op_catch,"caret_start":item_caret_start,"caret_end":parser.caret}));
+			var item = new Bayrell.Lang.OpCodes.OpTryCatchItem(Runtime.Map.from({"name":var_name,"pattern":pattern,"value":op_catch,"caret_start":item_caret_start,"caret_end":parser.caret}));
 			items.pushValue(item);
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpTryCatch(Runtime.Dict.from({"op_try":op_try,"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpTryCatch(Runtime.Map.from({"op_try":op_try,"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read then
@@ -6541,9 +6273,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		token = Runtime.rtl.get(res, 1);
 		if (token.content == "then")
 		{
-			return Runtime.Collection.from([look,token]);
+			return Runtime.Vector.from([look,token]);
 		}
-		return Runtime.Collection.from([parser,token]);
+		return Runtime.Vector.from([parser,token]);
 	},
 	/**
 	 * Read do
@@ -6557,9 +6289,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		token = Runtime.rtl.get(res, 1);
 		if (token.content == "do")
 		{
-			return Runtime.Collection.from([look,token]);
+			return Runtime.Vector.from([look,token]);
 		}
-		return Runtime.Collection.from([parser,token]);
+		return Runtime.Vector.from([parser,token]);
 	},
 	/**
 	 * Read if
@@ -6634,7 +6366,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 				var res = this.readOperators(parser);
 				parser = Runtime.rtl.get(res, 0);
 				ifelse_block = Runtime.rtl.get(res, 1);
-				if_else.pushValue(new Bayrell.Lang.OpCodes.OpIfElse(Runtime.Dict.from({"condition":ifelse_condition,"if_true":ifelse_block,"caret_start":token2.caret_start,"caret_end":parser.caret})));
+				if_else.pushValue(new Bayrell.Lang.OpCodes.OpIfElse(Runtime.Map.from({"condition":ifelse_condition,"if_true":ifelse_block,"caret_start":token2.caret_start,"caret_end":parser.caret})));
 			}
 			else
 			{
@@ -6647,7 +6379,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpIf(Runtime.Dict.from({"condition":if_condition,"if_true":if_true,"if_false":if_false,"if_else":if_else.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpIf(Runtime.Map.from({"condition":if_condition,"if_true":if_true,"if_false":if_false,"if_else":if_else.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read For
@@ -6692,7 +6424,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		op_code = Runtime.rtl.get(res, 1);
 		/* Restore vars */
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), save_vars);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpFor(Runtime.Dict.from({"expr1":expr1,"expr2":expr2,"expr3":expr3,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpFor(Runtime.Map.from({"expr1":expr1,"expr2":expr2,"expr3":expr3,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read While
@@ -6720,7 +6452,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var res = this.readOperators(parser);
 		parser = Runtime.rtl.get(res, 0);
 		op_code = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpWhile(Runtime.Dict.from({"condition":condition,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpWhile(Runtime.Map.from({"condition":condition,"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read While
@@ -6740,7 +6472,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var res = this.readOperators(parser);
 		parser = Runtime.rtl.get(res, 0);
 		var items = Runtime.rtl.get(res, 1);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpSafe(Runtime.Dict.from({"obj":obj,"items":items,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpSafe(Runtime.Map.from({"obj":obj,"items":items,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read assign
@@ -6818,7 +6550,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			var res = parser.parser_expression.constructor.readExpression(parser);
 			parser = Runtime.rtl.get(res, 0);
 			expression = Runtime.rtl.get(res, 1);
-			return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpAssignStruct(Runtime.Dict.from({"caret_start":caret_start,"caret_end":parser.caret,"expression":expression,"var_name":var_name,"names":names}))]);
+			return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpAssignStruct(Runtime.Map.from({"caret_start":caret_start,"caret_end":parser.caret,"expression":expression,"var_name":var_name,"names":names}))]);
 		}
 		if (token.content != "=" && token.content != "+=" && token.content != "-=" && token.content != "~=" && token.content != "." && token.content != "::" && token.content != "[")
 		{
@@ -6848,7 +6580,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 				expression = null;
 			}
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.setIm(var_name, true));
-			values.pushValue(new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Dict.from({"var_name":var_name,"expression":expression,"caret_start":var_op_code.caret_start,"caret_end":parser.caret})));
+			values.pushValue(new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Map.from({"var_name":var_name,"expression":expression,"caret_start":var_op_code.caret_start,"caret_end":parser.caret})));
 			/* Look next token */
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
@@ -6874,7 +6606,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 					expression = null;
 				}
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.setIm(var_name, true));
-				values.pushValue(new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Dict.from({"var_name":var_name,"expression":expression,"caret_start":var_op_code.caret_start,"caret_end":parser.caret})));
+				values.pushValue(new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Map.from({"var_name":var_name,"expression":expression,"caret_start":var_op_code.caret_start,"caret_end":parser.caret})));
 				var res = parser.parser_base.constructor.readToken(parser);
 				look = Runtime.rtl.get(res, 0);
 				token = Runtime.rtl.get(res, 1);
@@ -6904,11 +6636,11 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			var res = parser.parser_expression.constructor.readExpression(parser);
 			parser = Runtime.rtl.get(res, 0);
 			expression = Runtime.rtl.get(res, 1);
-			values = Runtime.Collection.from([new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Dict.from({"op_code":op_code,"expression":expression,"op":op}))]);
+			values = Runtime.Vector.from([new Bayrell.Lang.OpCodes.OpAssignValue(Runtime.Map.from({"op_code":op_code,"expression":expression,"op":op}))]);
 			var_name = "";
 			expression = null;
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpAssign(Runtime.Dict.from({"pattern":pattern,"values":(values != null) ? (values.toCollection()) : (null),"caret_start":caret_start,"caret_end":parser.caret,"expression":expression,"var_name":var_name,"names":names,"kind":kind}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpAssign(Runtime.Map.from({"pattern":pattern,"values":(values != null) ? (values.toCollection()) : (null),"caret_start":caret_start,"caret_end":parser.caret,"expression":expression,"var_name":var_name,"names":names,"kind":kind}))]);
 	},
 	/**
 	 * Read operator
@@ -6933,18 +6665,18 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		if ((look1_content == "++" || look1_content == "--") && parser.parser_base.constructor.isIdentifier(look2_content))
 		{
 			parser = look2;
-			var op_code = new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"value":look2_content,"caret_start":token2.caret_start,"caret_end":token2.caret_end}));
-			op_code = new Bayrell.Lang.OpCodes.OpInc(Runtime.Dict.from({"kind":(look1_content == "++") ? (Bayrell.Lang.OpCodes.OpInc.KIND_PRE_INC) : (Bayrell.Lang.OpCodes.OpInc.KIND_PRE_DEC),"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}));
-			return Runtime.Collection.from([parser,op_code]);
+			var op_code = new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"value":look2_content,"caret_start":token2.caret_start,"caret_end":token2.caret_end}));
+			op_code = new Bayrell.Lang.OpCodes.OpInc(Runtime.Map.from({"kind":(look1_content == "++") ? (Bayrell.Lang.OpCodes.OpInc.KIND_PRE_INC) : (Bayrell.Lang.OpCodes.OpInc.KIND_PRE_DEC),"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}));
+			return Runtime.Vector.from([parser,op_code]);
 		}
 		if ((look2_content == "++" || look2_content == "--") && parser.parser_base.constructor.isIdentifier(look1_content))
 		{
 			parser = look2;
-			var op_code = new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Dict.from({"value":look1_content,"caret_start":token1.caret_start,"caret_end":token1.caret_end}));
-			op_code = new Bayrell.Lang.OpCodes.OpInc(Runtime.Dict.from({"kind":(look2_content == "++") ? (Bayrell.Lang.OpCodes.OpInc.KIND_POST_INC) : (Bayrell.Lang.OpCodes.OpInc.KIND_POST_DEC),"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}));
-			return Runtime.Collection.from([parser,op_code]);
+			var op_code = new Bayrell.Lang.OpCodes.OpIdentifier(Runtime.Map.from({"value":look1_content,"caret_start":token1.caret_start,"caret_end":token1.caret_end}));
+			op_code = new Bayrell.Lang.OpCodes.OpInc(Runtime.Map.from({"kind":(look2_content == "++") ? (Bayrell.Lang.OpCodes.OpInc.KIND_POST_INC) : (Bayrell.Lang.OpCodes.OpInc.KIND_POST_DEC),"value":op_code,"caret_start":caret_start,"caret_end":parser.caret}));
+			return Runtime.Vector.from([parser,op_code]);
 		}
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read call function
@@ -6957,9 +6689,9 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		op_code = Runtime.rtl.get(res, 1);
 		if (op_code instanceof Bayrell.Lang.OpCodes.OpCall || op_code instanceof Bayrell.Lang.OpCodes.OpPipe)
 		{
-			return Runtime.Collection.from([parser,op_code]);
+			return Runtime.Vector.from([parser,op_code]);
 		}
-		return Runtime.Collection.from([parser,null]);
+		return Runtime.Vector.from([parser,null]);
 	},
 	/**
 	 * Read operator
@@ -6988,11 +6720,11 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		}
 		else if (token.content == "break")
 		{
-			return Runtime.Collection.from([look,new Bayrell.Lang.OpCodes.OpBreak(Runtime.Dict.from({"caret_start":caret_start,"caret_end":look.caret}))]);
+			return Runtime.Vector.from([look,new Bayrell.Lang.OpCodes.OpBreak(Runtime.Map.from({"caret_start":caret_start,"caret_end":look.caret}))]);
 		}
 		else if (token.content == "continue")
 		{
-			return Runtime.Collection.from([look,new Bayrell.Lang.OpCodes.OpContinue(Runtime.Dict.from({"caret_start":caret_start,"caret_end":look.caret}))]);
+			return Runtime.Vector.from([look,new Bayrell.Lang.OpCodes.OpContinue(Runtime.Map.from({"caret_start":caret_start,"caret_end":look.caret}))]);
 		}
 		else if (token.content == "delete")
 		{
@@ -7101,8 +6833,8 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
 			}
 		}
-		op_code = new Bayrell.Lang.OpCodes.OpItems(Runtime.Dict.from({"items":arr.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}));
-		return Runtime.Collection.from([parser,op_code]);
+		op_code = new Bayrell.Lang.OpCodes.OpItems(Runtime.Map.from({"items":arr.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}));
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read operators
@@ -7160,7 +6892,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		}
 		/* Restore vars */
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), save_vars);
-		return Runtime.Collection.from([parser,op_code]);
+		return Runtime.Vector.from([parser,op_code]);
 	},
 	/**
 	 * Read flags
@@ -7183,7 +6915,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpFlags(values)]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpFlags(values)]);
 	},
 	/**
 	 * Read function args
@@ -7235,7 +6967,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			}
 			/* Register variable in parser */
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.setIm(arg_name, true));
-			items.pushValue(new Bayrell.Lang.OpCodes.OpDeclareFunctionArg(Runtime.Dict.from({"pattern":arg_pattern,"name":arg_name,"expression":arg_expression,"caret_start":arg_pattern.caret_start,"caret_end":parser.caret})));
+			items.pushValue(new Bayrell.Lang.OpCodes.OpDeclareFunctionArg(Runtime.Map.from({"pattern":arg_pattern,"name":arg_name,"expression":arg_expression,"caret_start":arg_pattern.caret_start,"caret_end":parser.caret})));
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
@@ -7252,7 +6984,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			res = parser.parser_base.constructor.matchToken(parser, ")");
 			parser = Runtime.rtl.get(res, 0);
 		}
-		return Runtime.Collection.from([parser,items.toCollection()]);
+		return Runtime.Vector.from([parser,items.toCollection()]);
 	},
 	/**
 	 * Read function variables
@@ -7304,7 +7036,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			var res = parser.parser_base.constructor.matchToken(parser, ")");
 			parser = Runtime.rtl.get(res, 0);
 		}
-		return Runtime.Collection.from([parser,items.toCollection()]);
+		return Runtime.Vector.from([parser,items.toCollection()]);
 	},
 	/**
 	 * Read function
@@ -7322,13 +7054,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var save_vars = parser.vars;
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), new Runtime.Dict());
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["is_html"]), false);
+		var is_html = false;
 		var res = parser.parser_base.constructor.readToken(parser);
 		look = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
 		if (token.content == "async")
 		{
 			parser = look;
-			flags = new Bayrell.Lang.OpCodes.OpFlags(Runtime.Dict.from({"p_async":true}));
+			flags = new Bayrell.Lang.OpCodes.OpFlags(Runtime.Map.from({"p_async":true}));
 		}
 		var res = parser.parser_base.constructor.readTypeIdentifier(parser);
 		parser = Runtime.rtl.get(res, 0);
@@ -7338,6 +7071,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		var expression = null;
 		var is_context = true;
 		var name = "";
+		if (result_type && result_type instanceof Bayrell.Lang.OpCodes.OpTypeIdentifier && result_type.entity_name instanceof Bayrell.Lang.OpCodes.OpEntityName)
+		{
+			if (result_type.entity_name.names.get(0) == "html")
+			{
+				parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["is_html"]), true);
+				is_html = true;
+			}
+		}
 		var res = parser.parser_base.constructor.readToken(parser);
 		look = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
@@ -7388,6 +7129,11 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			var res = this.readOperators(save);
 			parser = Runtime.rtl.get(res, 0);
 			op_code = Runtime.rtl.get(res, 1);
+			if (is_html)
+			{
+				expression = op_code;
+				op_code = null;
+			}
 		}
 		else if (token.content == ";")
 		{
@@ -7399,7 +7145,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 		/* Restore vars */
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), save_vars);
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["is_html"]), save_is_html);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Dict.from({"args":args,"vars":vars,"flags":flags,"name":name,"is_context":is_context,"result_type":result_type,"expression":expression,"items":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpDeclareFunction(Runtime.Map.from({"args":args,"vars":vars,"flags":flags,"name":name,"is_html":is_html,"is_context":is_context,"result_type":result_type,"expression":expression,"items":op_code,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Returns true if next is function
@@ -7504,7 +7250,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			parser = Runtime.rtl.get(res, 0);
 			params = Runtime.rtl.get(res, 1);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpAnnotation(Runtime.Dict.from({"name":name,"params":params}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpAnnotation(Runtime.Map.from({"name":name,"params":params}))]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -7521,22 +7267,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -7565,7 +7311,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayOperator,
 			"tryReadFunction",
 			"readAnnotation",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -7601,19 +7347,6 @@ Bayrell.Lang.LangBay.ParserBayPreprocessor = function()
 };
 Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayPreprocessor)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 {
@@ -7649,7 +7382,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 		var items = new Runtime.Vector();
 		/* Save vars */
 		var save_vars = parser.vars;
-		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.concat(Runtime.Dict.from({"ES6":true,"NODEJS":true,"JAVASCRIPT":true,"PHP":true,"PYTHON3":true})));
+		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["vars"]), parser.vars.concat(Runtime.Map.from({"ES6":true,"NODEJS":true,"JAVASCRIPT":true,"PHP":true,"PYTHON3":true})));
 		var res = parser.parser_base.constructor.matchToken(parser, "#switch");
 		parser = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
@@ -7682,14 +7415,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 			/* Read content */
 			var content = "";
 			var caret_content = parser.caret;
-			var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Collection.from(["#case","#endswitch"]), false);
+			var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Vector.from(["#case","#endswitch"]), false);
 			parser = Runtime.rtl.get(res, 0);
 			content = Runtime.rtl.get(res, 1);
 			/* Look content */
 			var res = parser.parser_base.constructor.readToken(parser);
 			look = Runtime.rtl.get(res, 0);
 			token = Runtime.rtl.get(res, 1);
-			var ifcode = new Bayrell.Lang.OpCodes.OpPreprocessorIfCode(Runtime.Dict.from({"condition":condition,"content":content,"caret_start":caret_content,"caret_end":parser.caret}));
+			var ifcode = new Bayrell.Lang.OpCodes.OpPreprocessorIfCode(Runtime.Map.from({"condition":condition,"content":content,"caret_start":caret_content,"caret_end":parser.caret}));
 			items.pushValue(ifcode);
 		}
 		/* Restore vars */
@@ -7697,7 +7430,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 		/* read endswitch */
 		var res = parser.parser_base.constructor.matchToken(parser, "#endswitch");
 		parser = Runtime.rtl.get(res, 0);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpPreprocessorSwitch(Runtime.Dict.from({"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpPreprocessorSwitch(Runtime.Map.from({"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read preprocessor ifcode
@@ -7724,15 +7457,15 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 		/* Read content */
 		var content = "";
 		var caret_content = parser.caret;
-		var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Collection.from(["#endif"]), false);
+		var res = parser.parser_base.constructor.readUntilStringArr(parser, Runtime.Vector.from(["#endif"]), false);
 		parser = Runtime.rtl.get(res, 0);
 		content = Runtime.rtl.get(res, 1);
 		/* Match endif */
 		var res = parser.parser_base.constructor.matchToken(parser, "#endif");
 		parser = Runtime.rtl.get(res, 0);
 		token = Runtime.rtl.get(res, 1);
-		var ifcode = new Bayrell.Lang.OpCodes.OpPreprocessorIfCode(Runtime.Dict.from({"condition":condition,"content":content,"caret_start":caret_content,"caret_end":parser.caret}));
-		return Runtime.Collection.from([parser,ifcode]);
+		var ifcode = new Bayrell.Lang.OpCodes.OpPreprocessorIfCode(Runtime.Map.from({"condition":condition,"content":content,"caret_start":caret_content,"caret_end":parser.caret}));
+		return Runtime.Vector.from([parser,ifcode]);
 	},
 	/**
 	 * Read preprocessor ifdef
@@ -7791,7 +7524,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 			var res = parser.parser_base.constructor.matchToken(parser, "#endif");
 			parser = Runtime.rtl.get(res, 0);
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpPreprocessorIfDef(Runtime.Dict.from({"items":items,"condition":condition,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpPreprocessorIfDef(Runtime.Map.from({"items":items,"condition":condition,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -7808,22 +7541,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -7834,7 +7567,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayPreprocessor,
 			"readPreprocessorIfCode",
 			"readPreprocessorIfDef",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -7870,19 +7603,6 @@ Bayrell.Lang.LangBay.ParserBayProgram = function()
 };
 Object.assign(Bayrell.Lang.LangBay.ParserBayProgram.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangBay.ParserBayProgram)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 {
@@ -7901,10 +7621,10 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 		parser = Runtime.rtl.get(res, 0);
 		name = Runtime.rtl.get(res, 1);
 		var current_namespace_name = Runtime.rs.join(".", name.names);
-		var current_namespace = new Bayrell.Lang.OpCodes.OpNamespace(Runtime.Dict.from({"name":current_namespace_name,"caret_start":caret_start,"caret_end":parser.caret}));
+		var current_namespace = new Bayrell.Lang.OpCodes.OpNamespace(Runtime.Map.from({"name":current_namespace_name,"caret_start":caret_start,"caret_end":parser.caret}));
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["current_namespace"]), current_namespace);
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["current_namespace_name"]), current_namespace_name);
-		return Runtime.Collection.from([parser,current_namespace]);
+		return Runtime.Vector.from([parser,current_namespace]);
 	},
 	/**
 	 * Read use
@@ -7934,7 +7654,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			parser_value = Runtime.rtl.get(res, 1);
 			alias = parser_value.value;
 		}
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpUse(Runtime.Dict.from({"name":Runtime.rs.join(".", name.names),"alias":alias,"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpUse(Runtime.Map.from({"name":Runtime.rs.join(".", name.names),"alias":alias,"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/**
 	 * Read class body
@@ -8007,8 +7727,21 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 					item = Runtime.rtl.get(res, 1);
 					if (item.expression != null)
 					{
-						var res = parser.parser_base.constructor.matchToken(parser, ";");
-						parser = Runtime.rtl.get(res, 0);
+						if (!item.is_html)
+						{
+							var res = parser.parser_base.constructor.matchToken(parser, ";");
+							parser = Runtime.rtl.get(res, 0);
+						}
+						else
+						{
+							var res = parser.parser_base.constructor.readToken(parser);
+							look = Runtime.rtl.get(res, 0);
+							token = Runtime.rtl.get(res, 1);
+							if (token.content == ";")
+							{
+								parser = look;
+							}
+						}
 					}
 				}
 				else
@@ -8031,7 +7764,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			token = Runtime.rtl.get(res, 1);
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
 		}
-		return Runtime.Collection.from([parser,items.toCollection()]);
+		return Runtime.Vector.from([parser,items.toCollection()]);
 	},
 	/**
 	 * Class body analyze
@@ -8046,7 +7779,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 		var comments = new Runtime.Vector();
 		var fn_create = null;
 		var fn_destroy = null;
-		for (var i = 0;i < arr.count();i++)
+		for (var i = 0; i < arr.count(); i++)
 		{
 			var item = arr.item(i);
 			if (item instanceof Bayrell.Lang.OpCodes.OpAnnotation)
@@ -8059,7 +7792,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpAssign)
 			{
-				for (var j = 0;j < item.values.count();j++)
+				for (var j = 0; j < item.values.count(); j++)
 				{
 					var assign_value = item.values.item(j);
 					var value_name = assign_value.var_name;
@@ -8069,14 +7802,14 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 					}
 					names.setValue(value_name, true);
 				}
-				item = item.copy(Runtime.Dict.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
+				item = item.copy(Runtime.Map.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
 				vars.pushValue(item);
 				annotations.clear();
 				comments.clear();
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpDeclareFunction)
 			{
-				item = item.copy(Runtime.Dict.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
+				item = item.copy(Runtime.Map.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
 				if (names.has(item.name))
 				{
 					throw new Bayrell.Lang.Exceptions.ParserError("Dublicate identifier " + Runtime.rtl.toStr(item.name), item.caret_start, parser.file_name)
@@ -8114,7 +7847,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			}
 		}
 		items.appendVector(comments);
-		return Runtime.Dict.from({"annotations":annotations.toCollection(),"comments":comments.toCollection(),"functions":functions.toCollection(),"items":items.toCollection(),"vars":vars.toCollection(),"fn_create":fn_create,"fn_destroy":fn_destroy});
+		return Runtime.Map.from({"annotations":annotations.toCollection(),"comments":comments.toCollection(),"functions":functions.toCollection(),"items":items.toCollection(),"vars":vars.toCollection(),"fn_create":fn_create,"fn_destroy":fn_destroy});
 	},
 	/**
 	 * Read class
@@ -8271,10 +8004,10 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 		var d = this.classBodyAnalyze(parser, arr);
 		var res = parser.parser_base.constructor.matchToken(parser, "}");
 		parser = Runtime.rtl.get(res, 0);
-		var current_class = new Bayrell.Lang.OpCodes.OpDeclareClass(Runtime.Dict.from({"kind":class_kind,"name":class_name,"is_abstract":is_abstract,"is_static":is_static,"is_declare":is_declare,"class_extends":class_extends,"class_implements":(class_implements != null) ? (class_implements.toCollection()) : (null),"template":(template != null) ? (template.toCollection()) : (null),"vars":d.item("vars"),"functions":d.item("functions"),"fn_create":d.item("fn_create"),"fn_destroy":d.item("fn_destroy"),"items":arr,"caret_start":caret_start,"caret_end":parser.caret}));
+		var current_class = new Bayrell.Lang.OpCodes.OpDeclareClass(Runtime.Map.from({"kind":class_kind,"name":class_name,"is_abstract":is_abstract,"is_static":is_static,"is_declare":is_declare,"class_extends":class_extends,"class_implements":(class_implements != null) ? (class_implements.toCollection()) : (null),"template":(template != null) ? (template.toCollection()) : (null),"vars":d.item("vars"),"functions":d.item("functions"),"fn_create":d.item("fn_create"),"fn_destroy":d.item("fn_destroy"),"items":arr,"caret_start":caret_start,"caret_end":parser.caret}));
 		/* Restore uses */
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["uses"]), save_uses);
-		return Runtime.Collection.from([parser.copy(Runtime.Dict.from({"current_class":current_class})),current_class]);
+		return Runtime.Vector.from([parser.copy(Runtime.Map.from({"current_class":current_class})),current_class]);
 	},
 	/**
 	 * Read program
@@ -8296,7 +8029,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 		parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
 		if (token.eof)
 		{
-			return Runtime.Collection.from([parser,null]);
+			return Runtime.Vector.from([parser,null]);
 		}
 		if (token.content == "<")
 		{
@@ -8391,7 +8124,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 				var res = this.readClass(parser);
 				parser = Runtime.rtl.get(res, 0);
 				item = Runtime.rtl.get(res, 1);
-				item = item.copy(Runtime.Dict.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
+				item = item.copy(Runtime.Map.from({"annotations":annotations.toCollection(),"comments":comments.toCollection()}));
 				items.pushValue(item);
 				annotations.clear();
 				comments.clear();
@@ -8407,7 +8140,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			parser = Runtime.rtl.setAttr(parser, Runtime.Collection.from(["skip_comments"]), true);
 		}
 		items.appendVector(comments);
-		return Runtime.Collection.from([parser,new Bayrell.Lang.OpCodes.OpModule(Runtime.Dict.from({"uses":parser.uses.toDict(),"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
+		return Runtime.Vector.from([parser,new Bayrell.Lang.OpCodes.OpModule(Runtime.Map.from({"uses":parser.uses.toDict(),"items":items.toCollection(),"caret_start":caret_start,"caret_end":parser.caret}))]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -8424,22 +8157,22 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -8452,7 +8185,7 @@ Object.assign(Bayrell.Lang.LangBay.ParserBayProgram,
 			"readClass",
 			"readProgram",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -8523,10 +8256,10 @@ Object.assign(Bayrell.Lang.LangES6.AsyncAwait,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -8535,20 +8268,20 @@ Object.assign(Bayrell.Lang.LangES6.AsyncAwait,
 		var a = [];
 		a.push("start_pos");
 		a.push("end_pos");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "start_pos") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "start_pos") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "end_pos") return Dict.from({
+		if (field_name == "end_pos") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -8557,7 +8290,7 @@ Object.assign(Bayrell.Lang.LangES6.AsyncAwait,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -8666,7 +8399,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6,
 	 */
 	reset: function(t)
 	{
-		return t.copy(Runtime.Dict.from({"value":"","current_namespace_name":"","modules":new Runtime.Dict(),"async_await":new Bayrell.Lang.LangES6.TranslatorES6AsyncAwait(),"expression":new Bayrell.Lang.LangES6.TranslatorES6Expression(),"html":new Bayrell.Lang.LangES6.TranslatorES6Html(),"operator":new Bayrell.Lang.LangES6.TranslatorES6Operator(),"program":new Bayrell.Lang.LangES6.TranslatorES6Program(),"save_vars":new Runtime.Collection(),"save_op_codes":new Runtime.Collection(),"save_op_code_inc":0,"preprocessor_flags":Runtime.Dict.from({"ES6":true,"JAVASCRIPT":true,"FRONTEND":t.frontend,"BACKEND":t.backend,"USE_MODULE_NAME":t.use_module_name,"USE_STRICT":t.use_strict,"ENABLE_ASYNC_AWAIT":t.enable_async_await,"EMULATE_ASYNC_AWAIT":t.emulate_async_await,"ENABLE_CONTEXT":t.enable_context,"ENABLE_CHECK_TYPES":t.enable_check_types})}));
+		return t.copy(Runtime.Map.from({"value":"","current_namespace_name":"","modules":new Runtime.Dict(),"async_await":new Bayrell.Lang.LangES6.TranslatorES6AsyncAwait(),"expression":new Bayrell.Lang.LangES6.TranslatorES6Expression(),"html":new Bayrell.Lang.LangES6.TranslatorES6Html(),"operator":new Bayrell.Lang.LangES6.TranslatorES6Operator(),"program":new Bayrell.Lang.LangES6.TranslatorES6Program(),"save_vars":new Runtime.Collection(),"save_op_codes":new Runtime.Collection(),"save_op_code_inc":0,"preprocessor_flags":Runtime.Map.from({"ES6":true,"JAVASCRIPT":true,"FRONTEND":t.frontend,"BACKEND":t.backend,"USE_MODULE_NAME":t.use_module_name,"USE_STRICT":t.use_strict,"ENABLE_ASYNC_AWAIT":t.enable_async_await,"EMULATE_ASYNC_AWAIT":t.emulate_async_await,"ENABLE_CONTEXT":t.enable_context,"ENABLE_CHECK_TYPES":t.enable_check_types})}));
 	},
 	/**
 	 * Translate BaseOpCode
@@ -8683,7 +8416,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6,
 	{
 		if (save_op_code_value == undefined) save_op_code_value = 0;
 		var content = "";
-		for (var i = 0;i < t.save_op_codes.count();i++)
+		for (var i = 0; i < t.save_op_codes.count(); i++)
 		{
 			if (i < save_op_code_value)
 			{
@@ -8718,10 +8451,10 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -8747,105 +8480,105 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6,
 		a.push("enable_context");
 		a.push("enable_check_types");
 		a.push("enable_introspection");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "is_pipe") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "is_pipe") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_call") return Dict.from({
+		if (field_name == "is_call") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pipe_var_name") return Dict.from({
+		if (field_name == "pipe_var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "html_var_name") return Dict.from({
+		if (field_name == "html_var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html") return Dict.from({
+		if (field_name == "is_html") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "async_await") return Dict.from({
+		if (field_name == "async_await") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6AsyncAwait",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Expression",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "html") return Dict.from({
+		if (field_name == "html") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Html",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "operator") return Dict.from({
+		if (field_name == "operator") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Operator",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "program") return Dict.from({
+		if (field_name == "program") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Program",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "frontend") return Dict.from({
+		if (field_name == "frontend") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "backend") return Dict.from({
+		if (field_name == "backend") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "use_module_name") return Dict.from({
+		if (field_name == "use_module_name") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "use_strict") return Dict.from({
+		if (field_name == "use_strict") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_async_await") return Dict.from({
+		if (field_name == "enable_async_await") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "emulate_async_await") return Dict.from({
+		if (field_name == "emulate_async_await") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_context") return Dict.from({
+		if (field_name == "enable_context") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_check_types") return Dict.from({
+		if (field_name == "enable_check_types") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_introspection") return Dict.from({
+		if (field_name == "enable_introspection") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -8859,7 +8592,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6,
 			"translate",
 			"outputSaveOpCode",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -8902,7 +8635,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait.prototype,
 	{
 		Runtime.BaseStruct.prototype._init.call(this);
 		this.async_stack = new Runtime.Collection();
-		this.pos = Runtime.Collection.from([0]);
+		this.pos = Runtime.Vector.from([0]);
 		this.async_t = "__async_t";
 		this.async_var = "__async_var";
 	},
@@ -8934,7 +8667,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var pos = t.async_await.pos;
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), pos.setIm(pos.count() - 1, pos.last() + 1));
 		var res = t.expression.constructor.toString(Runtime.rs.join(".", t.async_await.pos));
-		return Runtime.Collection.from([t,res]);
+		return Runtime.Vector.from([t,res]);
 	},
 	/**
 	 * Returns push pos
@@ -8944,7 +8677,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var pos = t.async_await.pos;
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), pos.setIm(pos.count() - 1, pos.last() + 1).pushIm(0));
 		var res = t.expression.constructor.toString(Runtime.rs.join(".", t.async_await.pos));
-		return Runtime.Collection.from([t,res]);
+		return Runtime.Vector.from([t,res]);
 	},
 	/**
 	 * Returns inc pos
@@ -8954,7 +8687,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var pos = t.async_await.pos;
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), pos.setIm(pos.count() - 1, pos.last()).pushIm(0));
 		var res = t.expression.constructor.toString(Runtime.rs.join(".", t.async_await.pos));
-		return Runtime.Collection.from([t,res]);
+		return Runtime.Vector.from([t,res]);
 	},
 	/**
 	 * Returns pop pos
@@ -8964,7 +8697,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var pos = t.async_await.pos.removeLastIm();
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), pos.setIm(pos.count() - 1, pos.last() + 1));
 		var res = t.expression.constructor.toString(Runtime.rs.join(".", t.async_await.pos));
-		return Runtime.Collection.from([t,res]);
+		return Runtime.Vector.from([t,res]);
 	},
 	/**
 	 * OpCall
@@ -9007,7 +8740,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 			content += Runtime.rtl.toStr("ctx");
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = t.expression.constructor.Expression(t, item);
@@ -9030,13 +8763,13 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("else if (" + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".pos() == ") + Runtime.rtl.toStr(next_pos) + Runtime.rtl.toStr(")")));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_name":var_name,"content":content}));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"op_code":op_code,"var_name":var_name,"content":content}));
 		t = Runtime.rtl.get(res, 0);
 		if (is_expression)
 		{
-			return Runtime.Collection.from([t,async_t + Runtime.rtl.toStr(".getVar(") + Runtime.rtl.toStr(t.expression.constructor.toString(var_name)) + Runtime.rtl.toStr(")")]);
+			return Runtime.Vector.from([t,async_t + Runtime.rtl.toStr(".getVar(") + Runtime.rtl.toStr(t.expression.constructor.toString(var_name)) + Runtime.rtl.toStr(")")]);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * OpPipe
@@ -9069,7 +8802,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		}
 		content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr(var_name));
 		flag = true;
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = t.expression.constructor.Expression(t, item);
@@ -9092,13 +8825,13 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("else if (" + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".pos() == ") + Runtime.rtl.toStr(next_pos) + Runtime.rtl.toStr(")")));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_name":var_name,"content":content}));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"op_code":op_code,"var_name":var_name,"content":content}));
 		t = Runtime.rtl.get(res, 0);
 		if (is_expression)
 		{
-			return Runtime.Collection.from([t,async_t + Runtime.rtl.toStr(".getVar(") + Runtime.rtl.toStr(t.expression.constructor.toString(var_name)) + Runtime.rtl.toStr(")")]);
+			return Runtime.Vector.from([t,async_t + Runtime.rtl.toStr(".getVar(") + Runtime.rtl.toStr(t.expression.constructor.toString(var_name)) + Runtime.rtl.toStr(")")]);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * OpFor
@@ -9115,7 +8848,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var res = this.popPos(t);
 		save_t = Runtime.rtl.get(res, 0);
 		var end_pos = Runtime.rtl.get(res, 1);
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Dict.from({"start_pos":start_pos,"end_pos":end_pos}))));
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Map.from({"start_pos":start_pos,"end_pos":end_pos}))));
 		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".jump(") + Runtime.rtl.toStr(start_pos) + Runtime.rtl.toStr(");")));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
@@ -9126,7 +8859,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		/* Loop Assign */
 		if (op_code.expr1 instanceof Bayrell.Lang.OpCodes.OpAssign)
 		{
-			var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.operator.getClassName(), "OpAssign"), Runtime.Collection.from([op_code.expr1]));
+			var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.operator.getClassName(), "OpAssign"), Runtime.Vector.from([op_code.expr1]));
 			t = Runtime.rtl.get(res, 0);
 			var save = Runtime.rtl.get(res, 1);
 			var value = Runtime.rtl.get(res, 2);
@@ -9138,7 +8871,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		}
 		else
 		{
-			var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Collection.from([op_code.expr1]));
+			var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Vector.from([op_code.expr1]));
 			t = Runtime.rtl.get(res, 0);
 			var save = Runtime.rtl.get(res, 1);
 			var value = Runtime.rtl.get(res, 2);
@@ -9160,7 +8893,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		/* Call condition expression */
-		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Collection.from([op_code.expr2]));
+		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Vector.from([op_code.expr2]));
 		t = Runtime.rtl.get(res, 0);
 		var save = Runtime.rtl.get(res, 1);
 		var value = Runtime.rtl.get(res, 2);
@@ -9203,7 +8936,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		t = t.levelInc();
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.removeLastIm());
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), save_t.async_await.pos);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpIfBlock
@@ -9214,7 +8947,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var async_t = t.async_await.async_t;
 		var async_var = t.async_await.async_var;
 		/* Call condition expression */
-		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Collection.from([condition]));
+		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Vector.from([condition]));
 		t = Runtime.rtl.get(res, 0);
 		var save = Runtime.rtl.get(res, 1);
 		var value = Runtime.rtl.get(res, 2);
@@ -9255,7 +8988,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("else if (" + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".pos() == ") + Runtime.rtl.toStr(next_if) + Runtime.rtl.toStr(")")));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpIf
@@ -9286,7 +9019,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		t = Runtime.rtl.get(res, 0);
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		/* If else */
-		for (var i = 0;i < op_code.if_else.count();i++)
+		for (var i = 0; i < op_code.if_else.count(); i++)
 		{
 			var if_else = op_code.if_else.item(i);
 			var res = this.OpIfBlock(t, if_else.condition, if_else.if_true, end_pos);
@@ -9310,7 +9043,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), save_t.async_await.pos);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpReturn
@@ -9331,7 +9064,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		}
 		var async_t = t.async_await.async_t;
 		content = t.s("return " + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".ret(") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(");"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpTryCatch
@@ -9348,7 +9081,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var res = this.nextPos(t);
 		save_t = Runtime.rtl.get(res, 0);
 		var end_pos = Runtime.rtl.get(res, 1);
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Dict.from({"start_pos":start_pos,"end_pos":end_pos}))));
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Map.from({"start_pos":start_pos,"end_pos":end_pos}))));
 		/* Start Try Catch */
 		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".jump(") + Runtime.rtl.toStr(start_pos) + Runtime.rtl.toStr(");")));
 		t = t.levelDec();
@@ -9373,7 +9106,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		content += Runtime.rtl.toStr(t.s("var _ex = " + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".getErr();")));
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var s = "";
 			var pattern = "";
@@ -9419,7 +9152,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		t = t.levelInc();
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.removeLastIm());
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), save_t.async_await.pos);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpWhile
@@ -9436,7 +9169,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		var res = this.popPos(t);
 		save_t = Runtime.rtl.get(res, 0);
 		var end_pos = Runtime.rtl.get(res, 1);
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Dict.from({"start_pos":start_pos,"end_pos":end_pos}))));
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.pushIm(new Bayrell.Lang.LangES6.AsyncAwait(Runtime.Map.from({"start_pos":start_pos,"end_pos":end_pos}))));
 		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(async_t) + Runtime.rtl.toStr(".jump(") + Runtime.rtl.toStr(start_pos) + Runtime.rtl.toStr(");")));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
@@ -9445,7 +9178,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		/* Call condition expression */
-		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Collection.from([op_code.condition]));
+		var res = t.constructor.saveOpCodeCall(t, Runtime.rtl.method(t.expression.getClassName(), "Expression"), Runtime.Vector.from([op_code.condition]));
 		t = Runtime.rtl.get(res, 0);
 		var save = Runtime.rtl.get(res, 1);
 		var value = Runtime.rtl.get(res, 2);
@@ -9485,7 +9218,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		t = t.levelInc();
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "async_stack"]), t.async_await.async_stack.removeLastIm());
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["async_await", "pos"]), save_t.async_await.pos);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction Body
@@ -9552,7 +9285,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_vars"]), save_vars);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-		return Runtime.Collection.from([save_t,content]);
+		return Runtime.Vector.from([save_t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -9569,10 +9302,10 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -9583,32 +9316,32 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 		a.push("pos");
 		a.push("async_t");
 		a.push("async_var");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "async_stack") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "async_stack") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.LangES6.AsyncAwait"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pos") return Dict.from({
+		if (field_name == "pos") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["int"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "async_t") return Dict.from({
+		if (field_name == "async_t") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "async_var") return Dict.from({
+		if (field_name == "async_var") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -9631,7 +9364,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6AsyncAwait,
 			"OpWhile",
 			"OpDeclareFunctionBody",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -9791,7 +9524,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 	{
 		var names = this.findModuleNames(t, op_code.entity_name.names);
 		var s = Runtime.rs.join(".", names);
-		return Runtime.Collection.from([t,s]);
+		return Runtime.Vector.from([t,s]);
 	},
 	/**
 	 * OpIdentifier
@@ -9802,36 +9535,36 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		{
 			if (t.enable_context == false)
 			{
-				return Runtime.Collection.from([t,this.useModuleName(t, "rtl") + Runtime.rtl.toStr(".getContext()")]);
+				return Runtime.Vector.from([t,this.useModuleName(t, "rtl") + Runtime.rtl.toStr(".getContext()")]);
 			}
 			else
 			{
-				return Runtime.Collection.from([t,"ctx"]);
+				return Runtime.Vector.from([t,"ctx"]);
 			}
 		}
 		if (op_code.value == "_")
 		{
 			if (t.enable_context == false)
 			{
-				return Runtime.Collection.from([t,this.useModuleName(t, "rtl") + Runtime.rtl.toStr(".getContext().translate")]);
+				return Runtime.Vector.from([t,this.useModuleName(t, "rtl") + Runtime.rtl.toStr(".getContext().translate")]);
 			}
 			else
 			{
-				return Runtime.Collection.from([t,"ctx.translate"]);
+				return Runtime.Vector.from([t,"ctx.translate"]);
 			}
 		}
 		if (op_code.value == "log")
 		{
-			return Runtime.Collection.from([t,"console.log"]);
+			return Runtime.Vector.from([t,"console.log"]);
 		}
 		if (t.modules.has(op_code.value) || op_code.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE)
 		{
 			var module_name = op_code.value;
 			var new_module_name = this.useModuleName(t, module_name);
-			return Runtime.Collection.from([t,new_module_name]);
+			return Runtime.Vector.from([t,new_module_name]);
 		}
 		var content = op_code.value;
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpNumber
@@ -9844,14 +9577,14 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			content = "-" + Runtime.rtl.toStr(content);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 15);
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpString
 	 */
 	OpString: function(t, op_code)
 	{
-		return Runtime.Collection.from([t,this.toString(op_code.value)]);
+		return Runtime.Vector.from([t,this.toString(op_code.value)]);
 	},
 	/**
 	 * OpCollection
@@ -9870,9 +9603,9 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		{
 			return s != "";
 		});
-		var module_name = this.useModuleName(t, "Collection");
+		var module_name = this.useModuleName(t, "Vector");
 		content = module_name + Runtime.rtl.toStr(".from([") + Runtime.rtl.toStr(Runtime.rs.join(",", values)) + Runtime.rtl.toStr("])");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDict
@@ -9895,9 +9628,9 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		{
 			return s != "";
 		});
-		var module_name = this.useModuleName(t, "Dict");
+		var module_name = this.useModuleName(t, "Map");
 		content = module_name + Runtime.rtl.toStr(".from({") + Runtime.rtl.toStr(Runtime.rs.join(",", values)) + Runtime.rtl.toStr("})");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Dynamic
@@ -9963,7 +9696,21 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 				{
 					if (op_code_first.value == "static")
 					{
-						s = "this" + Runtime.rtl.toStr(((!t.is_static_function) ? (".constructor") : ("")));
+						if (!t.is_static_function)
+						{
+							if (!t.is_html)
+							{
+								s = "this.constructor";
+							}
+							else
+							{
+								s = "this.$options";
+							}
+						}
+						else
+						{
+							s = "this";
+						}
 						prev_kind = "static";
 					}
 					else if (op_code_first.value == "parent")
@@ -10002,13 +9749,13 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			first_item = s;
 			if (first_item_complex && t.is_pipe)
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":first_item}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":first_item}));
 				t = Runtime.rtl.get(res, 0);
 				first_item = Runtime.rtl.get(res, 1);
 				s = first_item;
 			}
 			var attrs_sz = attrs.count();
-			for (var i = 0;i < attrs_sz;i++)
+			for (var i = 0; i < attrs_sz; i++)
 			{
 				var attr = attrs.item(i);
 				if (attr.kind == Bayrell.Lang.OpCodes.OpAttr.KIND_ATTR)
@@ -10075,7 +9822,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 					var items = new Runtime.Vector();
 					if (attr.attrs != null)
 					{
-						for (var j = 0;j < attr.attrs.count();j++)
+						for (var j = 0; j < attr.attrs.count(); j++)
 						{
 							var res = this.Expression(t, Runtime.rtl.get(attr.attrs, j));
 							t = Runtime.rtl.get(res, 0);
@@ -10085,23 +9832,23 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 					s = "Runtime.rtl.attr(" + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(", [") + Runtime.rtl.toStr(Runtime.rs.join(", ", items)) + Runtime.rtl.toStr("])");
 				}
 			}
-			return Runtime.Collection.from([t,s]);
+			return Runtime.Vector.from([t,s]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpCurry)
 		{
 			var res = this.OpCurry(t, op_code);
 			t = Runtime.rtl.get(res, 0);
 			var content = Runtime.rtl.get(res, 1);
-			var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":content}));
+			var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":content}));
 			t = Runtime.rtl.get(res, 0);
 			var var_name = Runtime.rtl.get(res, 1);
-			return Runtime.Collection.from([t,var_name]);
+			return Runtime.Vector.from([t,var_name]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpCall)
 		{
 			return this.OpCall(t, op_code);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * OpInc
@@ -10128,7 +9875,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		{
 			content = s + Runtime.rtl.toStr("--");
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpMath
@@ -10325,7 +10072,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			}
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), opcode_level);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpMethod
@@ -10371,7 +10118,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		}
 		content = val1 + Runtime.rtl.toStr(".") + Runtime.rtl.toStr(val2) + Runtime.rtl.toStr(".bind(") + Runtime.rtl.toStr(val1) + Runtime.rtl.toStr(")");
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 0);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpNew
@@ -10389,7 +10136,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			content += Runtime.rtl.toStr("ctx");
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = t.expression.constructor.Expression(t, item);
@@ -10399,7 +10146,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpCurry
@@ -10416,7 +10163,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			return (arg1.pos > arg2.pos) ? (1) : ((arg1.pos < arg2.pos) ? (-1) : (0));
 		});
 		var args_sz = args.count();
-		for (var i = 0;i < args_sz;i++)
+		for (var i = 0; i < args_sz; i++)
 		{
 			var arg = args.item(i);
 			if (args_sz - 1 == i)
@@ -10454,7 +10201,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			content += Runtime.rtl.toStr("(ctx");
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			s = "";
 			var item = op_code.args.item(i);
@@ -10472,7 +10219,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpCall
@@ -10506,22 +10253,28 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			s += Runtime.rtl.toStr("(");
 		}
 		var content = s;
-		if (op_code.obj instanceof Bayrell.Lang.OpCodes.OpIdentifier && op_code.obj.value == "_")
+		if (t.enable_context)
 		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("ctx"));
-			flag = true;
+			if (op_code.obj instanceof Bayrell.Lang.OpCodes.OpIdentifier && op_code.obj.value == "_")
+			{
+				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("ctx"));
+				flag = true;
+			}
+			else if ((t.current_function == null || t.current_function.is_context) && op_code.is_context)
+			{
+				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("ctx"));
+				flag = true;
+			}
 		}
-		else if (t.current_function.is_context && op_code.is_context)
-		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("ctx"));
-			flag = true;
-		}
+		/*
 		if (op_code.is_html)
 		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("component, render_params, render_content"));
+			content ~= (flag ? ", " : "") ~
+				"component, render_params, render_content";
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		*/
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = t.expression.constructor.Expression(t, item);
@@ -10531,11 +10284,11 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		if (t.current_function.isFlag("async") && op_code.is_await && t.isAsyncAwait())
+		if (t.current_function != null && t.current_function.isFlag("async") && op_code.is_await && t.isAsyncAwait())
 		{
 			content = "await " + Runtime.rtl.toStr(content);
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassOf
@@ -10544,7 +10297,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 	{
 		var names = this.findModuleNames(t, op_code.entity_name.names);
 		var s = Runtime.rs.join(".", names);
-		return Runtime.Collection.from([t,this.toString(s)]);
+		return Runtime.Vector.from([t,this.toString(s)]);
 	},
 	/**
 	 * OpTernary
@@ -10565,7 +10318,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		content += Runtime.rtl.toStr("(" + Runtime.rtl.toStr(condition) + Runtime.rtl.toStr(") ? (") + Runtime.rtl.toStr(if_true) + Runtime.rtl.toStr(") : (") + Runtime.rtl.toStr(if_false) + Runtime.rtl.toStr(")"));
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 0);
 		/* OpTernary */
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpPipe
@@ -10580,7 +10333,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		var monad_name = "Runtime.Monad";
 		if (t.use_module_name)
 		{
-			var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":this.useModuleName(t, "Runtime.Monad")}));
+			var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":this.useModuleName(t, "Runtime.Monad")}));
 			t = Runtime.rtl.get(res, 0);
 			monad_name = Runtime.rtl.get(res, 1);
 		}
@@ -10600,15 +10353,14 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		var res = t.expression.constructor.Expression(t, op_code_item);
 		t = Runtime.rtl.get(res, 0);
 		value = Runtime.rtl.get(res, 1);
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s("var " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(" = new ") + Runtime.rtl.toStr(monad_name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(");"))}));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s("var " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(" = new ") + Runtime.rtl.toStr(monad_name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(");"))}));
 		t = Runtime.rtl.get(res, 0);
 		/* Output items */
-		for (var i = 0;i < items.count();i++)
+		for (var i = 0; i < items.count(); i++)
 		{
 			var s1 = "";
 			var s2 = "";
 			var op_item = items.item(i);
-			var args = new Runtime.Vector();
 			if (op_item.kind == Bayrell.Lang.OpCodes.OpPipe.KIND_ATTR)
 			{
 				var res = this.Expression(t, op_item.value);
@@ -10618,57 +10370,34 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			}
 			else if (op_item.kind == Bayrell.Lang.OpCodes.OpPipe.KIND_METHOD)
 			{
-				var res = this.Dynamic(t, op_item.value);
-				t = Runtime.rtl.get(res, 0);
-				value = Runtime.rtl.get(res, 1);
-				s2 = "try{ ";
-				s2 += Runtime.rtl.toStr(var_name + Runtime.rtl.toStr("=(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".val!=null && ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".err==null) ? new ") + Runtime.rtl.toStr(monad_name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(") : ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(";"));
-				s2 += Runtime.rtl.toStr(" } catch (err) { ");
-				s2 += Runtime.rtl.toStr(var_name + Runtime.rtl.toStr("=new ") + Runtime.rtl.toStr(monad_name) + Runtime.rtl.toStr("(null, err);"));
-				s2 += Runtime.rtl.toStr(" }");
+				var value = op_item.value.obj.value.value;
+				var args = "";
+				var flag = false;
+				for (var j = 0; j < op_item.value.args.count(); j++)
+				{
+					var item = op_item.value.args.item(j);
+					var res = t.expression.constructor.Expression(t, item);
+					t = Runtime.rtl.get(res, 0);
+					var s = Runtime.rtl.get(res, 1);
+					args += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr(s));
+					flag = true;
+				}
+				if (!op_item.is_async || !t.enable_async_await || !t.current_function.isFlag("async"))
+				{
+					s1 = var_name + Runtime.rtl.toStr(".callMethod(\"") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr("\", [") + Runtime.rtl.toStr(args) + Runtime.rtl.toStr("])");
+				}
+				else
+				{
+					s1 = "await " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".callMethodAsync(\"") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr("\", [") + Runtime.rtl.toStr(args) + Runtime.rtl.toStr("])");
+				}
 			}
 			else if (op_item.kind == Bayrell.Lang.OpCodes.OpPipe.KIND_CALL)
 			{
 				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), true);
-				var args = "";
-				/*
-				bool is_instance_method = false;
-				if (
-					op_item.value instanceof OpCall and
-					op_item.value.obj instanceof OpAttr and
-					op_item.value.obj.kind == OpAttr::KIND_ATTR and
-					op_item.value.obj.obj.value == ""
-				)
-				{
-					string value1 = "";
-					is_instance_method = true;
-					if (op_item.value.obj.obj.value == "")
-					{
-						value1 = t.pipe_var_name ~ ".val";
-					}
-					else
-					{
-						list res = static::Expression(t, op_item.value.obj.obj);
-						t = res[0]; value1 = res[1];
-					}
-					value = value1;
-					value ~= "." ~ op_item.value.obj.value.value;
-					value ~= ".bind(" ~ value1 ~ ")";
-					bool flag = false;
-					for (int j=0; j<op_item.value.args.count(); j++)
-					{
-						BaseOpCode item = op_item.value.args.item(j);
-						list res = t.expression::Expression(t, item); t = res[0]; string s_arg = res[1];
-						args ~= (flag ? ", " : "") ~ s_arg;
-						flag = true;
-					}
-					args = ", [" ~ args ~ "]";
-				}
-				*/
 				var res = this.Dynamic(t, op_item.value);
 				t = Runtime.rtl.get(res, 0);
 				value = Runtime.rtl.get(res, 1);
-				if (!op_item.is_async || !t.enable_async_await)
+				if (!op_item.is_async || !t.enable_async_await || !t.current_function.isFlag("async"))
 				{
 					if (op_item.is_monad)
 					{
@@ -10676,78 +10405,34 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 					}
 					else
 					{
-						s1 = var_name + Runtime.rtl.toStr(".call(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")");
+						s1 = var_name + Runtime.rtl.toStr(".call(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
 					}
 				}
-				else if (op_item.is_async && t.current_function.isFlag("async"))
+				else
 				{
-					if (t.isEmulateAsyncAwait())
+					if (op_item.is_monad)
 					{
-						if (op_item.is_monad)
-						{
-							s2 = var_name + Runtime.rtl.toStr(".monadAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-						}
-						else
-						{
-							s2 = var_name + Runtime.rtl.toStr(".callAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")");
-						}
+						s1 = "await " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".monadAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
 					}
-					else if (t.isAsyncAwait())
+					else
 					{
-						if (op_item.is_monad)
-						{
-							s1 = "await " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".monadAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-						}
-						else
-						{
-							s1 = "await " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".callAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")");
-						}
+						s1 = "await " + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".callAsync(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
 					}
 				}
 				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), false);
 			}
 			if (s1 != "")
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s(var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"))}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s(var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"))}));
 				t = Runtime.rtl.get(res, 0);
 			}
 			if (s2 != "")
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s(s2)}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s(s2)}));
 				t = Runtime.rtl.get(res, 0);
 			}
-			/*
-			if (s2 != "")
-			{
-				list res = t.async_await::nextPos(t); t = res[0]; string next_pos = res[1];
-				string async_t = t.async_await.async_t;
-				string s3 = t.s
-				(
-					"return " ~ async_t ~
-					".jump(" ~ next_pos ~ ")" ~
-					".call(" ~ s2 ~ "," ~ t.expression::toString(var_name) ~ ");"
-				);
-				t = t.levelDec();
-				s3 ~= t.s("}");
-				s3 ~= t.s("else if (" ~ async_t ~ ".pos() == " ~ next_pos ~ ")");
-				s3 ~= t.s("{");
-				t = t.levelInc();
-				s3 ~= t.s(
-					"var " ~ var_name ~ " = " ~ async_t ~ 
-					".getVar(" ~ t.expression::toString(var_name) ~ ");"
-				);
-				list res = t::addSaveOpCode
-				(
-					t,
-					{
-						"content": s3,
-					}
-				);
-				t = res[0];
-			}
-			*/
 		}
-		return Runtime.Collection.from([t,var_name + Runtime.rtl.toStr(".value()")]);
+		return Runtime.Vector.from([t,var_name + Runtime.rtl.toStr(".value()")]);
 	},
 	/**
 	 * OpTypeConvert
@@ -10759,7 +10444,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		t = Runtime.rtl.get(res, 0);
 		var value = Runtime.rtl.get(res, 1);
 		content = this.useModuleName(t, "rtl") + Runtime.rtl.toStr(".to(") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(this.toPattern(t, op_code.pattern)) + Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction
@@ -10783,7 +10468,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		/* Restore function */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_function"]), save_f);
 		/* OpTernary */
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Expression
@@ -10906,7 +10591,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlItems)
 		{
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), true);
-			var res = t.html.constructor.OpHtmlItems(t, op_code);
+			var res = t.html.constructor.OpHtmlExpression(t, op_code);
 			t = Runtime.rtl.get(res, 0);
 			content = Runtime.rtl.get(res, 1);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), false);
@@ -10918,7 +10603,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			content = Runtime.rtl.get(res, 1);
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), save_is_pipe);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -10935,22 +10620,22 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -10982,7 +10667,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Expression,
 			"OpDeclareFunction",
 			"Expression",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -11018,19 +10703,6 @@ Bayrell.Lang.LangES6.TranslatorES6Html = function()
 };
 Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangES6.TranslatorES6Html)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 {
@@ -11053,9 +10725,9 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 	OpHtmlAttr: function(t, attr, item_pos)
 	{
 		var op_code = attr.value;
-		if (attr instanceof Bayrell.Lang.OpCodes.OpString)
+		if (op_code instanceof Bayrell.Lang.OpCodes.OpString)
 		{
-			return Runtime.Collection.from([t,t.expression.constructor.toString(op_code.value)]);
+			return Runtime.Vector.from([t,t.expression.constructor.toString(op_code.value)]);
 		}
 		if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
 		{
@@ -11064,7 +10736,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 				var res = t.expression.constructor.Expression(t, op_code.value);
 				t = Runtime.rtl.get(res, 0);
 				var value = Runtime.rtl.get(res, 1);
-				return Runtime.Collection.from([t,value]);
+				return Runtime.Vector.from([t,value]);
 			}
 			else if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
 			{
@@ -11072,19 +10744,19 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 				t = Runtime.rtl.get(res, 0);
 				var value = Runtime.rtl.get(res, 1);
 				value = "Runtime.rtl.json_encode(" + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-				return Runtime.Collection.from([t,value]);
+				return Runtime.Vector.from([t,value]);
 			}
 		}
 		var res = t.expression.constructor.Expression(t, op_code);
 		t = Runtime.rtl.get(res, 0);
 		var value = Runtime.rtl.get(res, 1);
 		value = t.o(value, Runtime.rtl.get(res, 0).opcode_level, 13);
-		return Runtime.Collection.from([t,value]);
+		return Runtime.Vector.from([t,value]);
 	},
 	/**
 	 * Translator html template
 	 */
-	OpHtmlAttrs: function(t, attrs, item_pos)
+	OpHtmlAttrs: function(t, attrs)
 	{
 		var attr_class = new Runtime.Vector();
 		var attr_s = "null";
@@ -11092,7 +10764,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 		var attr_elem_name = "";
 		var has_attr_key = false;
 		var res_attrs = new Runtime.Vector();
-		for (var attrs_i = 0;attrs_i < attrs.count();attrs_i++)
+		for (var attrs_i = 0; attrs_i < attrs.count(); attrs_i++)
 		{
 			var attr = Runtime.rtl.get(attrs, attrs_i);
 			if (attr.is_spread)
@@ -11144,25 +10816,32 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 				{
 					attr_key = "@signal:" + Runtime.rtl.toStr(event_name);
 				}
-				if (attr.value instanceof Bayrell.Lang.OpCodes.OpString)
-				{
-					attr_value = "[component," + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr("]");
-				}
-				else
-				{
-					attr_value = "[component,(msg)=>{" + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr("}]");
-				}
 			}
-			else if (attr_key == "@ref" || attr_key == "@bind" || attr_key == "@model" || attr_key == "@name" || attr_key == "@watch")
+			else if (attr_key == "@global")
 			{
-				/*res_attrs.push
-				(
-					t.expression::toString("@model_path") ~
-						": this._concat_attrs(params, \"@model_path\", " ~
-						attr_value ~ ")"
-				);*/
-				attr_value = "[component," + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr("]");
+				attr_key = "model_path";
 			}
+			else if (attr_key == "@model")
+			{
+				attr_key = "model_path";
+				attr_value = "this.model_path.concat(" + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr(")");
+			}
+			else if (attr_key == "@ref")
+			{
+				attr_key = "ref";
+			}
+			/*
+			else if (attr_key == "@ref" or attr_key == "@bind" or attr_key == "@model" or
+				attr_key == "@name" or attr_key == "@watch")
+			{
+				attr_value = "[component," ~ attr_value ~ "]";
+			}
+			else if (attr_key == "@global")
+			{
+				attr_key = "@model";
+				attr_value = "[null," ~ attr_value ~ "]";
+			}
+			*/
 			res_attrs.pushValue(t.expression.constructor.toString(attr_key) + Runtime.rtl.toStr(":") + Runtime.rtl.toStr(attr_value));
 		}
 		res_attrs = res_attrs.filter((s) => 
@@ -11171,17 +10850,15 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 		});
 		if (attr_class.count() > 0)
 		{
-			attr_class.pushValue("this.getCssHash()");
-			/*attr_class.push( t.expression::toString("h-" ~ ParserBayHtml::getCssHash(t.current_class_full_name)) );*/
-			res_attrs.pushValue("\"class\":" + Runtime.rtl.toStr("[") + Runtime.rtl.toStr(Runtime.rs.join(", ", attr_class)) + Runtime.rtl.toStr("].join(\" \")"));
+			res_attrs.pushValue("\"class\":" + Runtime.rtl.toStr("this.$options._class_name([") + Runtime.rtl.toStr(attr_class) + Runtime.rtl.toStr("])"));
 		}
 		if (attr_key_value != "")
 		{
-			res_attrs.pushValue("\"@key\":" + Runtime.rtl.toStr(attr_key_value));
+			res_attrs.pushValue("\"key\":" + Runtime.rtl.toStr(attr_key_value));
 		}
 		if (attr_elem_name != "")
 		{
-			res_attrs.pushValue("\"@elem_name\":" + Runtime.rtl.toStr(attr_elem_name));
+			res_attrs.pushValue("\"key\":" + Runtime.rtl.toStr(attr_elem_name));
 		}
 		if (res_attrs.count() > 0)
 		{
@@ -11192,16 +10869,16 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			attr_s = "{}";
 		}
 		/* Add spreads */
-		for (var i = 0;i < attrs.count();i++)
+		for (var i = 0; i < attrs.count(); i++)
 		{
 			var attr = Runtime.rtl.get(attrs, i);
 			if (!attr.is_spread)
 			{
 				continue;
 			}
-			attr_s = "this._merge_attrs(" + Runtime.rtl.toStr(attr_s) + Runtime.rtl.toStr(",") + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr(")");
+			attr_s = "this.$options._merge_attrs(" + Runtime.rtl.toStr(attr_s) + Runtime.rtl.toStr(",") + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr(")");
 		}
-		return Runtime.Collection.from([t,attr_s]);
+		return Runtime.Vector.from([t,attr_s]);
 	},
 	/**
 	 * Returns class name
@@ -11211,7 +10888,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 		var class_names = new Runtime.Vector();
 		if (attrs != "")
 		{
-			for (var attrs_i = 0;attrs_i < attrs.count();attrs_i++)
+			for (var attrs_i = 0; attrs_i < attrs.count(); attrs_i++)
 			{
 				var attr = Runtime.rtl.get(attrs, attrs_i);
 				var attr_key = attr.key;
@@ -11229,20 +10906,16 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 	/**
 	 * Translator html template
 	 */
-	OpHtmlTag: function(t, op_code, item_pos, var_name)
+	OpHtmlTag: function(t, op_code, var_name)
 	{
 		var content = "";
 		var content2 = "";
 		var str_var_name = t.expression.constructor.toString(var_name);
-		var new_var_name = "";
-		var res = t.constructor.incSaveOpCode(t);
-		t = Runtime.rtl.get(res, 0);
-		new_var_name = Runtime.rtl.get(res, 1);
 		if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlContent)
 		{
 			var item_value = t.expression.constructor.toString(op_code.value);
 			content += Runtime.rtl.toStr(t.s("/* Text */"));
-			content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"t\", \"\", null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+			content += Runtime.rtl.toStr(t.s("Vue.e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
 		{
@@ -11264,35 +10937,32 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW)
 			{
 				content += Runtime.rtl.toStr(t.s("/* Raw */"));
-				content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"r\", \"\", null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
-			}
-			else if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_HTML)
-			{
-				content += Runtime.rtl.toStr(t.s("/* Html */"));
-				content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"h\", \"\", null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+				content += Runtime.rtl.toStr(t.s("Vue.e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr("new Runtime.RawString(") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr("));")));
 			}
 			else if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
 			{
 				content += Runtime.rtl.toStr(t.s("/* Text */"));
 				item_value = "Runtime.rtl.json_encode(" + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
-				content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"t\", \"\", null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+				content += Runtime.rtl.toStr(t.s("Vue.e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
 			}
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlTag)
 		{
+			var new_var_name = "";
+			var res = t.constructor.incSaveOpCode(t);
+			t = Runtime.rtl.get(res, 0);
+			new_var_name = Runtime.rtl.get(res, 1);
 			var has_childs = op_code.items != null && op_code.items.items != null && op_code.items.items.count() > 0;
 			var is_component = this.isComponent(op_code.tag_name);
 			var op_code_attrs = op_code.attrs.filter((attr) => 
 			{
 				return attr.key != "@render";
 			});
-			var res = this.OpHtmlAttrs(t, op_code_attrs, item_pos);
+			var res = this.OpHtmlAttrs(t, op_code_attrs);
 			t = Runtime.rtl.get(res, 0);
 			var attrs = Runtime.rtl.get(res, 1);
 			if (op_code.tag_name == "")
 			{
-				content += Runtime.rtl.toStr(t.s("/* Items */"));
-				content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"empty\");")));
 			}
 			else if (is_component)
 			{
@@ -11309,78 +10979,30 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 				}
 				if (has_childs)
 				{
-					var res = this.OpHtmlItems(t, op_code.items);
+					var res = this.OpHtmlItemsAsFunction(t, op_code.items);
 					t = Runtime.rtl.get(res, 0);
 					var f = Runtime.rtl.get(res, 1);
 					content += Runtime.rtl.toStr(t.s("/* Component '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
-					content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"c\",") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(f) + Runtime.rtl.toStr(");")));
+					content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("Vue.e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(f) + Runtime.rtl.toStr(");")));
 					has_childs = false;
 				}
 				else
 				{
 					content += Runtime.rtl.toStr(t.s("/* Component '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
-					content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"c\", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
+					content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("Vue.e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
 				}
 			}
 			else
 			{
-				var render_attr = op_code.attrs.findItem((attr) => 
-				{
-					return attr.key == "@render";
-				});
-				if (render_attr)
-				{
-					var render_attrs = "";
-					if (render_attr && render_attr.value instanceof Bayrell.Lang.OpCodes.OpString)
-					{
-						var render_attr_value = render_attr.value.value;
-						render_attr_value = t.expression.constructor.toString(render_attr_value);
-						render_attrs = "{\"@ref\":[component," + Runtime.rtl.toStr(render_attr_value) + Runtime.rtl.toStr("]}");
-					}
-					var new_op_code = op_code.copy(Runtime.Dict.from({"attrs":op_code_attrs}));
-					var op_code_html_items = new Bayrell.Lang.OpCodes.OpHtmlItems(Runtime.Dict.from({"items":Runtime.Collection.from([new_op_code])}));
-					var res = this.OpHtmlItems(t, op_code_html_items);
-					t = Runtime.rtl.get(res, 0);
-					var f = Runtime.rtl.get(res, 1);
-					content += Runtime.rtl.toStr(t.s("/* Render function '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
-					content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"f\", \"\", ") + Runtime.rtl.toStr(render_attrs) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(f) + Runtime.rtl.toStr(");")));
-					var res = t.constructor.incSaveOpCode(t);
-					t = Runtime.rtl.get(res, 0);
-					new_var_name = Runtime.rtl.get(res, 1);
-					has_childs = false;
-				}
-				else
-				{
-					var tag_name = t.expression.constructor.toString(op_code.tag_name);
-					var attr_class_name = this.getOpHtmlAttrsClassName(op_code_attrs);
-					attr_class_name = Runtime.rs.replace(" ", ".", attr_class_name);
-					if (attr_class_name != "")
-					{
-						attr_class_name = "." + Runtime.rtl.toStr(attr_class_name);
-					}
-					content += Runtime.rtl.toStr(t.s("/* Element '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr(attr_class_name) + Runtime.rtl.toStr("' */")));
-					if (op_code.tag_name == "svg")
-					{
-						var __v0 = new Runtime.Monad(Runtime.rtl.attr(op_code, ["items", "items", 0, "value", "value"]));
-						__v0 = __v0.monad(Runtime.rtl.m_to("string", ""));
-						var svg_content = __v0.value();
-						svg_content = t.expression.constructor.toString(svg_content);
-						content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"e\", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
-						has_childs = false;
-					}
-					else
-					{
-						content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"e\", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
-					}
-				}
+				content += Runtime.rtl.toStr(t.s("/* Element '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
+				var tag_name = t.expression.constructor.toString(op_code.tag_name);
+				content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("Vue.e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
 			}
 			if (has_childs)
 			{
-				content += Runtime.rtl.toStr(t.s2(""));
-				var res = this.OpHtmlChilds(t, op_code.items, new_var_name);
+				var res = this.OpHtmlItems(t, op_code.items, new_var_name, true);
 				t = Runtime.rtl.get(res, 0);
 				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-				content += Runtime.rtl.toStr(t.s(new_var_name + Runtime.rtl.toStr(".p();")));
 			}
 		}
 		else
@@ -11411,31 +11033,73 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			/*t <= save_op_code_inc <= save_op_code_inc;*/
 			content += Runtime.rtl.toStr(t.s("/* Text */"));
-			content += Runtime.rtl.toStr(t.s("let " + Runtime.rtl.toStr(new_var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(".e(\"t\", \"\", null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+			content += Runtime.rtl.toStr(t.s("Vue.e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Translator html items
 	 */
-	OpHtmlChilds: function(t, op_code, control_name)
+	OpHtmlExpression: function(t, op_code)
 	{
+		var content = "";
+		content += Runtime.rtl.toStr(t.s("let __v = [];"));
+		var res = this.OpHtmlItems(t, op_code, "__v", true);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		content += Runtime.rtl.toStr(t.s2(""));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":content}));
+		t = Runtime.rtl.get(res, 0);
+		return Runtime.Vector.from([t,"this.$options._flatten(__v)"]);
+	},
+	/**
+	 * Translator html items as function
+	 */
+	OpHtmlItemsAsFunction: function(t, op_code)
+	{
+		var save_op_codes = t.save_op_codes;
+		var save_op_code_inc = t.save_op_code_inc;
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), 0);
+		var content = "() => {";
+		t = t.levelInc();
+		var res = this.OpHtmlExpression(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		/* Output save op code */
+		var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
+		if (save != "")
+		{
+			content += Runtime.rtl.toStr(save);
+		}
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(";")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("}"));
+		/* Restore save op codes */
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Translator html items
+	 */
+	OpHtmlItems: function(t, op_code, var_name, first_space)
+	{
+		if (var_name == undefined) var_name = "";
+		if (first_space == undefined) first_space = false;
 		if (op_code == null || op_code.items.count() == 0)
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
-		var save_control_name = t.html_var_name;
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), control_name);
-		var next_space = true;
+		var save_var_name = t.html_var_name;
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), var_name);
 		var content = "";
-		for (var i = 0;i < op_code.items.count();i++)
+		var next_space = true;
+		var add_space = (i) => 
 		{
-			var item = op_code.items.item(i);
-			/* Save op codes */
-			var save_op_codes = t.save_op_codes;
-			/*int save_op_code_inc = t.save_op_code_inc;*/
-			var op_content = "";
 			if (i > 0 && next_space)
+			{
+				content += Runtime.rtl.toStr(t.s2(""));
+			}
+			if (i == 0 && first_space)
 			{
 				content += Runtime.rtl.toStr(t.s2(""));
 			}
@@ -11443,6 +11107,14 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			{
 				next_space = true;
 			}
+		};
+		for (var i = 0; i < op_code.items.count(); i++)
+		{
+			var item = op_code.items.item(i);
+			/* Save op codes */
+			var save_op_codes = t.save_op_codes;
+			/*int save_op_code_inc = t.save_op_code_inc;*/
+			var op_content = "";
 			if (item instanceof Bayrell.Lang.OpCodes.OpAssign)
 			{
 				var res = t.operator.constructor.OpAssign(t, item);
@@ -11451,6 +11123,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpComment)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpComment(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
@@ -11458,25 +11131,29 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpFor)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpFor(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpIf)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpIf(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpWhile)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpWhile(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			else
 			{
-				var res = this.OpHtmlTag(t, item, i, control_name);
+				add_space(i);
+				var res = this.OpHtmlTag(t, item, var_name);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
@@ -11495,60 +11172,13 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			/*t <= save_op_code_inc <= save_op_code_inc;*/
 		}
 		/*
-		if (control_name != "control" and patch_flag)
+		if (var_name != "control" and patch_flag)
 		{
-			content ~= t.s("RenderDriver.p(" ~ control_name ~ ", " ~ control_name ~ "_childs);");
+			content ~= t.s("RenderDriver.p(" ~ var_name ~ ", " ~ var_name ~ "_childs);");
 		}
 		*/
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), save_control_name);
-		return Runtime.Collection.from([t,content]);
-	},
-	/**
-	 * Translator html items
-	 */
-	OpHtmlItems: function(t, op_code)
-	{
-		if (op_code == null || op_code.items.count() == 0)
-		{
-			return Runtime.Collection.from([t,""]);
-		}
-		/* Save op codes */
-		var save_t = t;
-		var save_op_codes = t.save_op_codes;
-		/*int save_op_code_inc = t.save_op_code_inc;*/
-		var content = "";
-		content += Runtime.rtl.toStr("(__v) =>");
-		content += Runtime.rtl.toStr(t.s("{"));
-		t = t.levelInc();
-		content += Runtime.rtl.toStr(t.s("let layout = component.layout();"));
-		content += Runtime.rtl.toStr(t.s("let model_path = component.model_path;"));
-		content += Runtime.rtl.toStr(t.s("let model = component.model();"));
-		/* content ~= t.s("var __vnull = null;"); */
-		/* content ~= t.s("var __c_childs = [];"); */
-		content += Runtime.rtl.toStr(t.s2(""));
-		var res = this.OpHtmlChilds(t, op_code, "__v");
-		t = Runtime.rtl.get(res, 0);
-		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		/*content ~= t.s("RenderDriver.p(__c, __c_childs);");*/
-		/* content ~= t.s2(""); */
-		/* content ~= t.s("return __c_childs;"); */
-		t = t.levelDec();
-		content += Runtime.rtl.toStr(t.s("}"));
-		/* Restore save op codes */
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
-		/*t <= save_op_code_inc <= save_op_code_inc;*/
-		return Runtime.Collection.from([t,content]);
-	},
-	/**
-	 * Translate html
-	 */
-	OpHtml: function(t, op_code)
-	{
-		var content = "";
-		var res = this.OpHtmlItems(t, op_code);
-		t = Runtime.rtl.get(res, 0);
-		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		return Runtime.Collection.from([t,content]);
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), save_var_name);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -11565,22 +11195,22 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -11591,11 +11221,11 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Html,
 			"OpHtmlAttrs",
 			"getOpHtmlAttrsClassName",
 			"OpHtmlTag",
-			"OpHtmlChilds",
+			"OpHtmlExpression",
+			"OpHtmlItemsAsFunction",
 			"OpHtmlItems",
-			"OpHtml",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -11660,7 +11290,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		{
 			if (op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_ASSIGN || op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
 			{
-				for (var i = 0;i < op_code.values.count();i++)
+				for (var i = 0; i < op_code.values.count(); i++)
 				{
 					var item = op_code.values.item(i);
 					var flag = this.isAwait(item.expression);
@@ -11752,7 +11382,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 				Runtime.rtl._memorizeSave("Bayrell.Lang.LangES6.TranslatorES6Operator.isAwait", arguments, __memorize_value);
 				return __memorize_value;
 			}
-			for (var i = 0;i < op_code.if_else.count();i++)
+			for (var i = 0; i < op_code.if_else.count(); i++)
 			{
 				var if_else = op_code.if_else.item(i);
 				flag = this.isAwait(if_else.condition);
@@ -11773,7 +11403,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpItems)
 		{
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var flag = this.isAwait(item);
@@ -11848,7 +11478,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			return t.expression.constructor.toString(item);
 		});
 		content = "Runtime.rtl.setAttr(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", Runtime.Collection.from([") + Runtime.rtl.toStr(Runtime.rs.join(", ", names)) + Runtime.rtl.toStr("]), ") + Runtime.rtl.toStr(expr) + Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpAssign
@@ -11859,7 +11489,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		var content = "";
 		if (op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_ASSIGN || op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
 		{
-			for (var i = 0;i < op_code.values.count();i++)
+			for (var i = 0; i < op_code.values.count(); i++)
 			{
 				var item = op_code.values.item(i);
 				var s = "";
@@ -11896,7 +11526,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 					var res = t.expression.constructor.OpIdentifier(t, op_code_next);
 					t = Runtime.rtl.get(res, 0);
 					var obj_s = Runtime.rtl.get(res, 1);
-					for (var j = 0;j < items.count();j++)
+					for (var j = 0; j < items.count(); j++)
 					{
 						var item_attr = Runtime.rtl.get(items, j);
 						if (item_attr.kind == Bayrell.Lang.OpCodes.OpAttr.KIND_ATTR)
@@ -11915,7 +11545,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 						{
 							if (item_attr.attrs != null)
 							{
-								for (var j = item_attr.attrs.count() - 1;j >= 0;j--)
+								for (var j = item_attr.attrs.count() - 1; j >= 0; j--)
 								{
 									var res = t.expression.constructor.Expression(t, Runtime.rtl.get(item_attr.attrs, j));
 									t = Runtime.rtl.get(res, 0);
@@ -12014,7 +11644,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			t = Runtime.rtl.get(res, 0);
 			content = t.s(s + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(";"));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDelete
@@ -12022,7 +11652,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 	OpDelete: function(t, op_code)
 	{
 		var content = "";
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpFor
@@ -12058,7 +11688,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		var res = t.expression.constructor.Expression(t, op_code.expr3);
 		t = Runtime.rtl.get(res, 0);
 		s3 = Runtime.rtl.get(res, 1);
-		content = t.s("for (" + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(s2) + Runtime.rtl.toStr(";") + Runtime.rtl.toStr(s3) + Runtime.rtl.toStr(")"));
+		content = t.s("for (" + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(" ") + Runtime.rtl.toStr(s2) + Runtime.rtl.toStr("; ") + Runtime.rtl.toStr(s3) + Runtime.rtl.toStr(")"));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		var res = this.Operators(t, op_code.value);
@@ -12066,7 +11696,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpIf
@@ -12092,7 +11722,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		for (var i = 0;i < op_code.if_else.count();i++)
+		for (var i = 0; i < op_code.if_else.count(); i++)
 		{
 			var if_else = op_code.if_else.item(i);
 			var res = t.expression.constructor.Expression(t, if_else.condition);
@@ -12118,7 +11748,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			t = t.levelDec();
 			content += Runtime.rtl.toStr(t.s("}"));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpReturn
@@ -12142,7 +11772,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			var content = t.s("var __memorize_value = " + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"));
 			content += Runtime.rtl.toStr(t.s(t.expression.constructor.useModuleName(t, "Runtime.rtl") + Runtime.rtl.toStr("._memorizeSave(\"") + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(".") + Runtime.rtl.toStr(t.current_function.name) + Runtime.rtl.toStr("\", arguments, __memorize_value);")));
 			content += Runtime.rtl.toStr(t.s("return __memorize_value;"));
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (t.current_function.isFlag("async") && t.isAsyncAwait())
 		{
@@ -12152,7 +11782,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		{
 			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";")));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpThrow
@@ -12162,7 +11792,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		var res = t.expression.constructor.Expression(t, op_code.expression);
 		t = Runtime.rtl.get(res, 0);
 		var content = t.s("throw " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpTryCatch
@@ -12188,7 +11818,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		content += Runtime.rtl.toStr(t.s("catch (_ex)"));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var s = "";
 			var pattern = "";
@@ -12226,7 +11856,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		content += Runtime.rtl.toStr(t.s("}"));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpWhile
@@ -12252,7 +11882,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpPreprocessorIfCode
@@ -12264,7 +11894,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		{
 			content = Runtime.rs.trim(op_code.content);
 		}
-		return Runtime.Collection.from([t,t.s(content)]);
+		return Runtime.Vector.from([t,t.s(content)]);
 	},
 	/**
 	 * OpPreprocessorIfDef
@@ -12273,7 +11903,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 	{
 		if (!(Runtime.rtl.get(t.preprocessor_flags, op_code.condition.value) == true))
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		if (kind == Bayrell.Lang.OpCodes.OpPreprocessorIfDef.KIND_OPERATOR)
 		{
@@ -12284,7 +11914,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			return t.expression.constructor.Expression(t, op_code.items);
 		}
 		var content = "";
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var item = op_code.items.item(i);
 			if (item instanceof Bayrell.Lang.OpCodes.OpComment)
@@ -12300,7 +11930,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComment
@@ -12308,7 +11938,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 	OpComment: function(t, op_code)
 	{
 		var content = t.s("/*" + Runtime.rtl.toStr(op_code.value) + Runtime.rtl.toStr("*/"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComments
@@ -12316,12 +11946,12 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 	OpComments: function(t, comments)
 	{
 		var content = "";
-		for (var i = 0;i < comments.count();i++)
+		for (var i = 0; i < comments.count(); i++)
 		{
 			var res = this.OpComment(t, comments.item(i));
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComments
@@ -12337,7 +11967,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 				content = s + Runtime.rtl.toStr(content);
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Operator
@@ -12361,7 +11991,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			/*t <= save_op_code_inc <= save_op_code_inc;*/
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpAssignStruct)
 		{
@@ -12377,7 +12007,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			content += Runtime.rtl.toStr(t.s(op_code.var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";")));
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			/*t <= save_op_code_inc <= save_op_code_inc;*/
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpBreak)
 		{
@@ -12468,7 +12098,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpPreprocessorSwitch)
 		{
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var res = this.OpPreprocessorIfCode(t, op_code.items.item(i));
 				var s = Runtime.rtl.get(res, 1);
@@ -12500,7 +12130,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		/* Restore save op codes */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 		/*t <= save_op_code_inc <= save_op_code_inc;*/
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Operators
@@ -12510,7 +12140,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		var content = "";
 		if (op_code instanceof Bayrell.Lang.OpCodes.OpItems)
 		{
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var res = this.Operator(t, item);
@@ -12522,27 +12152,10 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		{
 			var save_html_var_name = t.html_var_name;
 			var save_is_html = t.is_html;
-			/* Save op codes */
-			/*
-			Collection<SaveOpCode> save_op_codes = t.save_op_codes;
-			int save_op_code_inc = t.save_op_code_inc;
-			*/
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), true);
-			var res = t.html.constructor.OpHtmlChilds(t, op_code, save_html_var_name, false);
+			var res = t.html.constructor.OpHtmlItems(t, op_code, save_html_var_name, false);
 			t = Runtime.rtl.get(res, 0);
 			content = Runtime.rtl.get(res, 1);
-			/* Output save op code */
-			/*
-			string save = t::outputSaveOpCode(t, save_op_codes.count());
-			if (save != "") content = save;
-			*/
-			/* Output content */
-			/*
-			content ~= t.s(save_html_var_name ~ "_childs.push(" ~ res[1] ~ ");");
-			
-			t <= save_op_codes <= save_op_codes;
-			t <= save_op_code_inc <= save_op_code_inc;
-			*/
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), save_is_html);
 		}
 		else
@@ -12551,7 +12164,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			t = Runtime.rtl.get(res, 0);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction Arguments
@@ -12567,12 +12180,15 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 				content += Runtime.rtl.toStr("ctx");
 				flag = true;
 			}
+			/*
 			if (f.is_html)
 			{
 				flag = true;
-				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("component, render_params, render_content"));
+				content ~= (flag ? ", " : "") ~
+					"component, render_params, render_content";
 			}
-			for (var i = 0;i < f.args.count(i);i++)
+			*/
+			for (var i = 0; i < f.args.count(i); i++)
 			{
 				var arg = f.args.item(i);
 				var name = arg.name;
@@ -12580,7 +12196,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 				flag = true;
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction Body
@@ -12601,7 +12217,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		t = t.levelInc();
 		if (f.args)
 		{
-			for (var i = 0;i < f.args.count();i++)
+			for (var i = 0; i < f.args.count(); i++)
 			{
 				var arg = f.args.item(i);
 				if (arg.expression == null)
@@ -12658,7 +12274,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 		/* Restore save op codes */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-		return Runtime.Collection.from([save_t,content]);
+		return Runtime.Vector.from([save_t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -12675,22 +12291,22 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -12716,7 +12332,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Operator,
 			"OpDeclareFunctionArgs",
 			"OpDeclareFunctionBody",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -12786,15 +12402,15 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		var content = "";
 		var name = "";
 		var s = "";
-		var arr = Runtime.rs.split("\\.", op_code.name);
-		for (var i = 0;i < arr.count();i++)
+		var arr = Runtime.rs.split(".", op_code.name);
+		for (var i = 0; i < arr.count(); i++)
 		{
 			name = name + Runtime.rtl.toStr(((i == 0) ? ("") : ("."))) + Runtime.rtl.toStr(arr.item(i));
 			s = "if (typeof " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr(" == 'undefined') ") + Runtime.rtl.toStr(name) + Runtime.rtl.toStr(" = {};");
 			content += Runtime.rtl.toStr(t.s(s));
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_namespace_name"]), op_code.name);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction
@@ -12806,11 +12422,11 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		var content = "";
 		if (op_code.isFlag("declare"))
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		if (!is_static && is_static_function || is_static && !is_static_function)
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		/* Set current function */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_function"]), op_code);
@@ -12829,7 +12445,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		/* Function comments */
 		var res = t.operator.constructor.AddComments(t, op_code.comments, t.s(s));
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -12870,7 +12486,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			if (op_code.fn_create.args)
 			{
-				for (var i = 0;i < op_code.fn_create.args.count();i++)
+				for (var i = 0; i < op_code.fn_create.args.count(); i++)
 				{
 					var arg = op_code.fn_create.args.item(i);
 					if (arg.expression == null)
@@ -12892,7 +12508,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		content = open + Runtime.rtl.toStr(content);
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("};"));
-		return Runtime.Collection.from([save_t,content]);
+		return Runtime.Vector.from([save_t,content]);
 	},
 	/**
 	 * OpDeclareClassBodyItem
@@ -12905,7 +12521,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			var res = t.operator.constructor.OpPreprocessorIfDef(t, item, Bayrell.Lang.OpCodes.OpPreprocessorIfDef.KIND_CLASS_BODY);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpFunctionAnnotations
@@ -12915,31 +12531,31 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		var content = "";
 		if (f.flags.isFlag("declare"))
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (!f.annotations)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (f.annotations.count() == 0)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		content += Runtime.rtl.toStr(t.s("if (field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(f.name)) + Runtime.rtl.toStr(")")));
 		content += Runtime.rtl.toStr(t.s("{"));
 		var s1 = "";
 		t = t.levelInc();
-		s1 += Runtime.rtl.toStr(t.s("var Collection = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr(";")));
-		s1 += Runtime.rtl.toStr(t.s("var Dict = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Dict")) + Runtime.rtl.toStr(";")));
-		s1 += Runtime.rtl.toStr(t.s("return Dict.from({"));
+		s1 += Runtime.rtl.toStr(t.s("var Vector = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Vector")) + Runtime.rtl.toStr(";")));
+		s1 += Runtime.rtl.toStr(t.s("var Map = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Map")) + Runtime.rtl.toStr(";")));
+		s1 += Runtime.rtl.toStr(t.s("return Map.from({"));
 		t = t.levelInc();
 		if (f.flags.isFlag("async"))
 		{
 			s1 += Runtime.rtl.toStr(t.s("\"async\": true,"));
 		}
-		s1 += Runtime.rtl.toStr(t.s("\"annotations\": Collection.from(["));
+		s1 += Runtime.rtl.toStr(t.s("\"annotations\": Vector.from(["));
 		t = t.levelInc();
-		for (var j = 0;j < f.annotations.count();j++)
+		for (var j = 0; j < f.annotations.count(); j++)
 		{
 			var annotation = f.annotations.item(j);
 			var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
@@ -12962,7 +12578,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		content += Runtime.rtl.toStr(s1);
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassBodyItemMethodsList
@@ -12974,7 +12590,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			if (Runtime.rtl.get(t.preprocessor_flags, item.condition.value) == true)
 			{
-				for (var i = 0;i < item.items.count();i++)
+				for (var i = 0; i < item.items.count(); i++)
 				{
 					var op_code = item.items.item(i);
 					var res = this.OpClassBodyItemMethodsList(t, op_code);
@@ -12990,7 +12606,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 				content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(item.name) + Runtime.rtl.toStr(",")));
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassBodyItemAnnotations
@@ -13002,7 +12618,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			if (Runtime.rtl.get(t.preprocessor_flags, item.condition.value) == true)
 			{
-				for (var i = 0;i < item.items.count();i++)
+				for (var i = 0; i < item.items.count(); i++)
 				{
 					var op_code = item.items.item(i);
 					var res = this.OpClassBodyItemAnnotations(t, op_code);
@@ -13017,7 +12633,96 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			t = Runtime.rtl.get(res, 0);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Static variables
+	 */
+	OpDeclareClassStaticVariables: function(t, op_code)
+	{
+		var content = "";
+		if (op_code.vars != null)
+		{
+			for (var i = 0; i < op_code.vars.count(); i++)
+			{
+				var variable = op_code.vars.item(i);
+				if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+				{
+					continue;
+				}
+				if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+				{
+					continue;
+				}
+				var is_static = variable.flags.isFlag("static");
+				if (!is_static)
+				{
+					continue;
+				}
+				for (var j = 0; j < variable.values.count(); j++)
+				{
+					var value = variable.values.item(j);
+					var res = t.expression.constructor.Expression(t, value.expression);
+					var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
+					content += Runtime.rtl.toStr(t.s(value.var_name + Runtime.rtl.toStr(": ") + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(",")));
+				}
+			}
+		}
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Static functions
+	 */
+	OpDeclareClassStaticFunctions: function(t, op_code)
+	{
+		var content = "";
+		/* Static Functions */
+		if (op_code.functions != null)
+		{
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), true);
+			for (var i = 0; i < op_code.functions.count(); i++)
+			{
+				var f = op_code.functions.item(i);
+				if (f.flags.isFlag("declare"))
+				{
+					continue;
+				}
+				if (!f.isStatic())
+				{
+					continue;
+				}
+				/* Set function name */
+				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_function"]), f);
+				var is_async = "";
+				if (f.isFlag("async") && t.isAsyncAwait())
+				{
+					is_async = "async ";
+				}
+				var s = "";
+				var res = t.operator.constructor.OpDeclareFunctionArgs(t, f);
+				var args = Runtime.rtl.get(res, 1);
+				s += Runtime.rtl.toStr(f.name + Runtime.rtl.toStr(": ") + Runtime.rtl.toStr(is_async) + Runtime.rtl.toStr("function(") + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")"));
+				var res = t.operator.constructor.OpDeclareFunctionBody(t, f);
+				s += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+				s += Runtime.rtl.toStr(",");
+				/* Function comments */
+				var res = t.operator.constructor.AddComments(t, f.comments, t.s(s));
+				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+		}
+		/* Items */
+		if (op_code.items != null)
+		{
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), true);
+			for (var i = 0; i < op_code.items.count(); i++)
+			{
+				var item = op_code.items.item(i);
+				var res = this.OpDeclareClassBodyItem(t, item);
+				t = Runtime.rtl.get(res, 0);
+				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+		}
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -13037,7 +12742,8 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			var res = t.expression.constructor.OpTypeIdentifier(t, op_code.class_extends);
 			parent_class_name = Runtime.rtl.get(res, 1);
 		}
-		if (current_class_extends_name != "")
+		/* Extends */
+		if (current_class_extends_name != "" && !op_code.is_component)
 		{
 			content += Runtime.rtl.toStr(t.s("Object.assign(" + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, current_class_extends_name)) + Runtime.rtl.toStr(");")));
 		}
@@ -13045,9 +12751,179 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		/* Static variables */
+		var res = this.OpDeclareClassStaticVariables(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		/* Static Functions */
+		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE)
+		{
+			var res = this.OpDeclareClassStaticFunctions(t, op_code);
+			t = Runtime.rtl.get(res, 0);
+			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		}
+		/* Static init Functions */
+		var res = this.OpDeclareClassStaticInitFunctions(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("});"));
+		/* Restore save op codes */
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Static init functions
+	 */
+	OpDeclareClassStaticInitFunctions: function(t, op_code)
+	{
+		var content = "";
+		var class_kind = op_code.kind;
+		var current_class_extends_name = t.expression.constructor.findModuleName(t, t.current_class_extends_name);
+		if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE)
+		{
+			/* Get current namespace function */
+			content += Runtime.rtl.toStr(t.s("getNamespace: function()"));
+			content += Runtime.rtl.toStr(t.s("{"));
+			t = t.levelInc();
+			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_namespace_name)) + Runtime.rtl.toStr(";")));
+			t = t.levelDec();
+			content += Runtime.rtl.toStr(t.s("},"));
+			/* Get current class name function */
+			content += Runtime.rtl.toStr(t.s("getClassName: function()"));
+			content += Runtime.rtl.toStr(t.s("{"));
+			t = t.levelInc();
+			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_class_full_name)) + Runtime.rtl.toStr(";")));
+			t = t.levelDec();
+			content += Runtime.rtl.toStr(t.s("},"));
+			return Runtime.Vector.from([t,content]);
+		}
+		if (op_code.is_component == false)
+		{
+			content += Runtime.rtl.toStr(t.s("/* ======================= Class Init Functions ======================= */"));
+		}
+		/* Get current namespace function */
+		content += Runtime.rtl.toStr(t.s("getNamespace: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_namespace_name)) + Runtime.rtl.toStr(";")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get current class name function */
+		content += Runtime.rtl.toStr(t.s("getClassName: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_class_full_name)) + Runtime.rtl.toStr(";")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get parent class name function */
+		content += Runtime.rtl.toStr(t.s("getParentClassName: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(current_class_extends_name)) + Runtime.rtl.toStr(";")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Exit if component */
+		if (op_code.is_component == true)
+		{
+			return Runtime.Vector.from([t,content]);
+		}
+		/* Class info */
+		content += Runtime.rtl.toStr(t.s("getClassInfo: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		t = t.constructor.clearSaveOpCode(t);
+		var s1 = "";
+		s1 += Runtime.rtl.toStr(t.s("var Vector = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Vector")) + Runtime.rtl.toStr(";")));
+		s1 += Runtime.rtl.toStr(t.s("var Map = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Map")) + Runtime.rtl.toStr(";")));
+		s1 += Runtime.rtl.toStr(t.s("return Map.from({"));
+		t = t.levelInc();
+		s1 += Runtime.rtl.toStr(t.s("\"annotations\": Vector.from(["));
+		t = t.levelInc();
+		for (var j = 0; j < op_code.annotations.count(); j++)
+		{
+			var annotation = op_code.annotations.item(j);
+			var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
+			t = Runtime.rtl.get(res, 0);
+			var name = Runtime.rtl.get(res, 1);
+			if (annotation.params != null)
+			{
+				var res = t.expression.constructor.OpDict(t, annotation.params, true);
+				t = Runtime.rtl.get(res, 0);
+				var params = Runtime.rtl.get(res, 1);
+				s1 += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
+			}
+			else
+			{
+				s1 += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("(),")));
+			}
+		}
+		t = t.levelDec();
+		s1 += Runtime.rtl.toStr(t.s("]),"));
+		t = t.levelDec();
+		s1 += Runtime.rtl.toStr(t.s("});"));
+		var save = t.constructor.outputSaveOpCode(t);
+		if (save != "")
+		{
+			content += Runtime.rtl.toStr(save);
+		}
+		content += Runtime.rtl.toStr(s1);
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get fields list of the function */
+		t = t.constructor.clearSaveOpCode(t);
+		content += Runtime.rtl.toStr(t.s("getFieldsList: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("var a = [];"));
 		if (op_code.vars != null)
 		{
-			for (var i = 0;i < op_code.vars.count();i++)
+			var vars = new Runtime.Map();
+			for (var i = 0; i < op_code.vars.count(); i++)
+			{
+				var variable = op_code.vars.item(i);
+				var is_const = variable.flags.isFlag("const");
+				var is_static = variable.flags.isFlag("static");
+				var is_protected = variable.flags.isFlag("protected");
+				var is_private = variable.flags.isFlag("private");
+				var is_serializable = variable.flags.isFlag("serializable");
+				var is_assignable = true;
+				var has_annotation = variable.annotations != null && variable.annotations.count() > 0;
+				if (is_const || is_static)
+				{
+					continue;
+				}
+				if (is_protected || is_private)
+				{
+					continue;
+				}
+				if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+				{
+					continue;
+				}
+				if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+				{
+					continue;
+				}
+				for (var j = 0; j < variable.values.count(); j++)
+				{
+					var value = variable.values.item(j);
+					content += Runtime.rtl.toStr(t.s("a.push(" + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(");")));
+				}
+			}
+		}
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Vector")) + Runtime.rtl.toStr(".from(a);")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get field info by name */
+		content += Runtime.rtl.toStr(t.s("getFieldInfoByName: function(field_name)"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		if (op_code.vars != null)
+		{
+			content += Runtime.rtl.toStr(t.s("var Vector = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Vector")) + Runtime.rtl.toStr(";")));
+			content += Runtime.rtl.toStr(t.s("var Map = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Map")) + Runtime.rtl.toStr(";")));
+			for (var i = 0; i < op_code.vars.count(); i++)
 			{
 				var variable = op_code.vars.item(i);
 				if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
@@ -13058,393 +12934,340 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 				{
 					continue;
 				}
+				var is_const = variable.flags.isFlag("const");
 				var is_static = variable.flags.isFlag("static");
-				if (!is_static)
+				var is_protected = variable.flags.isFlag("protected");
+				var is_private = variable.flags.isFlag("private");
+				if (is_const || is_static)
 				{
 					continue;
 				}
-				for (var j = 0;j < variable.values.count();j++)
+				if (is_protected || is_private)
 				{
-					var value = variable.values.item(j);
-					var res = t.expression.constructor.Expression(t, value.expression);
-					var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
-					content += Runtime.rtl.toStr(t.s(value.var_name + Runtime.rtl.toStr(": ") + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(",")));
+					continue;
 				}
-			}
-		}
-		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE)
-		{
-			/* Static Functions */
-			if (op_code.functions != null)
-			{
-				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), true);
-				for (var i = 0;i < op_code.functions.count();i++)
+				var v = variable.values.map((value) => 
 				{
-					var f = op_code.functions.item(i);
-					if (f.flags.isFlag("declare"))
-					{
-						continue;
-					}
-					if (!f.isStatic())
-					{
-						continue;
-					}
-					/* Set function name */
-					t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_function"]), f);
-					var is_async = "";
-					if (f.isFlag("async") && t.isAsyncAwait())
-					{
-						is_async = "async ";
-					}
-					var s = "";
-					var res = t.operator.constructor.OpDeclareFunctionArgs(t, f);
-					var args = Runtime.rtl.get(res, 1);
-					s += Runtime.rtl.toStr(f.name + Runtime.rtl.toStr(": ") + Runtime.rtl.toStr(is_async) + Runtime.rtl.toStr("function(") + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")"));
-					var res = t.operator.constructor.OpDeclareFunctionBody(t, f);
-					s += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-					s += Runtime.rtl.toStr(",");
-					/* Function comments */
-					var res = t.operator.constructor.AddComments(t, f.comments, t.s(s));
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					return value.var_name;
+				});
+				v = v.map((var_name) => 
+				{
+					return "field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(var_name));
+				});
+				var var_type = Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, variable.pattern.entity_name.names));
+				var var_sub_types = (variable.pattern.template != null) ? (variable.pattern.template.map((op_code) => 
+				{
+					return Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, op_code.entity_name.names));
+				})) : (Runtime.Vector.from([]));
+				var_sub_types = var_sub_types.map(t.expression.constructor.toString);
+				t = t.constructor.clearSaveOpCode(t);
+				var s1 = "";
+				s1 += Runtime.rtl.toStr(t.s("if (" + Runtime.rtl.toStr(Runtime.rs.join(" or ", v)) + Runtime.rtl.toStr(") return Map.from({")));
+				t = t.levelInc();
+				s1 += Runtime.rtl.toStr(t.s("\"t\": " + Runtime.rtl.toStr(t.expression.constructor.toString(var_type)) + Runtime.rtl.toStr(",")));
+				if (var_sub_types.count() > 0)
+				{
+					s1 += Runtime.rtl.toStr(t.s("\"s\": [" + Runtime.rtl.toStr(Runtime.rs.join(", ", var_sub_types)) + Runtime.rtl.toStr("],")));
 				}
-			}
-			/* Items */
-			if (op_code.items != null)
-			{
-				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), true);
-				for (var i = 0;i < op_code.items.count();i++)
+				s1 += Runtime.rtl.toStr(t.s("\"annotations\": Vector.from(["));
+				t = t.levelInc();
+				for (var j = 0; j < variable.annotations.count(); j++)
 				{
-					var item = op_code.items.item(i);
-					var res = this.OpDeclareClassBodyItem(t, item);
+					var annotation = variable.annotations.item(j);
+					var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
 					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("/* ======================= Class Init Functions ======================= */"));
-			/* Get current namespace function */
-			content += Runtime.rtl.toStr(t.s("getNamespace: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_namespace_name)) + Runtime.rtl.toStr(";")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get current class name function */
-			content += Runtime.rtl.toStr(t.s("getClassName: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_class_full_name)) + Runtime.rtl.toStr(";")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get parent class name function */
-			content += Runtime.rtl.toStr(t.s("getParentClassName: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(current_class_extends_name)) + Runtime.rtl.toStr(";")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Class info */
-			content += Runtime.rtl.toStr(t.s("getClassInfo: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			t = t.constructor.clearSaveOpCode(t);
-			var s1 = "";
-			s1 += Runtime.rtl.toStr(t.s("var Collection = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr(";")));
-			s1 += Runtime.rtl.toStr(t.s("var Dict = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Dict")) + Runtime.rtl.toStr(";")));
-			s1 += Runtime.rtl.toStr(t.s("return Dict.from({"));
-			t = t.levelInc();
-			s1 += Runtime.rtl.toStr(t.s("\"annotations\": Collection.from(["));
-			t = t.levelInc();
-			for (var j = 0;j < op_code.annotations.count();j++)
-			{
-				var annotation = op_code.annotations.item(j);
-				var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
-				t = Runtime.rtl.get(res, 0);
-				var name = Runtime.rtl.get(res, 1);
-				if (annotation.params != null)
-				{
+					var name = Runtime.rtl.get(res, 1);
 					var res = t.expression.constructor.OpDict(t, annotation.params, true);
 					t = Runtime.rtl.get(res, 0);
 					var params = Runtime.rtl.get(res, 1);
 					s1 += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
 				}
-				else
+				t = t.levelDec();
+				s1 += Runtime.rtl.toStr(t.s("]),"));
+				t = t.levelDec();
+				s1 += Runtime.rtl.toStr(t.s("});"));
+				var save = t.constructor.outputSaveOpCode(t);
+				if (save != "")
 				{
-					s1 += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("(),")));
+					content += Runtime.rtl.toStr(save);
 				}
+				content += Runtime.rtl.toStr(s1);
+			}
+		}
+		content += Runtime.rtl.toStr(t.s("return null;"));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get methods list of the function */
+		t = t.constructor.clearSaveOpCode(t);
+		content += Runtime.rtl.toStr(t.s("getMethodsList: function()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("var a=["));
+		t = t.levelInc();
+		if (op_code.functions != null && false)
+		{
+			for (var i = 0; i < op_code.functions.count(); i++)
+			{
+				var f = op_code.functions.item(i);
+				if (f.flags.isFlag("declare"))
+				{
+					continue;
+				}
+				if (f.flags.isFlag("protected"))
+				{
+					continue;
+				}
+				if (f.flags.isFlag("private"))
+				{
+					continue;
+				}
+				if (f.annotations.count() == 0)
+				{
+					continue;
+				}
+				content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(f.name) + Runtime.rtl.toStr(",")));
+			}
+		}
+		if (op_code.items != null)
+		{
+			for (var i = 0; i < op_code.items.count(); i++)
+			{
+				var item = op_code.items.item(i);
+				var res = this.OpClassBodyItemMethodsList(t, item);
+				t = Runtime.rtl.get(res, 0);
+				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("];"));
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Vector")) + Runtime.rtl.toStr(".from(a);")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Get method info by name */
+		t = t.constructor.clearSaveOpCode(t);
+		content += Runtime.rtl.toStr(t.s("getMethodInfoByName: function(field_name)"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		if (op_code.functions != null)
+		{
+			for (var i = 0; i < op_code.functions.count(); i++)
+			{
+				var f = op_code.functions.item(i);
+				var res = this.OpFunctionAnnotations(t, f);
+				t = Runtime.rtl.get(res, 0);
+				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+		}
+		if (op_code.items != null)
+		{
+			for (var i = 0; i < op_code.items.count(); i++)
+			{
+				var item = op_code.items.item(i);
+				var res = this.OpClassBodyItemAnnotations(t, item);
+				t = Runtime.rtl.get(res, 0);
+				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+		}
+		content += Runtime.rtl.toStr(t.s("return null;"));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		/* Add implements */
+		if (op_code.class_implements != null && op_code.class_implements.count() > 0)
+		{
+			content += Runtime.rtl.toStr(t.s("__implements__:"));
+			content += Runtime.rtl.toStr(t.s("["));
+			t = t.levelInc();
+			for (var i = 0; i < op_code.class_implements.count(); i++)
+			{
+				var item = op_code.class_implements.item(i);
+				var module_name = item.entity_name.names.first();
+				var s = t.expression.constructor.useModuleName(t, module_name);
+				if (s == "")
+				{
+					continue;
+				}
+				content += Runtime.rtl.toStr(t.s(s + Runtime.rtl.toStr(",")));
 			}
 			t = t.levelDec();
-			s1 += Runtime.rtl.toStr(t.s("]),"));
-			t = t.levelDec();
-			s1 += Runtime.rtl.toStr(t.s("});"));
-			var save = t.constructor.outputSaveOpCode(t);
+			content += Runtime.rtl.toStr(t.s("],"));
+		}
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Class variables
+	 */
+	OpDeclareClassInitVariables: function(t, op_code)
+	{
+		var content = "";
+		var class_kind = op_code.kind;
+		var vars = op_code.vars.filter((variable) => 
+		{
+			return !variable.flags.isFlag("static");
+		});
+		if (t.current_class_full_name != "Runtime.BaseObject" && vars.count() > 0)
+		{
+			content += Runtime.rtl.toStr(t.s("_init: function()"));
+			content += Runtime.rtl.toStr(t.s("{"));
+			t = t.levelInc();
+			/* Clear save op codes */
+			var save_op_codes = t.save_op_codes;
+			var save_op_code_inc = t.save_op_code_inc;
+			if (t.current_class_extends_name != "")
+			{
+				content += Runtime.rtl.toStr(t.s(t.expression.constructor.useModuleName(t, t.current_class_extends_name) + Runtime.rtl.toStr(".prototype._init.call(this);")));
+			}
+			var s1 = "";
+			for (var i = 0; i < op_code.vars.count(); i++)
+			{
+				var variable = op_code.vars.item(i);
+				var is_static = variable.flags.isFlag("static");
+				if (is_static)
+				{
+					continue;
+				}
+				if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+				{
+					continue;
+				}
+				if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+				{
+					continue;
+				}
+				var prefix = "";
+				if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT)
+				{
+					/* prefix = "__"; */
+					prefix = "";
+				}
+				else if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_CLASS)
+				{
+					prefix = "";
+				}
+				for (var j = 0; j < variable.values.count(); j++)
+				{
+					var value = variable.values.item(j);
+					var res = t.expression.constructor.Expression(t, value.expression);
+					t = Runtime.rtl.get(res, 0);
+					var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
+					s1 += Runtime.rtl.toStr(t.s("this." + Runtime.rtl.toStr(prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(";")));
+				}
+			}
+			/* Output save op code */
+			var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
 			if (save != "")
 			{
 				content += Runtime.rtl.toStr(save);
 			}
+			/* Restore save op codes */
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
+			/* Add content */
 			content += Runtime.rtl.toStr(s1);
 			t = t.levelDec();
 			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get fields list of the function */
-			t = t.constructor.clearSaveOpCode(t);
-			content += Runtime.rtl.toStr(t.s("getFieldsList: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("var a = [];"));
-			if (op_code.vars != null)
-			{
-				var vars = new Runtime.Map();
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					var is_const = variable.flags.isFlag("const");
-					var is_static = variable.flags.isFlag("static");
-					var is_protected = variable.flags.isFlag("protected");
-					var is_private = variable.flags.isFlag("private");
-					var is_serializable = variable.flags.isFlag("serializable");
-					var is_assignable = true;
-					var has_annotation = variable.annotations != null && variable.annotations.count() > 0;
-					if (is_const || is_static)
-					{
-						continue;
-					}
-					if (is_protected || is_private)
-					{
-						continue;
-					}
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					for (var j = 0;j < variable.values.count();j++)
-					{
-						var value = variable.values.item(j);
-						content += Runtime.rtl.toStr(t.s("a.push(" + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(");")));
-					}
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr(".from(a);")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get field info by name */
-			content += Runtime.rtl.toStr(t.s("getFieldInfoByName: function(field_name)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			if (op_code.vars != null)
-			{
-				content += Runtime.rtl.toStr(t.s("var Collection = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr(";")));
-				content += Runtime.rtl.toStr(t.s("var Dict = " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Dict")) + Runtime.rtl.toStr(";")));
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					var is_const = variable.flags.isFlag("const");
-					var is_static = variable.flags.isFlag("static");
-					var is_protected = variable.flags.isFlag("protected");
-					var is_private = variable.flags.isFlag("private");
-					if (is_const || is_static)
-					{
-						continue;
-					}
-					if (is_protected || is_private)
-					{
-						continue;
-					}
-					var v = variable.values.map((value) => 
-					{
-						return value.var_name;
-					});
-					v = v.map((var_name) => 
-					{
-						return "field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(var_name));
-					});
-					var var_type = Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, variable.pattern.entity_name.names));
-					var var_sub_types = (variable.pattern.template != null) ? (variable.pattern.template.map((op_code) => 
-					{
-						return Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, op_code.entity_name.names));
-					})) : (Runtime.Collection.from([]));
-					var_sub_types = var_sub_types.map(t.expression.constructor.toString);
-					t = t.constructor.clearSaveOpCode(t);
-					var s1 = "";
-					s1 += Runtime.rtl.toStr(t.s("if (" + Runtime.rtl.toStr(Runtime.rs.join(" or ", v)) + Runtime.rtl.toStr(") return Dict.from({")));
-					t = t.levelInc();
-					s1 += Runtime.rtl.toStr(t.s("\"t\": " + Runtime.rtl.toStr(t.expression.constructor.toString(var_type)) + Runtime.rtl.toStr(",")));
-					if (var_sub_types.count() > 0)
-					{
-						s1 += Runtime.rtl.toStr(t.s("\"s\": [" + Runtime.rtl.toStr(Runtime.rs.join(", ", var_sub_types)) + Runtime.rtl.toStr("],")));
-					}
-					s1 += Runtime.rtl.toStr(t.s("\"annotations\": Collection.from(["));
-					t = t.levelInc();
-					for (var j = 0;j < variable.annotations.count();j++)
-					{
-						var annotation = variable.annotations.item(j);
-						var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
-						t = Runtime.rtl.get(res, 0);
-						var name = Runtime.rtl.get(res, 1);
-						var res = t.expression.constructor.OpDict(t, annotation.params, true);
-						t = Runtime.rtl.get(res, 0);
-						var params = Runtime.rtl.get(res, 1);
-						s1 += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("(") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
-					}
-					t = t.levelDec();
-					s1 += Runtime.rtl.toStr(t.s("]),"));
-					t = t.levelDec();
-					s1 += Runtime.rtl.toStr(t.s("});"));
-					var save = t.constructor.outputSaveOpCode(t);
-					if (save != "")
-					{
-						content += Runtime.rtl.toStr(save);
-					}
-					content += Runtime.rtl.toStr(s1);
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("return null;"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get methods list of the function */
-			t = t.constructor.clearSaveOpCode(t);
-			content += Runtime.rtl.toStr(t.s("getMethodsList: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("var a=["));
-			t = t.levelInc();
-			if (op_code.functions != null && false)
-			{
-				for (var i = 0;i < op_code.functions.count();i++)
-				{
-					var f = op_code.functions.item(i);
-					if (f.flags.isFlag("declare"))
-					{
-						continue;
-					}
-					if (f.flags.isFlag("protected"))
-					{
-						continue;
-					}
-					if (f.flags.isFlag("private"))
-					{
-						continue;
-					}
-					if (f.annotations.count() == 0)
-					{
-						continue;
-					}
-					content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(f.name) + Runtime.rtl.toStr(",")));
-				}
-			}
-			if (op_code.items != null)
-			{
-				for (var i = 0;i < op_code.items.count();i++)
-				{
-					var item = op_code.items.item(i);
-					var res = this.OpClassBodyItemMethodsList(t, item);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-				}
-			}
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("];"));
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr(".from(a);")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get method info by name */
-			t = t.constructor.clearSaveOpCode(t);
-			content += Runtime.rtl.toStr(t.s("getMethodInfoByName: function(field_name)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			if (op_code.functions != null)
-			{
-				for (var i = 0;i < op_code.functions.count();i++)
-				{
-					var f = op_code.functions.item(i);
-					var res = this.OpFunctionAnnotations(t, f);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-				}
-			}
-			if (op_code.items != null)
-			{
-				for (var i = 0;i < op_code.items.count();i++)
-				{
-					var item = op_code.items.item(i);
-					var res = this.OpClassBodyItemAnnotations(t, item);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("return null;"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Add implements */
-			if (op_code.class_implements != null && op_code.class_implements.count() > 0)
-			{
-				content += Runtime.rtl.toStr(t.s("__implements__:"));
-				content += Runtime.rtl.toStr(t.s("["));
-				t = t.levelInc();
-				for (var i = 0;i < op_code.class_implements.count();i++)
-				{
-					var item = op_code.class_implements.item(i);
-					var module_name = item.entity_name.names.first();
-					var s = t.expression.constructor.useModuleName(t, module_name);
-					if (s == "")
-					{
-						continue;
-					}
-					content += Runtime.rtl.toStr(t.s(s + Runtime.rtl.toStr(",")));
-				}
-				t = t.levelDec();
-				content += Runtime.rtl.toStr(t.s("],"));
-			}
 		}
-		else
-		{
-			/* Get current namespace function */
-			content += Runtime.rtl.toStr(t.s("getNamespace: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_namespace_name)) + Runtime.rtl.toStr(";")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-			/* Get current class name function */
-			content += Runtime.rtl.toStr(t.s("getClassName: function()"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_class_full_name)) + Runtime.rtl.toStr(";")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("},"));
-		}
-		t = t.levelDec();
-		content += Runtime.rtl.toStr(t.s("});"));
-		/* Restore save op codes */
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
-	 * OpDeclareClass
+	 * Component props
 	 */
-	OpDeclareClassBody: function(t, op_code)
+	OpDeclareComponentProps: function(t, op_code)
 	{
+		var vars = op_code.vars.filter((variable) => 
+		{
+			return variable.flags.isFlag("props");
+		});
+		if (vars.count() == 0)
+		{
+			return Runtime.Vector.from([t,""]);
+		}
 		var content = "";
-		var class_kind = op_code.kind;
-		content += Runtime.rtl.toStr(t.s("Object.assign(" + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(".prototype,")));
+		content += Runtime.rtl.toStr(t.s("props: {"));
+		t = t.levelInc();
+		for (var i = 0; i < vars.count(); i++)
+		{
+			var variable = vars.item(i);
+			if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+			{
+				continue;
+			}
+			if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+			{
+				continue;
+			}
+			for (var j = 0; j < variable.values.count(); j++)
+			{
+				var value = variable.values.item(j);
+				var res = t.expression.constructor.Expression(t, value.expression);
+				t = Runtime.rtl.get(res, 0);
+				var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
+				content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(value.var_name) + Runtime.rtl.toStr(": {")));
+				t = t.levelInc();
+				content += Runtime.rtl.toStr(t.s("default: " + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(",")));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("},"));
+			}
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Component variables
+	 */
+	OpDeclareComponentVariables: function(t, op_code)
+	{
+		var vars = op_code.vars.filter((variable) => 
+		{
+			return !variable.flags.isFlag("static") && !variable.flags.isFlag("props");
+		});
+		if (vars.count() == 0)
+		{
+			return Runtime.Vector.from([t,""]);
+		}
+		var content = "";
+		content += Runtime.rtl.toStr(t.s("data: function ()"));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("return {"));
+		t = t.levelInc();
+		for (var i = 0; i < vars.count(); i++)
+		{
+			var variable = vars.item(i);
+			if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+			{
+				continue;
+			}
+			if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+			{
+				continue;
+			}
+			for (var j = 0; j < variable.values.count(); j++)
+			{
+				var value = variable.values.item(j);
+				var res = t.expression.constructor.Expression(t, value.expression);
+				t = Runtime.rtl.get(res, 0);
+				var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
+				content += Runtime.rtl.toStr(t.s(value.var_name + Runtime.rtl.toStr(": ") + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(",")));
+			}
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("};"));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Class functions
+	 */
+	OpDeclareClassFunctions: function(t, op_code)
+	{
+		var content = "";
 		/* Functions */
 		if (op_code.functions != null)
 		{
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), false);
-			for (var i = 0;i < op_code.functions.count();i++)
+			for (var i = 0; i < op_code.functions.count(); i++)
 			{
 				var f = op_code.functions.item(i);
 				if (f.flags.isFlag("declare"))
@@ -13478,7 +13301,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		if (op_code.items != null)
 		{
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_static_function"]), false);
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var res = this.OpDeclareClassBodyItem(t, item);
@@ -13486,222 +13309,213 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 		}
-		/* Init variables */
-		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE && op_code.vars != null)
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Class assignObject function
+	 */
+	OpDeclareClassAssignObject: function(t, op_code)
+	{
+		var content = "";
+		var var_prefix = "";
+		/* Assign Object */
+		content += Runtime.rtl.toStr(t.s("assignObject: function(o)"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("if (o instanceof " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_full_name)) + Runtime.rtl.toStr(")")));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		for (var i = 0; i < op_code.vars.count(); i++)
 		{
-			var vars = op_code.vars.filter((variable) => 
+			var variable = op_code.vars.item(i);
+			if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
 			{
-				return !variable.flags.isFlag("static");
-			});
-			if (t.current_class_full_name != "Runtime.BaseObject" && vars.count() > 0)
-			{
-				content += Runtime.rtl.toStr(t.s("_init: function()"));
-				content += Runtime.rtl.toStr(t.s("{"));
-				t = t.levelInc();
-				/* Clear save op codes */
-				var save_op_codes = t.save_op_codes;
-				var save_op_code_inc = t.save_op_code_inc;
-				if (t.current_class_extends_name != "")
-				{
-					content += Runtime.rtl.toStr(t.s(t.expression.constructor.useModuleName(t, t.current_class_extends_name) + Runtime.rtl.toStr(".prototype._init.call(this);")));
-				}
-				var s1 = "";
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					var is_static = variable.flags.isFlag("static");
-					if (is_static)
-					{
-						continue;
-					}
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					var prefix = "";
-					if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT)
-					{
-						/* prefix = "__"; */
-						prefix = "";
-					}
-					else if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_CLASS)
-					{
-						prefix = "";
-					}
-					for (var j = 0;j < variable.values.count();j++)
-					{
-						var value = variable.values.item(j);
-						var res = t.expression.constructor.Expression(t, value.expression);
-						t = Runtime.rtl.get(res, 0);
-						var s = (value.expression != null) ? (Runtime.rtl.get(res, 1)) : ("null");
-						s1 += Runtime.rtl.toStr(t.s("this." + Runtime.rtl.toStr(prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(";")));
-					}
-				}
-				/* Output save op code */
-				var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
-				if (save != "")
-				{
-					content += Runtime.rtl.toStr(save);
-				}
-				/* Restore save op codes */
-				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
-				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-				/* Add content */
-				content += Runtime.rtl.toStr(s1);
-				t = t.levelDec();
-				content += Runtime.rtl.toStr(t.s("},"));
+				continue;
 			}
-			/* Struct */
-			if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT || t.enable_introspection)
+			if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
 			{
-				var is_struct = class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT;
-				var var_prefix = "";
-				if (!is_struct)
-				{
-					/* Assign Object */
-					content += Runtime.rtl.toStr(t.s("assignObject: function(o)"));
-					content += Runtime.rtl.toStr(t.s("{"));
-					t = t.levelInc();
-					content += Runtime.rtl.toStr(t.s("if (o instanceof " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_full_name)) + Runtime.rtl.toStr(")")));
-					content += Runtime.rtl.toStr(t.s("{"));
-					t = t.levelInc();
-					for (var i = 0;i < op_code.vars.count();i++)
-					{
-						var variable = op_code.vars.item(i);
-						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-						{
-							continue;
-						}
-						if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-						{
-							continue;
-						}
-						var is_const = variable.flags.isFlag("const");
-						var is_static = variable.flags.isFlag("static");
-						var is_protected = variable.flags.isFlag("protected");
-						var is_private = variable.flags.isFlag("private");
-						if (is_const || is_static)
-						{
-							continue;
-						}
-						if (is_protected || is_private)
-						{
-							continue;
-						}
-						for (var j = 0;j < variable.values.count();j++)
-						{
-							var value = variable.values.item(j);
-							content += Runtime.rtl.toStr(t.s("this." + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = o.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
-						}
-					}
-					t = t.levelDec();
-					content += Runtime.rtl.toStr(t.s("}"));
-					if (t.current_class_extends_name != "")
-					{
-						content += Runtime.rtl.toStr(t.s(t.expression.constructor.useModuleName(t, t.current_class_extends_name) + Runtime.rtl.toStr(".prototype.assignObject.call(this,o);")));
-					}
-					t = t.levelDec();
-					content += Runtime.rtl.toStr(t.s("},"));
-					/* Assign Value */
-					content += Runtime.rtl.toStr(t.s("assignValue: function(k,v)"));
-					content += Runtime.rtl.toStr(t.s("{"));
-					t = t.levelInc();
-					var flag = false;
-					for (var i = 0;i < op_code.vars.count();i++)
-					{
-						var variable = op_code.vars.item(i);
-						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-						{
-							continue;
-						}
-						if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-						{
-							continue;
-						}
-						var is_const = variable.flags.isFlag("const");
-						var is_static = variable.flags.isFlag("static");
-						var is_protected = variable.flags.isFlag("protected");
-						var is_private = variable.flags.isFlag("private");
-						if (is_const || is_static)
-						{
-							continue;
-						}
-						if (is_protected || is_private)
-						{
-							continue;
-						}
-						for (var j = 0;j < variable.values.count();j++)
-						{
-							var value = variable.values.item(j);
-							if (t.flag_struct_check_types)
-							{
-								content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")") + Runtime.rtl.toStr("this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = Runtime.rtl.to(v, null, ") + Runtime.rtl.toStr(this.toPattern(t, variable.pattern)) + Runtime.rtl.toStr(");")));
-							}
-							else
-							{
-								content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")") + Runtime.rtl.toStr("this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = v;")));
-							}
-							flag = true;
-						}
-					}
-					if (t.current_class_extends_name != "")
-					{
-						content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_extends_name)) + Runtime.rtl.toStr(".prototype.assignValue.call(this,k,v);")));
-					}
-					t = t.levelDec();
-					content += Runtime.rtl.toStr(t.s("},"));
-				}
-				/* Take Value */
-				content += Runtime.rtl.toStr(t.s("takeValue: function(k,d)"));
-				content += Runtime.rtl.toStr(t.s("{"));
-				t = t.levelInc();
-				content += Runtime.rtl.toStr(t.s("if (d == undefined) d = null;"));
-				var flag = false;
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					var is_const = variable.flags.isFlag("const");
-					var is_static = variable.flags.isFlag("static");
-					var is_protected = variable.flags.isFlag("protected");
-					var is_private = variable.flags.isFlag("private");
-					if (is_const || is_static)
-					{
-						continue;
-					}
-					if (is_protected || is_private)
-					{
-						continue;
-					}
-					for (var j = 0;j < variable.values.count();j++)
-					{
-						var value = variable.values.item(j);
-						content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")return this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
-						flag = true;
-					}
-				}
-				if (t.current_class_extends_name != "")
-				{
-					content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_extends_name)) + Runtime.rtl.toStr(".prototype.takeValue.call(this,k,d);")));
-				}
-				t = t.levelDec();
-				content += Runtime.rtl.toStr(t.s("},"));
+				continue;
+			}
+			var is_const = variable.flags.isFlag("const");
+			var is_static = variable.flags.isFlag("static");
+			var is_protected = variable.flags.isFlag("protected");
+			var is_private = variable.flags.isFlag("private");
+			if (is_const || is_static)
+			{
+				continue;
+			}
+			if (is_protected || is_private)
+			{
+				continue;
+			}
+			for (var j = 0; j < variable.values.count(); j++)
+			{
+				var value = variable.values.item(j);
+				content += Runtime.rtl.toStr(t.s("this." + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = o.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
 			}
 		}
 		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("}"));
+		if (t.current_class_extends_name != "")
+		{
+			content += Runtime.rtl.toStr(t.s(t.expression.constructor.useModuleName(t, t.current_class_extends_name) + Runtime.rtl.toStr(".prototype.assignObject.call(this,o);")));
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Class assignValue function
+	 */
+	OpDeclareClassAssignValue: function(t, op_code)
+	{
+		var content = "";
+		var var_prefix = "";
+		/* Assign Value */
+		content += Runtime.rtl.toStr(t.s("assignValue: function(k,v)"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		var flag = false;
+		for (var i = 0; i < op_code.vars.count(); i++)
+		{
+			var variable = op_code.vars.item(i);
+			if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+			{
+				continue;
+			}
+			if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+			{
+				continue;
+			}
+			var is_const = variable.flags.isFlag("const");
+			var is_static = variable.flags.isFlag("static");
+			var is_protected = variable.flags.isFlag("protected");
+			var is_private = variable.flags.isFlag("private");
+			if (is_const || is_static)
+			{
+				continue;
+			}
+			if (is_protected || is_private)
+			{
+				continue;
+			}
+			for (var j = 0; j < variable.values.count(); j++)
+			{
+				var value = variable.values.item(j);
+				if (t.flag_struct_check_types)
+				{
+					content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")") + Runtime.rtl.toStr("this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = Runtime.rtl.to(v, null, ") + Runtime.rtl.toStr(this.toPattern(t, variable.pattern)) + Runtime.rtl.toStr(");")));
+				}
+				else
+				{
+					content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")") + Runtime.rtl.toStr("this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = v;")));
+				}
+				flag = true;
+			}
+		}
+		if (t.current_class_extends_name != "")
+		{
+			content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_extends_name)) + Runtime.rtl.toStr(".prototype.assignValue.call(this,k,v);")));
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Class takeValue function
+	 */
+	OpDeclareClassTakeValue: function(t, op_code)
+	{
+		var content = "";
+		var var_prefix = "";
+		/* Take Value */
+		content += Runtime.rtl.toStr(t.s("takeValue: function(k,d)"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("if (d == undefined) d = null;"));
+		var flag = false;
+		for (var i = 0; i < op_code.vars.count(); i++)
+		{
+			var variable = op_code.vars.item(i);
+			if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+			{
+				continue;
+			}
+			if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+			{
+				continue;
+			}
+			var is_const = variable.flags.isFlag("const");
+			var is_static = variable.flags.isFlag("static");
+			var is_protected = variable.flags.isFlag("protected");
+			var is_private = variable.flags.isFlag("private");
+			if (is_const || is_static)
+			{
+				continue;
+			}
+			if (is_protected || is_private)
+			{
+				continue;
+			}
+			for (var j = 0; j < variable.values.count(); j++)
+			{
+				var value = variable.values.item(j);
+				content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if (k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")return this.") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
+				flag = true;
+			}
+		}
+		if (t.current_class_extends_name != "")
+		{
+			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_extends_name)) + Runtime.rtl.toStr(".prototype.takeValue.call(this,k,d);")));
+		}
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * OpDeclareClass
+	 */
+	OpDeclareClassBody: function(t, op_code)
+	{
+		var content = "";
+		var class_kind = op_code.kind;
+		content += Runtime.rtl.toStr(t.s("Object.assign(" + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(".prototype,")));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		/* Functions */
+		var res = this.OpDeclareClassFunctions(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		/* Init variables */
+		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE && op_code.vars != null)
+		{
+			var res = this.OpDeclareClassInitVariables(t, op_code);
+			t = Runtime.rtl.get(res, 0);
+			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		}
+		/* Init struct */
+		if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT && op_code.vars != null)
+		{
+			/* Assign object */
+			/*
+			list res = static::OpDeclareClassAssignObject(t, op_code);
+			t = res[0];
+			content ~= res[1];
+			*/
+			/* Assign value */
+			/*
+			list res = static::OpDeclareClassAssignValue(t, op_code);
+			t = res[0];
+			content ~= res[1];
+			*/
+			/* Take Value */
+			var res = this.OpDeclareClassTakeValue(t, op_code);
+			t = Runtime.rtl.get(res, 0);
+			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		}
+		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("});"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClassFooter
@@ -13716,7 +13530,48 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			content += Runtime.rtl.toStr(t.s("window[\"" + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr("\"] = ") + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(";")));
 		}
 		content += Runtime.rtl.toStr(t.s("if (typeof module != \"undefined\" && typeof module.exports != \"undefined\") " + Runtime.rtl.toStr("module.exports = ") + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(";")));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * OpDeclareComponent
+	 */
+	OpDeclareComponent: function(t, op_code)
+	{
+		var content = "";
+		if (t.current_class_extends_name == "")
+		{
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_class_extends_name"]), "Runtime.Render.Component");
+		}
+		content += Runtime.rtl.toStr(t.s(t.current_class_full_name + Runtime.rtl.toStr(" = {")));
+		t = t.levelInc();
+		content += Runtime.rtl.toStr(t.s("name: " + Runtime.rtl.toStr(t.expression.constructor.toString(t.current_class_full_name)) + Runtime.rtl.toStr(",")));
+		content += Runtime.rtl.toStr(t.s("extends: " + Runtime.rtl.toStr(t.expression.constructor.useModuleName(t, t.current_class_extends_name)) + Runtime.rtl.toStr(",")));
+		/* Props */
+		var res = this.OpDeclareComponentProps(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		/* Variables */
+		var res = this.OpDeclareComponentVariables(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		/* Methods */
+		content += Runtime.rtl.toStr(t.s("methods: function ()"));
+		content += Runtime.rtl.toStr(t.s("{"));
+		t = t.levelInc();
+		var res = this.OpDeclareClassFunctions(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("},"));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("};"));
+		/* Class static functions */
+		var res = this.OpDeclareClassBodyStatic(t, op_code);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		/* Class footer */
+		var res = this.OpDeclareClassFooter(t, op_code);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -13725,12 +13580,12 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 	{
 		if (op_code.is_abstract)
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		if (op_code.is_declare)
 		{
 			throw new Bayrell.Lang.Exceptions.DeclaredClass()
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		var content = "";
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_class"]), op_code);
@@ -13745,9 +13600,9 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_class_extends_name"]), "Runtime.BaseStruct");
 		}
-		else if (op_code.kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT)
+		if (op_code.is_component)
 		{
-			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_class_extends_name"]), "");
+			return this.OpDeclareComponent(t, op_code);
 		}
 		/* Constructor */
 		var res = this.OpDeclareClassConstructor(t, op_code);
@@ -13770,7 +13625,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		/* Class footer */
 		var res = this.OpDeclareClassFooter(t, op_code);
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Translate item
@@ -13796,7 +13651,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpPreprocessorSwitch)
 		{
 			var content = "";
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var res = t.operator.constructor.OpPreprocessorIfCode(t, op_code.items.item(i));
 				var s = Runtime.rtl.get(res, 1);
@@ -13806,9 +13661,9 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 				}
 				content += Runtime.rtl.toStr(s);
 			}
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * Translate program
@@ -13820,9 +13675,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			content = t.s("\"use strict;\"");
 		}
-		/* content ~= t.s("var use = (typeof Runtime != 'undefined' && typeof Runtime.rtl != 'undefined')"~
-			" ? Runtime.rtl.find_class : null;"); */
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Translate program
@@ -13832,7 +13685,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		var content = "";
 		if (op_code == null)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (op_code.uses != null)
 		{
@@ -13842,7 +13695,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 		{
 			var res = this.translateProgramHeader(t, op_code);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var res = this.translateItem(t, item);
@@ -13866,7 +13719,7 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			content = Runtime.rs.replace("this," + Runtime.rtl.toStr("ctx"), "this", content);
 			content = Runtime.rs.replace("this," + Runtime.rtl.toStr(" ctx"), "this", content);
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -13883,22 +13736,22 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -13912,15 +13765,26 @@ Object.assign(Bayrell.Lang.LangES6.TranslatorES6Program,
 			"OpFunctionAnnotations",
 			"OpClassBodyItemMethodsList",
 			"OpClassBodyItemAnnotations",
+			"OpDeclareClassStaticVariables",
+			"OpDeclareClassStaticFunctions",
 			"OpDeclareClassBodyStatic",
+			"OpDeclareClassStaticInitFunctions",
+			"OpDeclareClassInitVariables",
+			"OpDeclareComponentProps",
+			"OpDeclareComponentVariables",
+			"OpDeclareClassFunctions",
+			"OpDeclareClassAssignObject",
+			"OpDeclareClassAssignValue",
+			"OpDeclareClassTakeValue",
 			"OpDeclareClassBody",
 			"OpDeclareClassFooter",
+			"OpDeclareComponent",
 			"OpDeclareClass",
 			"translateItem",
 			"translateProgramHeader",
 			"translateProgram",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -14003,7 +13867,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHP,
 	 */
 	reset: function(t)
 	{
-		return t.copy(Runtime.Dict.from({"value":"","current_namespace_name":"","modules":new Runtime.Dict(),"expression":new Bayrell.Lang.LangPHP.TranslatorPHPExpression(),"html":new Bayrell.Lang.LangPHP.TranslatorPHPHtml(),"operator":new Bayrell.Lang.LangPHP.TranslatorPHPOperator(),"program":new Bayrell.Lang.LangPHP.TranslatorPHPProgram(),"save_vars":new Runtime.Collection(),"save_op_codes":new Runtime.Collection(),"save_op_code_inc":0,"preprocessor_flags":Runtime.Dict.from({"PHP":true,"FRONTEND":t.frontend,"BACKEND":t.backend,"ENABLE_CONTEXT":t.enable_context,"ENABLE_CHECK_TYPES":t.enable_check_types})}));
+		return t.copy(Runtime.Map.from({"value":"","current_namespace_name":"","modules":new Runtime.Dict(),"expression":new Bayrell.Lang.LangPHP.TranslatorPHPExpression(),"html":new Bayrell.Lang.LangPHP.TranslatorPHPHtml(),"operator":new Bayrell.Lang.LangPHP.TranslatorPHPOperator(),"program":new Bayrell.Lang.LangPHP.TranslatorPHPProgram(),"save_vars":new Runtime.Collection(),"save_op_codes":new Runtime.Collection(),"save_op_code_inc":0,"preprocessor_flags":Runtime.Map.from({"PHP":true,"FRONTEND":t.frontend,"BACKEND":t.backend,"ENABLE_CONTEXT":t.enable_context,"ENABLE_CHECK_TYPES":t.enable_check_types})}));
 	},
 	/**
 	 * Translate BaseOpCode
@@ -14027,7 +13891,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHP,
 	{
 		if (save_op_code_value == undefined) save_op_code_value = 0;
 		var content = "";
-		for (var i = 0;i < t.save_op_codes.count();i++)
+		for (var i = 0; i < t.save_op_codes.count(); i++)
 		{
 			if (i < save_op_code_value)
 			{
@@ -14054,10 +13918,10 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHP,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -14077,75 +13941,75 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHP,
 		a.push("enable_context");
 		a.push("enable_check_types");
 		a.push("enable_introspection");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "is_pipe") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "is_pipe") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pipe_var_name") return Dict.from({
+		if (field_name == "pipe_var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "html_var_name") return Dict.from({
+		if (field_name == "html_var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html") return Dict.from({
+		if (field_name == "is_html") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.LangPHP.TranslatorPHPExpression",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "html") return Dict.from({
+		if (field_name == "html") return Map.from({
 			"t": "Bayrell.Lang.LangPHP.TranslatorPHPHtml",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "operator") return Dict.from({
+		if (field_name == "operator") return Map.from({
 			"t": "Bayrell.Lang.LangPHP.TranslatorPHPOperator",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "program") return Dict.from({
+		if (field_name == "program") return Map.from({
 			"t": "Bayrell.Lang.LangPHP.TranslatorPHPProgram",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "frontend") return Dict.from({
+		if (field_name == "frontend") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "backend") return Dict.from({
+		if (field_name == "backend") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_context") return Dict.from({
+		if (field_name == "enable_context") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_check_types") return Dict.from({
+		if (field_name == "enable_check_types") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_introspection") return Dict.from({
+		if (field_name == "enable_introspection") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -14158,7 +14022,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHP,
 			"nextSaveOpCode",
 			"outputSaveOpCode",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -14194,19 +14058,6 @@ Bayrell.Lang.LangPHP.TranslatorPHPExpression = function()
 };
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangPHP.TranslatorPHPExpression)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 {
@@ -14323,7 +14174,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 	{
 		var names = this.findModuleNames(t, op_code.entity_name.names);
 		var s = "\\" + Runtime.rtl.toStr(Runtime.rs.join("\\", names));
-		return Runtime.Collection.from([t,s]);
+		return Runtime.Vector.from([t,s]);
 	},
 	/**
 	 * OpIdentifier
@@ -14334,46 +14185,46 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		{
 			if (t.enable_context == false)
 			{
-				return Runtime.Collection.from([t,"\\Runtime\\rtl::getContext()"]);
+				return Runtime.Vector.from([t,"\\Runtime\\rtl::getContext()"]);
 			}
 			else
 			{
-				return Runtime.Collection.from([t,"$ctx"]);
+				return Runtime.Vector.from([t,"$ctx"]);
 			}
 		}
 		if (op_code.value == "_")
 		{
 			if (t.enable_context == false)
 			{
-				return Runtime.Collection.from([t,"\\Runtime\\rtl::getContext()->translate"]);
+				return Runtime.Vector.from([t,"\\Runtime\\rtl::getContext()->translate"]);
 			}
 			else
 			{
-				return Runtime.Collection.from([t,"$ctx->translate"]);
+				return Runtime.Vector.from([t,"$ctx->translate"]);
 			}
 		}
 		if (op_code.value == "@")
 		{
-			return Runtime.Collection.from([t,"$ctx"]);
+			return Runtime.Vector.from([t,"$ctx"]);
 		}
 		if (op_code.value == "_")
 		{
-			return Runtime.Collection.from([t,"$ctx->translate"]);
+			return Runtime.Vector.from([t,"$ctx->translate"]);
 		}
 		if (op_code.value == "log")
 		{
-			return Runtime.Collection.from([t,"var_dump"]);
+			return Runtime.Vector.from([t,"var_dump"]);
 		}
 		if (t.modules.has(op_code.value) || op_code.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE)
 		{
 			var module_name = op_code.value;
 			var new_module_name = this.getModuleName(t, module_name);
-			return Runtime.Collection.from([t,new_module_name]);
+			return Runtime.Vector.from([t,new_module_name]);
 		}
 		else if (op_code.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_VARIABLE)
 		{
 			var content = op_code.value;
-			return Runtime.Collection.from([t,"$" + Runtime.rtl.toStr(content)]);
+			return Runtime.Vector.from([t,"$" + Runtime.rtl.toStr(content)]);
 		}
 		else if (op_code.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_CLASSREF)
 		{
@@ -14382,10 +14233,10 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			{
 				content = "$this";
 			}
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		var content = op_code.value;
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpNumber
@@ -14398,14 +14249,14 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			content = "-" + Runtime.rtl.toStr(content);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 15);
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpString
 	 */
 	OpString: function(t, op_code)
 	{
-		return Runtime.Collection.from([t,this.toString(op_code.value)]);
+		return Runtime.Vector.from([t,this.toString(op_code.value)]);
 	},
 	/**
 	 * OpCollection
@@ -14424,9 +14275,9 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		{
 			return s != "";
 		});
-		var module_name = this.getModuleName(t, "Collection");
+		var module_name = this.getModuleName(t, "Vector");
 		content = module_name + Runtime.rtl.toStr("::from([") + Runtime.rtl.toStr(Runtime.rs.join(",", values)) + Runtime.rtl.toStr("])");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDict
@@ -14450,7 +14301,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		{
 			return s != "";
 		});
-		var module_name = this.getModuleName(t, "Dict");
+		var module_name = this.getModuleName(t, "Map");
 		if (!flag_array)
 		{
 			content = module_name + Runtime.rtl.toStr("::from([") + Runtime.rtl.toStr(Runtime.rs.join(",", values)) + Runtime.rtl.toStr("])");
@@ -14459,7 +14310,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		{
 			content = "[" + Runtime.rtl.toStr(Runtime.rs.join(",", values)) + Runtime.rtl.toStr("]");
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Dynamic
@@ -14546,7 +14397,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 				else if (op_code_next.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_PIPE)
 				{
 					prev_kind = "var";
-					var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":t.pipe_var_name + Runtime.rtl.toStr("->val")}));
+					var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":t.pipe_var_name + Runtime.rtl.toStr("->val")}));
 					t = Runtime.rtl.get(res, 0);
 					s = Runtime.rtl.get(res, 1);
 					prev_kind = "static";
@@ -14565,12 +14416,12 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			}
 			if (first_item_complex && t.is_pipe)
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":s}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":s}));
 				t = Runtime.rtl.get(res, 0);
 				s = Runtime.rtl.get(res, 1);
 			}
 			var attrs_sz = attrs.count();
-			for (var i = 0;i < attrs.count();i++)
+			for (var i = 0; i < attrs.count(); i++)
 			{
 				var attr = attrs.item(i);
 				var next_attr = attrs.get(i + 1, null);
@@ -14640,7 +14491,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 					var items = new Runtime.Vector();
 					if (attr.attrs != null)
 					{
-						for (var j = 0;j < attr.attrs.count();j++)
+						for (var j = 0; j < attr.attrs.count(); j++)
 						{
 							var res = this.Expression(t, Runtime.rtl.get(attr.attrs, j));
 							t = Runtime.rtl.get(res, 0);
@@ -14650,23 +14501,23 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 					s = "\\Runtime\\rtl::attr($ctx, " + Runtime.rtl.toStr(s) + Runtime.rtl.toStr(", [") + Runtime.rtl.toStr(Runtime.rs.join(", ", items)) + Runtime.rtl.toStr("])");
 				}
 			}
-			return Runtime.Collection.from([t,s]);
+			return Runtime.Vector.from([t,s]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpCurry)
 		{
 			var res = this.OpCurry(t, op_code);
 			t = Runtime.rtl.get(res, 0);
 			var content = Runtime.rtl.get(res, 1);
-			var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":content}));
+			var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":content}));
 			t = Runtime.rtl.get(res, 0);
 			var var_name = Runtime.rtl.get(res, 1);
-			return Runtime.Collection.from([t,var_name]);
+			return Runtime.Vector.from([t,var_name]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpCall)
 		{
 			return this.OpCall(t, op_code);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * OpInc
@@ -14693,7 +14544,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		{
 			content = "$" + Runtime.rtl.toStr(s) + Runtime.rtl.toStr("--");
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpMath
@@ -14889,7 +14740,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			}
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), opcode_level);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpMethod
@@ -14911,7 +14762,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		}
 		var content = "new \\Runtime\\Callback(" + Runtime.rtl.toStr(val1) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(this.toString(val2)) + Runtime.rtl.toStr(")");
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 0);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpNew
@@ -14929,7 +14780,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			content += Runtime.rtl.toStr("$ctx");
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = t.expression.constructor.Expression(t, item);
@@ -14939,7 +14790,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpCurry
@@ -14965,7 +14816,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			}
 		}
 		var args_sz = op_code.args.count();
-		for (var i = 0;i < args_sz;i++)
+		for (var i = 0; i < args_sz; i++)
 		{
 			var arg = op_code.args.item(i);
 			if (arg instanceof Bayrell.Lang.OpCodes.OpCurryArg)
@@ -14978,13 +14829,13 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			}
 		}
 		var args_sz = args.count();
-		for (var i = 0;i < args_sz;i++)
+		for (var i = 0; i < args_sz; i++)
 		{
 			var arg = args.item(i);
 			var s_use = "";
 			var arr_use = new Runtime.Vector();
 			arr_use.appendVector(args_use);
-			for (var j = 0;j < i;j++)
+			for (var j = 0; j < i; j++)
 			{
 				var arg_use = args.item(j);
 				arr_use.pushValue("$__varg" + Runtime.rtl.toStr(arg_use.pos));
@@ -15026,7 +14877,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		}
 		content += Runtime.rtl.toStr("($ctx");
 		flag = true;
-		for (var i = 0;i < op_code.args.count();i++)
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			s = "";
 			var item = op_code.args.item(i);
@@ -15044,11 +14895,11 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		for (var i = 0;i < args_sz;i++)
+		for (var i = 0; i < args_sz; i++)
 		{
 			content += Runtime.rtl.toStr(";}");
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpCall
@@ -15074,22 +14925,28 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			s += Runtime.rtl.toStr("(");
 		}
 		var content = s;
-		if (op_code.obj instanceof Bayrell.Lang.OpCodes.OpIdentifier && op_code.obj.value == "_")
+		if (t.enable_context)
 		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$ctx"));
-			flag = true;
+			if (op_code.obj instanceof Bayrell.Lang.OpCodes.OpIdentifier && op_code.obj.value == "_")
+			{
+				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$ctx"));
+				flag = true;
+			}
+			else if ((t.current_function == null || t.current_function.is_context) && op_code.is_context)
+			{
+				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$ctx"));
+				flag = true;
+			}
 		}
-		else if ((t.current_function == null || t.current_function.is_context) && op_code.is_context)
-		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$ctx"));
-			flag = true;
-		}
+		/*
 		if (op_code.is_html)
 		{
-			content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$layout, $model_path, $render_params, $render_content"));
+			content ~= (flag ? ", " : "") ~
+				"$layout, $model_path, $render_params, $render_content";
 			flag = true;
 		}
-		for (var i = 0;i < op_code.args.count();i++)
+		*/
+		for (var i = 0; i < op_code.args.count(); i++)
 		{
 			var item = op_code.args.item(i);
 			var res = this.Expression(t, item);
@@ -15099,7 +14956,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			flag = true;
 		}
 		content += Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassOf
@@ -15108,7 +14965,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 	{
 		var names = this.findModuleNames(t, op_code.entity_name.names);
 		var s = Runtime.rs.join(".", names);
-		return Runtime.Collection.from([t,this.toString(s)]);
+		return Runtime.Vector.from([t,this.toString(s)]);
 	},
 	/**
 	 * OpTernary
@@ -15129,7 +14986,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		content += Runtime.rtl.toStr("(" + Runtime.rtl.toStr(condition) + Runtime.rtl.toStr(") ? (") + Runtime.rtl.toStr(if_true) + Runtime.rtl.toStr(") : (") + Runtime.rtl.toStr(if_false) + Runtime.rtl.toStr(")"));
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 0);
 		/* OpTernary */
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpPipe
@@ -15156,10 +15013,10 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		var res = t.expression.constructor.Expression(t, op_code_item);
 		t = Runtime.rtl.get(res, 0);
 		value = Runtime.rtl.get(res, 1);
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s(var_name + Runtime.rtl.toStr(" = new \\Runtime\\Monad($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(");"))}));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s(var_name + Runtime.rtl.toStr(" = new \\Runtime\\Monad($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(");"))}));
 		t = Runtime.rtl.get(res, 0);
 		/* Output items */
-		for (var i = 0;i < items.count();i++)
+		for (var i = 0; i < items.count(); i++)
 		{
 			var s1 = "";
 			var s2 = "";
@@ -15173,117 +15030,48 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			}
 			else if (op_item.kind == Bayrell.Lang.OpCodes.OpPipe.KIND_METHOD)
 			{
-				var res = this.Dynamic(t, op_item.value);
-				t = Runtime.rtl.get(res, 0);
-				value = Runtime.rtl.get(res, 1);
-				s2 = "try{ ";
-				s2 += Runtime.rtl.toStr(var_name + Runtime.rtl.toStr("=(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("->val!=null && ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("->err==null) ? new \\Runtime\\Monad($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(") : ") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(";"));
-				s2 += Runtime.rtl.toStr(" } catch (\\Exception $err) { ");
-				s2 += Runtime.rtl.toStr(var_name + Runtime.rtl.toStr("=new \\Runtime\\Monad($ctx, null, $err);"));
-				s2 += Runtime.rtl.toStr(" }");
+				var value = op_item.value.obj.value.value;
+				var args = "";
+				var flag = false;
+				for (var j = 0; j < op_item.value.args.count(); j++)
+				{
+					var item = op_item.value.args.item(j);
+					var res = t.expression.constructor.Expression(t, item);
+					t = Runtime.rtl.get(res, 0);
+					var s = Runtime.rtl.get(res, 1);
+					args += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr(s));
+					flag = true;
+				}
+				s1 = var_name + Runtime.rtl.toStr("->callMethod(\"") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr("\", [") + Runtime.rtl.toStr(args) + Runtime.rtl.toStr("])");
 			}
 			else if (op_item.kind == Bayrell.Lang.OpCodes.OpPipe.KIND_CALL)
 			{
 				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), true);
-				var args = "";
-				/*
-				bool is_instance_method = false;
-				if (
-					op_item.value instanceof OpCall and
-					op_item.value.obj instanceof OpAttr and
-					op_item.value.obj.kind == OpAttr::KIND_ATTR
-				)
-				{
-					is_instance_method = true;
-					value = "new \\Runtime\\Callback("
-					if (op_item.value.obj.obj.value == "")
-					{
-						value ~= t.pipe_var_name ~ "->val";
-					}
-					else
-					{
-						list res = static::Expression(t, op_item.value.obj.obj);
-						t = res[0]; value ~= res[1];
-					}
-					value ~= ",";
-					value ~= static::toString(op_item.value.obj.value.value);
-					value ~= ")";
-					bool flag = false;
-					for (int j=0; j<op_item.value.args.count(); j++)
-					{
-						BaseOpCode item = op_item.value.args.item(j);
-						list res = t.expression::Expression(t, item); t = res[0]; string s_arg = res[1];
-						args ~= (flag ? ", " : "") ~ s_arg;
-						flag = true;
-					}
-					args = ", [" ~ args ~ "]";
-				}
-				*/
-				/*
-				if (op_item.value instanceof OpAttr)
-				{
-					value = "new \\Runtime\\Callback("
-					if (op_item.value.kind == OpAttr::KIND_ATTR and op_item.value.obj.value == "")
-					{
-						value ~= t.pipe_var_name ~ "->val";
-					}
-					else if (op_item.value.kind == OpAttr::KIND_STATIC and op_item.value.obj.value == "")
-					{
-						value ~= "static::class";
-					}
-					else
-					{
-						list res = static::Expression(t, op_item.value.obj);
-						t = res[0]; value ~= res[1];
-					}
-					value ~= ",";
-					value ~= static::toString(op_item.value.value.value);
-					value ~= ")";
-				}
-				else
-				{
-					list res = static::Dynamic(t, op_item.value); t = res[0]; value = res[1];
-				}
-				*/
 				var res = this.Dynamic(t, op_item.value);
 				t = Runtime.rtl.get(res, 0);
 				value = Runtime.rtl.get(res, 1);
-				if (!op_item.is_async || !t.enable_async_await)
+				if (op_item.is_monad)
 				{
-					if (op_item.is_monad)
-					{
-						s1 = var_name + Runtime.rtl.toStr("->monad($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-					}
-					else
-					{
-						s1 = var_name + Runtime.rtl.toStr("->call($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")");
-					}
+					s1 = var_name + Runtime.rtl.toStr("->monad($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
 				}
-				else if (op_item.is_async && t.current_function.isFlag("async"))
+				else
 				{
-					if (op_item.is_monad)
-					{
-						s1 = var_name + Runtime.rtl.toStr("->monadAsync($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-					}
-					else
-					{
-						s1 = var_name + Runtime.rtl.toStr("->callAsync($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(args) + Runtime.rtl.toStr(")");
-					}
+					s1 = var_name + Runtime.rtl.toStr("->call($ctx, ") + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
 				}
 				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), false);
 			}
 			if (s1 != "")
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s(var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"))}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s(var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"))}));
 				t = Runtime.rtl.get(res, 0);
 			}
 			if (s2 != "")
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"content":t.s(s2)}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":t.s(s2)}));
 				t = Runtime.rtl.get(res, 0);
 			}
 		}
-		return Runtime.Collection.from([t,var_name + Runtime.rtl.toStr("->value($ctx)")]);
+		return Runtime.Vector.from([t,var_name + Runtime.rtl.toStr("->value($ctx)")]);
 	},
 	/**
 	 * OpTypeConvert
@@ -15295,7 +15083,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		t = Runtime.rtl.get(res, 0);
 		var value = Runtime.rtl.get(res, 1);
 		content = "\\Runtime\\rtl::to(" + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(this.toPattern(t, op_code.pattern)) + Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction
@@ -15322,7 +15110,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		/* Restore function */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_function"]), save_f);
 		/* OpTernary */
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Expression
@@ -15443,7 +15231,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlItems)
 		{
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), true);
-			var res = t.html.constructor.OpHtmlItems(t, op_code);
+			var res = t.html.constructor.OpHtmlExpression(t, op_code);
 			t = Runtime.rtl.get(res, 0);
 			content = Runtime.rtl.get(res, 1);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), false);
@@ -15455,7 +15243,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			content = Runtime.rtl.get(res, 1);
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_pipe"]), save_is_pipe);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -15472,22 +15260,22 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -15520,7 +15308,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPExpression,
 			"OpDeclareFunction",
 			"Expression",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -15556,19 +15344,6 @@ Bayrell.Lang.LangPHP.TranslatorPHPHtml = function()
 };
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangPHP.TranslatorPHPHtml)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 {
@@ -15586,7 +15361,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 	 */
 	isSingleTag: function(tag_name)
 	{
-		var tokens = Runtime.Collection.from(["img","meta","input","link","br"]);
+		var tokens = Runtime.Vector.from(["img","meta","input","link","br"]);
 		if (tokens.indexOf(tag_name) == -1)
 		{
 			return false;
@@ -15594,142 +15369,38 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 		return true;
 	},
 	/**
-	 * Translator html component
-	 */
-	OpHtmlComponent: function(t, op_code)
-	{
-		var res = t.constructor.incSaveOpCode(t);
-		t = Runtime.rtl.get(res, 0);
-		var var_name = Runtime.rtl.get(res, 1);
-		var content = "";
-		var v_model = "null";
-		var tag_name = op_code.tag_name;
-		var module_name = "";
-		if (op_code.op_code_name)
-		{
-			var res = t.expression.constructor.Expression(t, op_code.op_code_name);
-			t = Runtime.rtl.get(res, 0);
-			module_name = Runtime.rtl.get(res, 1);
-		}
-		else
-		{
-			module_name = t.expression.constructor.toString(t.expression.constructor.findModuleName(t, op_code.tag_name));
-		}
-		content += Runtime.rtl.toStr(t.s("/* Component '" + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr("' */")));
-		content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr("_params = [];")));
-		var attr_name = op_code.attrs.findItem(Runtime.lib.equalAttr("key", "@name"));
-		var attr_bind = op_code.attrs.findItem(Runtime.lib.equalAttr("key", "@bind"));
-		var attr_model = op_code.attrs.findItem(Runtime.lib.equalAttr("key", "@model"));
-		var attr_model_path = op_code.attrs.findItem(Runtime.lib.equalAttr("key", "@model_path"));
-		if (attr_name)
-		{
-			var res = t.expression.constructor.Expression(t, attr_name.value);
-			t = Runtime.rtl.get(res, 0);
-			v_model = "static::_concat_attrs($ctx, $model_path, " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(")");
-		}
-		else if (attr_bind)
-		{
-			var res = t.expression.constructor.Expression(t, attr_bind.value);
-			t = Runtime.rtl.get(res, 0);
-			v_model = "static::_concat_attrs($ctx, $model_path, " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(")");
-		}
-		else if (attr_model)
-		{
-			var res = t.expression.constructor.Expression(t, attr_model.value);
-			t = Runtime.rtl.get(res, 0);
-			v_model = "static::_concat_attrs($ctx, $model_path, " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(")");
-		}
-		else if (attr_model_path)
-		{
-			var res = t.expression.constructor.Expression(t, attr_model_path.value);
-			t = Runtime.rtl.get(res, 0);
-			v_model = "static::_concat_attrs($ctx, [], " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(")");
-		}
-		for (var i = 0;i < op_code.attrs.count();i++)
-		{
-			var attr = op_code.attrs.item(i);
-			if (attr.key == "@bind")
-			{
-				continue;
-			}
-			if (attr.key == "@name")
-			{
-				continue;
-			}
-			if (attr.key == "@model")
-			{
-				continue;
-			}
-			if (attr.key == "@model_path")
-			{
-				continue;
-			}
-			if (attr.key == "@ref")
-			{
-				continue;
-			}
-			if (attr.is_spread)
-			{
-				content += Runtime.rtl.toStr(t.s("if($" + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr("!=null)") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_params = array_merge(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_params,$") + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr("->_map);")));
-			}
-			else
-			{
-				var res = this.OpHtmlAttr(t, attr);
-				t = Runtime.rtl.get(res, 0);
-				var attr_value = Runtime.rtl.get(res, 1);
-				content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr("_params[") + Runtime.rtl.toStr(t.expression.constructor.toString(attr.key)) + Runtime.rtl.toStr("] = ") + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr(";")));
-			}
-		}
-		content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr("_content = [];")));
-		var f = Runtime.rtl.method(this.getClassName(), "OpHtmlItems");
-		var res = t.constructor.saveOpCodeCall(t, f, Runtime.Collection.from([op_code.items,var_name + Runtime.rtl.toStr("_content")]));
-		t = Runtime.rtl.get(res, 0);
-		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		if (op_code.op_code_name)
-		{
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr("_name = \\Runtime\\rtl::find_class(") + Runtime.rtl.toStr(module_name) + Runtime.rtl.toStr(");")));
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = [") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_name::render($ctx, $layout,") + Runtime.rtl.toStr(v_model) + Runtime.rtl.toStr(",\\Runtime\\Dict::from(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_params),") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_content)];")));
-		}
-		else
-		{
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr("_name = \\Runtime\\rtl::find_class(") + Runtime.rtl.toStr(module_name) + Runtime.rtl.toStr(");")));
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = [") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_name::render($ctx, $layout,") + Runtime.rtl.toStr(v_model) + Runtime.rtl.toStr(",\\Runtime\\Dict::from(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_params),") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr("_content)];")));
-		}
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_name":var_name,"content":content}));
-		t = Runtime.rtl.get(res, 0);
-		return Runtime.Collection.from([t,var_name]);
-	},
-	/**
 	 * Translator html attr
 	 */
 	OpHtmlAttr: function(t, attr)
 	{
-		if (attr.value instanceof Bayrell.Lang.OpCodes.OpString)
+		var op_code = attr.value;
+		if (op_code instanceof Bayrell.Lang.OpCodes.OpString)
 		{
-			return Runtime.Collection.from([t,t.expression.constructor.toString(attr.value.value)]);
+			return Runtime.Vector.from([t,t.expression.constructor.toString(op_code.value)]);
 		}
-		if (attr.value instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
+		if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
 		{
-			if (attr.value.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW)
+			if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW)
 			{
-				var res = t.expression.constructor.Expression(t, attr.value.value);
+				var res = t.expression.constructor.Expression(t, op_code.value);
 				t = Runtime.rtl.get(res, 0);
-				return Runtime.Collection.from([t,Runtime.rtl.get(res, 1)]);
+				var value = Runtime.rtl.get(res, 1);
+				return Runtime.Vector.from([t,value]);
 			}
-			else if (attr.value.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
+			else if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
 			{
-				var res = t.expression.constructor.Expression(t, attr.value.value);
+				var res = t.expression.constructor.Expression(t, op_code.value);
 				t = Runtime.rtl.get(res, 0);
 				var value = Runtime.rtl.get(res, 1);
 				value = "\\Runtime\\rtl::json_encode($ctx, " + Runtime.rtl.toStr(value) + Runtime.rtl.toStr(")");
-				return Runtime.Collection.from([t,value]);
+				return Runtime.Vector.from([t,value]);
 			}
 		}
-		var res = t.expression.constructor.Expression(t, attr.value);
+		var res = t.expression.constructor.Expression(t, op_code);
 		t = Runtime.rtl.get(res, 0);
 		var value = Runtime.rtl.get(res, 1);
 		value = t.o(value, Runtime.rtl.get(res, 0).opcode_level, 13);
-		return Runtime.Collection.from([t,value]);
+		return Runtime.Vector.from([t,value]);
 	},
 	/**
 	 * Translator html template
@@ -15737,179 +15408,274 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 	OpHtmlAttrs: function(t, attrs)
 	{
 		var attr_class = new Runtime.Vector();
-		var attr_s = "";
+		var attr_s = "null";
 		var attr_key_value = "";
+		var attr_elem_name = "";
 		var has_attr_key = false;
-		var res_attrs = attrs.map((attr) => 
+		var res_attrs = new Runtime.Vector();
+		for (var attrs_i = 0; attrs_i < attrs.count(); attrs_i++)
 		{
+			var attr = Runtime.rtl.get(attrs, attrs_i);
 			if (attr.is_spread)
 			{
-				return "";
+				continue;
 			}
 			var attr_key = attr.key;
-			var attr_value = "";
-			/*
-				if (attr_key == "@class")
-				{
-					list res = static::OpHtmlAttr(t, attr); t = res[0]; attr_value = res[1];
-					attr_class.pushValue( "static::_get_css_name($ctx, " ~
-						attr_value ~ ")" );
-					
-					if (not has_attr_key and attr.value instanceof OpString)
-					{
-						var arr = rs::split(" ", attr.value.value);
-						attr_key_value = t.expression::toString(arr[0]);
-						has_attr_key = true;
-					}
-					
-					return "";
-				}
-				*/
+			var ch = Runtime.rs.substr(attr_key, 0, 1);
+			if (ch == "@" && attr_key != "@model" && attr_key != "@global")
+			{
+				continue;
+			}
+			var res = this.OpHtmlAttr(t, attr);
+			t = Runtime.rtl.get(res, 0);
+			var attr_value = Runtime.rtl.get(res, 1);
 			if (attr_key == "class")
 			{
-				t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["opcode_level"]), 1000);
-				var res = this.OpHtmlAttr(t, attr);
-				t = Runtime.rtl.get(res, 0);
-				attr_value = Runtime.rtl.get(res, 1);
 				attr_class.pushValue(attr_value);
-				if (!has_attr_key && attr.value instanceof Bayrell.Lang.OpCodes.OpString)
+				if (attr_elem_name == "" && attr.value instanceof Bayrell.Lang.OpCodes.OpString)
 				{
 					var arr = Runtime.rs.split(" ", attr.value.value);
-					attr_key_value = t.expression.constructor.toString(Runtime.rtl.get(arr, 0));
-					has_attr_key = true;
+					attr_elem_name = t.expression.constructor.toString(Runtime.rtl.get(arr, 0));
 				}
-				return "";
+				continue;
 			}
-			else if (attr_key == "@key")
+			else if (attr_key == "@global")
 			{
-				has_attr_key = true;
-				var res = this.OpHtmlAttr(t, attr);
-				t = Runtime.rtl.get(res, 0);
-				attr_value = Runtime.rtl.get(res, 1);
-				attr_key_value = attr_value;
-				return "";
+				attr_key = "model_path";
 			}
-			if (attr_key == "@bind" || attr_key == "@name")
+			else if (attr_key == "@model")
 			{
-				attr_key = "value";
-				var res = t.expression.constructor.Expression(t, attr.value);
-				t = Runtime.rtl.get(res, 0);
-				attr_value = "\\Runtime\\rtl::attr($ctx, $model, " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(", null)");
+				attr_key = "model_path";
+				attr_value = "$this->model_path->concat(" + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr(")");
 			}
-			var ch = Runtime.rs.substr(attr_key, 0, 1);
-			if (ch == "@")
-			{
-				return "";
-			}
-			if (attr_value == "")
-			{
-				var res = this.OpHtmlAttr(t, attr);
-				t = Runtime.rtl.get(res, 0);
-				attr_value = Runtime.rtl.get(res, 1);
-			}
-			return attr_key + Runtime.rtl.toStr("=\"'.static::_escape_attr($ctx, ") + Runtime.rtl.toStr(attr_value) + Runtime.rtl.toStr(").'\"");
-		});
+			res_attrs.pushValue(t.expression.constructor.toString(attr_key) + Runtime.rtl.toStr(" => ") + Runtime.rtl.toStr(attr_value));
+		}
 		res_attrs = res_attrs.filter((s) => 
 		{
 			return s != "";
 		});
 		if (attr_class.count() > 0)
 		{
-			attr_class.pushValue("static::getCssHash($ctx)");
-			/*attr_class.pushValue( t.expression::toString("h-" ~
-				ParserBayHtml::getCssHash(t.current_class_full_name)) );*/
-			res_attrs = res_attrs.pushIm("class=" + Runtime.rtl.toStr("\"'.") + Runtime.rtl.toStr(Runtime.rs.join(".\" \".", attr_class)) + Runtime.rtl.toStr(".'\""));
+			res_attrs.pushValue("\"class\" => " + Runtime.rtl.toStr("static::_class_name([") + Runtime.rtl.toStr(attr_class) + Runtime.rtl.toStr("])"));
 		}
 		if (res_attrs.count() > 0)
 		{
-			attr_s = " " + Runtime.rtl.toStr(Runtime.rs.join(" ", res_attrs));
+			attr_s = "[" + Runtime.rtl.toStr(Runtime.rs.join(",", res_attrs)) + Runtime.rtl.toStr("]");
+		}
+		else
+		{
+			attr_s = "[]";
 		}
 		/* Add spreads */
-		for (var i = 0;i < attrs.count();i++)
+		for (var i = 0; i < attrs.count(); i++)
 		{
 			var attr = Runtime.rtl.get(attrs, i);
 			if (!attr.is_spread)
 			{
 				continue;
 			}
-			attr_s += Runtime.rtl.toStr(" ' . static::_join_attrs($ctx, $" + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr(") . '"));
+			attr_s = "static::_merge_attrs(" + Runtime.rtl.toStr(attr_s) + Runtime.rtl.toStr(",") + Runtime.rtl.toStr(attr.value.value) + Runtime.rtl.toStr(")");
 		}
-		return Runtime.Collection.from([t,attr_s]);
+		return Runtime.Vector.from([t,attr_s]);
 	},
 	/**
 	 * Translator html template
 	 */
-	OpHtmlTag: function(t, op_code)
+	OpHtmlTag: function(t, op_code, var_name)
 	{
-		if (this.isComponent(op_code.tag_name))
-		{
-			return this.OpHtmlComponent(t, op_code);
-		}
-		/* Output attrs */
-		var res = this.OpHtmlAttrs(t, op_code.attrs);
-		t = Runtime.rtl.get(res, 0);
-		var attr_s = Runtime.rtl.get(res, 1);
-		var res = t.constructor.incSaveOpCode(t);
-		t = Runtime.rtl.get(res, 0);
-		var var_name = Runtime.rtl.get(res, 1);
 		var content = "";
-		if (op_code.tag_name != "")
+		if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlContent)
 		{
-			content += Runtime.rtl.toStr(t.s("/* Element '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
+			var item_value = t.expression.constructor.toString(op_code.value);
+			content += Runtime.rtl.toStr(t.s("/* Text */"));
+			content += Runtime.rtl.toStr(t.s("static::_e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
 		}
-		if (this.isSingleTag(op_code.tag_name))
+		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
 		{
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = ['<") + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr(attr_s) + Runtime.rtl.toStr(" />'];")));
-		}
-		else
-		{
-			if (op_code.tag_name != "")
+			/* Save op codes */
+			var save_op_codes = t.save_op_codes;
+			/*int save_op_code_inc = t.save_op_code_inc;*/
+			var res = t.expression.constructor.Expression(t, op_code.value);
+			t = Runtime.rtl.get(res, 0);
+			var item_value = Runtime.rtl.get(res, 1);
+			/* Restore op codes */
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+			/*t <= save_op_code_inc <= save_op_code_inc;*/
+			if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW)
 			{
-				content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = ['<") + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr(attr_s) + Runtime.rtl.toStr(">'];")));
+				content += Runtime.rtl.toStr(t.s("/* Raw */"));
+				content += Runtime.rtl.toStr(t.s("static::_e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr("new Runtime.RawString(") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr("));")));
+			}
+			else if (op_code.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
+			{
+				content += Runtime.rtl.toStr(t.s("/* Text */"));
+				item_value = "\\Runtime\\rtl::json_encode(" + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
+				content += Runtime.rtl.toStr(t.s("static::_e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+			}
+		}
+		else if (op_code instanceof Bayrell.Lang.OpCodes.OpHtmlTag)
+		{
+			var new_var_name = "";
+			var res = t.constructor.incSaveOpCode(t);
+			t = Runtime.rtl.get(res, 0);
+			new_var_name = Runtime.rtl.get(res, 1);
+			var has_childs = op_code.items != null && op_code.items.items != null && op_code.items.items.count() > 0;
+			var is_component = this.isComponent(op_code.tag_name);
+			var op_code_attrs = op_code.attrs.filter((attr) => 
+			{
+				return attr.key != "@render";
+			});
+			var res = this.OpHtmlAttrs(t, op_code_attrs);
+			t = Runtime.rtl.get(res, 0);
+			var attrs = Runtime.rtl.get(res, 1);
+			if (op_code.tag_name == "")
+			{
+			}
+			else if (is_component)
+			{
+				var tag_name = "";
+				if (op_code.op_code_name)
+				{
+					var res = t.expression.constructor.Expression(t, op_code.op_code_name);
+					t = Runtime.rtl.get(res, 0);
+					tag_name = Runtime.rtl.get(res, 1);
+				}
+				else
+				{
+					tag_name = t.expression.constructor.toString(t.expression.constructor.findModuleName(t, op_code.tag_name));
+				}
+				if (has_childs)
+				{
+					var res = this.OpHtmlItemsAsFunction(t, op_code.items);
+					t = Runtime.rtl.get(res, 0);
+					var f = Runtime.rtl.get(res, 1);
+					content += Runtime.rtl.toStr(t.s("/* Component '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
+					content += Runtime.rtl.toStr(t.s(new_var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("static::_e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(f) + Runtime.rtl.toStr(");")));
+					has_childs = false;
+				}
+				else
+				{
+					content += Runtime.rtl.toStr(t.s("/* Component '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
+					content += Runtime.rtl.toStr(t.s(new_var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("static::_e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
+				}
 			}
 			else
 			{
-				content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = [];")));
+				content += Runtime.rtl.toStr(t.s("/* Element '" + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr("' */")));
+				var tag_name = t.expression.constructor.toString(op_code.tag_name);
+				content += Runtime.rtl.toStr(t.s(new_var_name + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr("static::_e(") + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(tag_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(attrs) + Runtime.rtl.toStr(");")));
 			}
-			var flag_value = false;
-			if (!flag_value)
+			if (has_childs)
 			{
-				var f = Runtime.rtl.method(this.getClassName(), "OpHtmlItems");
-				var res = t.constructor.saveOpCodeCall(t, f, Runtime.Collection.from([op_code.items,var_name]));
+				var res = this.OpHtmlItems(t, op_code.items, new_var_name, true);
 				t = Runtime.rtl.get(res, 0);
 				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
-			if (op_code.tag_name != "")
-			{
-				content += Runtime.rtl.toStr(t.s("static::_p(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", '</") + Runtime.rtl.toStr(op_code.tag_name) + Runtime.rtl.toStr(">');")));
-			}
 		}
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_name":var_name,"content":content}));
-		t = Runtime.rtl.get(res, 0);
-		return Runtime.Collection.from([t,var_name]);
+		else
+		{
+			/* Save op codes */
+			var save_op_codes = t.save_op_codes;
+			/*int save_op_code_inc = t.save_op_code_inc;*/
+			var item_value = "";
+			if (op_code instanceof Bayrell.Lang.OpCodes.OpCall)
+			{
+				var res = t.expression.constructor.OpCall(t, op_code);
+				t = Runtime.rtl.get(res, 0);
+				item_value += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+			}
+			else
+			{
+				var res = t.expression.constructor.Expression(t, op_code);
+				t = Runtime.rtl.get(res, 0);
+				item_value = Runtime.rtl.get(res, 1);
+			}
+			/* Output save op code */
+			var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
+			if (save != "")
+			{
+				content += Runtime.rtl.toStr(save);
+			}
+			/* Restore op codes */
+			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+			/*t <= save_op_code_inc <= save_op_code_inc;*/
+			content += Runtime.rtl.toStr(t.s("/* Text */"));
+			content += Runtime.rtl.toStr(t.s("static::_e(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", null, null, ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
+		}
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Translator html items
 	 */
-	OpHtmlItems: function(t, op_code, var_name)
+	OpHtmlExpression: function(t, op_code)
+	{
+		var content = "";
+		content += Runtime.rtl.toStr(t.s("$__v = [];"));
+		var res = this.OpHtmlItems(t, op_code, "$__v", true);
+		t = Runtime.rtl.get(res, 0);
+		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+		content += Runtime.rtl.toStr(t.s2(""));
+		var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"content":content}));
+		t = Runtime.rtl.get(res, 0);
+		return Runtime.Vector.from([t,"$__v"]);
+	},
+	/**
+	 * Translator html items as function
+	 */
+	OpHtmlItemsAsFunction: function(t, op_code)
+	{
+		var save_op_codes = t.save_op_codes;
+		var save_op_code_inc = t.save_op_code_inc;
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), 0);
+		var content = "function (){";
+		t = t.levelInc();
+		var res = this.OpHtmlExpression(t, op_code);
+		t = Runtime.rtl.get(res, 0);
+		/* Output save op code */
+		var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
+		if (save != "")
+		{
+			content += Runtime.rtl.toStr(save);
+		}
+		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(";")));
+		t = t.levelDec();
+		content += Runtime.rtl.toStr(t.s("}"));
+		/* Restore save op codes */
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
+		return Runtime.Vector.from([t,content]);
+	},
+	/**
+	 * Translator html items
+	 */
+	OpHtmlItems: function(t, op_code, var_name, first_space)
 	{
 		if (var_name == undefined) var_name = "";
+		if (first_space == undefined) first_space = false;
 		if (op_code == null || op_code.items.count() == 0)
 		{
-			return Runtime.Collection.from([t,""]);
-		}
-		var items_count = op_code.items.count();
-		var content = "";
-		if (var_name == "")
-		{
-			var res = t.constructor.incSaveOpCode(t);
-			t = Runtime.rtl.get(res, 0);
-			var var_name = Runtime.rtl.get(res, 1);
-			content += Runtime.rtl.toStr(t.s(var_name + Runtime.rtl.toStr(" = [];")));
+			return Runtime.Vector.from([t,""]);
 		}
 		var save_html_var_name = t.html_var_name;
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), var_name);
-		for (var i = 0;i < op_code.items.count();i++)
+		var content = "";
+		var next_space = true;
+		var add_space = (i) => 
+		{
+			if (i > 0 && next_space)
+			{
+				content += Runtime.rtl.toStr(t.s2(""));
+			}
+			if (i == 0 && first_space)
+			{
+				content += Runtime.rtl.toStr(t.s2(""));
+			}
+			if (!next_space)
+			{
+				next_space = true;
+			}
+		};
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var item = op_code.items.item(i);
 			var item_value = "";
@@ -15917,40 +15683,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 			/* Save op codes */
 			var save_op_codes = t.save_op_codes;
 			var save_op_code_inc = t.save_op_code_inc;
-			if (item instanceof Bayrell.Lang.OpCodes.OpHtmlContent)
-			{
-				item_value = t.expression.constructor.toString(item.value);
-			}
-			else if (item instanceof Bayrell.Lang.OpCodes.OpHtmlTag)
-			{
-				var res = this.OpHtmlTag(t, item);
-				t = Runtime.rtl.get(res, 0);
-				item_value = Runtime.rtl.get(res, 1);
-			}
-			else if (item instanceof Bayrell.Lang.OpCodes.OpHtmlValue)
-			{
-				if (item.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_RAW)
-				{
-					var res = t.expression.constructor.Expression(t, item.value);
-					t = Runtime.rtl.get(res, 0);
-					item_value = Runtime.rtl.get(res, 1);
-				}
-				else if (item.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_HTML)
-				{
-					var res = t.expression.constructor.Expression(t, item.value);
-					t = Runtime.rtl.get(res, 0);
-					item_value = Runtime.rtl.get(res, 1);
-					item_value = "static::_to_html($ctx, " + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
-				}
-				else if (item.kind == Bayrell.Lang.OpCodes.OpHtmlValue.KIND_JSON)
-				{
-					var res = t.expression.constructor.Expression(t, item.value);
-					t = Runtime.rtl.get(res, 0);
-					item_value = Runtime.rtl.get(res, 1);
-					item_value = "\\Runtime\\rtl::json_encode($ctx, " + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
-				}
-			}
-			else if (item instanceof Bayrell.Lang.OpCodes.OpAssign)
+			if (item instanceof Bayrell.Lang.OpCodes.OpAssign)
 			{
 				var res = t.operator.constructor.OpAssign(t, item);
 				t = Runtime.rtl.get(res, 0);
@@ -15958,41 +15691,39 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpComment)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpComment(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+				next_space = false;
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpFor)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpFor(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpIf)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpIf(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpWhile)
 			{
+				add_space(i);
 				var res = t.operator.constructor.OpWhile(t, item);
 				t = Runtime.rtl.get(res, 0);
 				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
-			else if (item instanceof Bayrell.Lang.OpCodes.OpCall)
-			{
-				var res = t.expression.constructor.OpCall(t, item);
-				t = Runtime.rtl.get(res, 0);
-				item_value = Runtime.rtl.get(res, 1);
-				item_value = "static::_escape_html($ctx, " + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
-			}
 			else
 			{
-				var res = t.expression.constructor.Expression(t, item);
+				add_space(i);
+				var res = this.OpHtmlTag(t, item, var_name);
 				t = Runtime.rtl.get(res, 0);
-				item_value = Runtime.rtl.get(res, 1);
-				item_value = "static::_escape_html($ctx, " + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(")");
+				op_content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 			/* Output save op code */
 			var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
@@ -16007,15 +15738,9 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 			/* Restore save op codes */
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-			if (item_value != "")
-			{
-				content += Runtime.rtl.toStr(t.s("static::_p(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(item_value) + Runtime.rtl.toStr(");")));
-			}
 		}
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["html_var_name"]), save_html_var_name);
-		var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_name":var_name,"content":content}));
-		t = Runtime.rtl.get(res, 0);
-		return Runtime.Collection.from([t,"new \\Runtime\\RawString(" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(")")]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -16032,22 +15757,22 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -16055,13 +15780,14 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPHtml,
 		var a=[
 			"isComponent",
 			"isSingleTag",
-			"OpHtmlComponent",
 			"OpHtmlAttr",
 			"OpHtmlAttrs",
 			"OpHtmlTag",
+			"OpHtmlExpression",
+			"OpHtmlItemsAsFunction",
 			"OpHtmlItems",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -16097,19 +15823,6 @@ Bayrell.Lang.LangPHP.TranslatorPHPOperator = function()
 };
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangPHP.TranslatorPHPOperator)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 {
@@ -16135,7 +15848,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			return t.expression.constructor.toString(item);
 		});
 		content = "\\Runtime\\rtl::setAttr($ctx, $" + Runtime.rtl.toStr(var_name) + Runtime.rtl.toStr(", [") + Runtime.rtl.toStr(Runtime.rs.join(", ", names)) + Runtime.rtl.toStr("], ") + Runtime.rtl.toStr(expr) + Runtime.rtl.toStr(")");
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpAssign
@@ -16146,7 +15859,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		var content = "";
 		if (op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_ASSIGN || op_code.kind == Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
 		{
-			for (var i = 0;i < op_code.values.count();i++)
+			for (var i = 0; i < op_code.values.count(); i++)
 			{
 				var item = op_code.values.item(i);
 				var index_s = "";
@@ -16186,7 +15899,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 					var res = t.expression.constructor.OpIdentifier(t, op_code_next);
 					t = Runtime.rtl.get(res, 0);
 					var obj_s = Runtime.rtl.get(res, 1);
-					for (var j = 0;j < items.count();j++)
+					for (var j = 0; j < items.count(); j++)
 					{
 						var item = Runtime.rtl.get(items, j);
 						if (item.kind == Bayrell.Lang.OpCodes.OpAttr.KIND_ATTR)
@@ -16205,7 +15918,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 						{
 							if (item.attrs != null)
 							{
-								for (var j = item.attrs.count() - 1;j >= 0;j--)
+								for (var j = item.attrs.count() - 1; j >= 0; j--)
 								{
 									var res = t.expression.constructor.Expression(t, Runtime.rtl.get(item.attrs, j));
 									t = Runtime.rtl.get(res, 0);
@@ -16279,7 +15992,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			t = Runtime.rtl.get(res, 0);
 			content = t.s(s + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(";"));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDelete
@@ -16287,7 +16000,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 	OpDelete: function(t, op_code)
 	{
 		var content = "";
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpFor
@@ -16316,7 +16029,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		var res = t.expression.constructor.Expression(t, op_code.expr3);
 		t = Runtime.rtl.get(res, 0);
 		s3 = Runtime.rtl.get(res, 1);
-		content = t.s("for (" + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(s2) + Runtime.rtl.toStr(";") + Runtime.rtl.toStr(s3) + Runtime.rtl.toStr(")"));
+		content = t.s("for (" + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(" ") + Runtime.rtl.toStr(s2) + Runtime.rtl.toStr("; ") + Runtime.rtl.toStr(s3) + Runtime.rtl.toStr(")"));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
 		var res = this.Operators(t, op_code.value);
@@ -16324,7 +16037,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpIf
@@ -16343,7 +16056,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		for (var i = 0;i < op_code.if_else.count();i++)
+		for (var i = 0; i < op_code.if_else.count(); i++)
 		{
 			var if_else = op_code.if_else.item(i);
 			var res = t.expression.constructor.Expression(t, if_else.condition);
@@ -16369,7 +16082,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			t = t.levelDec();
 			content += Runtime.rtl.toStr(t.s("}"));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpReturn
@@ -16389,10 +16102,10 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			var content = t.s("$__memorize_value = " + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";"));
 			content += Runtime.rtl.toStr(t.s(t.expression.constructor.getModuleName(t, "Runtime.rtl") + Runtime.rtl.toStr("::_memorizeSave(\"") + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(".") + Runtime.rtl.toStr(t.current_function.name) + Runtime.rtl.toStr("\", func_get_args(), $__memorize_value);")));
 			content += Runtime.rtl.toStr(t.s("return $__memorize_value;"));
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";")));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpThrow
@@ -16402,7 +16115,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		var res = t.expression.constructor.Expression(t, op_code.expression);
 		t = Runtime.rtl.get(res, 0);
 		var content = t.s("throw " + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(";"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpTryCatch
@@ -16421,7 +16134,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		content += Runtime.rtl.toStr(t.s("catch (\\Exception $_ex)"));
 		content += Runtime.rtl.toStr(t.s("{"));
 		t = t.levelInc();
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var s = "";
 			var pattern = "";
@@ -16459,7 +16172,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		content += Runtime.rtl.toStr(t.s("}"));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpWhile
@@ -16478,7 +16191,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpPreprocessorIfCode
@@ -16490,7 +16203,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		{
 			content = Runtime.rs.trim(op_code.content);
 		}
-		return Runtime.Collection.from([t,t.s(content)]);
+		return Runtime.Vector.from([t,t.s(content)]);
 	},
 	/**
 	 * OpPreprocessorIfDef
@@ -16499,7 +16212,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 	{
 		if (!(Runtime.rtl.get(t.preprocessor_flags, op_code.condition.value) == true))
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		if (kind == Bayrell.Lang.OpCodes.OpPreprocessorIfDef.KIND_OPERATOR)
 		{
@@ -16510,7 +16223,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			return t.expression.constructor.Expression(t, op_code.items);
 		}
 		var content = "";
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var item = op_code.items.item(i);
 			if (item instanceof Bayrell.Lang.OpCodes.OpComment)
@@ -16526,7 +16239,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 				content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComment
@@ -16534,7 +16247,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 	OpComment: function(t, op_code)
 	{
 		var content = t.s("/*" + Runtime.rtl.toStr(op_code.value) + Runtime.rtl.toStr("*/"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComments
@@ -16542,12 +16255,12 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 	OpComments: function(t, comments)
 	{
 		var content = "";
-		for (var i = 0;i < comments.count();i++)
+		for (var i = 0; i < comments.count(); i++)
 		{
 			var res = this.OpComment(t, comments.item(i));
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpComments
@@ -16563,7 +16276,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 				content = s + Runtime.rtl.toStr(content);
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Operator
@@ -16587,7 +16300,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			}
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpAssignStruct)
 		{
@@ -16603,7 +16316,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			content += Runtime.rtl.toStr(t.s("$" + Runtime.rtl.toStr(op_code.var_name) + Runtime.rtl.toStr(" = ") + Runtime.rtl.toStr(s1) + Runtime.rtl.toStr(";")));
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpBreak)
 		{
@@ -16687,7 +16400,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		}
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpPreprocessorSwitch)
 		{
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var res = this.OpPreprocessorIfCode(t, op_code.items.item(i));
 				var s = Runtime.rtl.get(res, 1);
@@ -16719,7 +16432,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		/* Restore save op codes */
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Operators
@@ -16733,7 +16446,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		};
 		if (op_code instanceof Bayrell.Lang.OpCodes.OpItems)
 		{
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var res = this.Operator(t, item);
@@ -16745,25 +16458,10 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		{
 			var save_html_var_name = t.html_var_name;
 			var save_is_html = t.is_html;
-			/* Save op codes */
-			var save_op_codes = t.save_op_codes;
-			var save_op_code_inc = t.save_op_code_inc;
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), true);
-			var res = t.html.constructor.OpHtmlItems(t, op_code);
+			var res = t.html.constructor.OpHtmlItems(t, op_code, save_html_var_name, false);
 			t = Runtime.rtl.get(res, 0);
-			/* Output save op code */
-			var save = t.constructor.outputSaveOpCode(t, save_op_codes.count());
-			if (save != "")
-			{
-				content = save;
-			}
-			/* Output content */
-			if (Runtime.rtl.get(res, 1) != "")
-			{
-				content += Runtime.rtl.toStr(t.s("static::_p(" + Runtime.rtl.toStr(save_html_var_name) + Runtime.rtl.toStr(", ") + Runtime.rtl.toStr(Runtime.rtl.get(res, 1)) + Runtime.rtl.toStr(");")));
-			}
-			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_codes"]), save_op_codes);
-			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["save_op_code_inc"]), save_op_code_inc);
+			content = Runtime.rtl.get(res, 1);
 			t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), save_is_html);
 		}
 		else
@@ -16772,7 +16470,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			t = Runtime.rtl.get(res, 0);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction Arguments
@@ -16788,12 +16486,15 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 				content += Runtime.rtl.toStr("$ctx");
 				flag = true;
 			}
+			/*
 			if (f.is_html)
 			{
 				flag = true;
-				content += Runtime.rtl.toStr(((flag) ? (", ") : ("")) + Runtime.rtl.toStr("$layout, $model_path, $render_params, $render_content"));
+				content ~= (flag ? ", " : "") ~
+					"$layout, $model_path, $render_params, $render_content";
 			}
-			for (var i = 0;i < f.args.count(i);i++)
+			*/
+			for (var i = 0; i < f.args.count(i); i++)
 			{
 				var arg = f.args.item(i);
 				var name = arg.name;
@@ -16808,7 +16509,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 				flag = true;
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareFunction Body
@@ -16820,10 +16521,12 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["is_html"]), false);
 		var content = "";
 		t = t.levelInc();
+		/*
 		if (f.is_html)
 		{
-			content += Runtime.rtl.toStr(t.s("$model = \\Runtime\\rtl::attr($layout, $model_path);"));
+			content ~= t.s("$model = \\Runtime\\rtl::attr($layout, $model_path);");
 		}
+		*/
 		if (f.items)
 		{
 			var res = t.operator.constructor.Operators(t, f.items);
@@ -16866,7 +16569,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 		t = t.levelDec();
 		content = t.s("{") + Runtime.rtl.toStr(content);
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([save_t,content]);
+		return Runtime.Vector.from([save_t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -16883,22 +16586,22 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -16923,7 +16626,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPOperator,
 			"OpDeclareFunctionArgs",
 			"OpDeclareFunctionBody",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -16959,19 +16662,6 @@ Bayrell.Lang.LangPHP.TranslatorPHPProgram = function()
 };
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangPHP.TranslatorPHPProgram)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 {
@@ -16980,9 +16670,9 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	 */
 	OpNamespace: function(t, op_code)
 	{
-		var arr = Runtime.rs.split("\\.", op_code.name);
+		var arr = Runtime.rs.split(".", op_code.name);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_namespace_name"]), op_code.name);
-		return Runtime.Collection.from([t,t.s("namespace " + Runtime.rtl.toStr(Runtime.rs.join("\\", arr)) + Runtime.rtl.toStr(";"))]);
+		return Runtime.Vector.from([t,t.s("namespace " + Runtime.rtl.toStr(Runtime.rs.join("\\", arr)) + Runtime.rtl.toStr(";"))]);
 	},
 	/**
 	 * OpDeclareFunction
@@ -16991,7 +16681,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	{
 		if (op_code.isFlag("declare"))
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		var content = "";
 		/* Set current function */
@@ -17023,7 +16713,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		/* Function comments */
 		var res = t.operator.constructor.AddComments(t, op_code.comments, s1 + Runtime.rtl.toStr(s2));
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpFunctionAnnotations
@@ -17033,15 +16723,15 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		var content = "";
 		if (f.flags.isFlag("declare"))
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (!f.annotations)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (f.annotations.count() == 0)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		content += Runtime.rtl.toStr(t.s("if ($field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(f.name)) + Runtime.rtl.toStr(")")));
 		t = t.levelInc();
@@ -17053,7 +16743,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		}
 		content += Runtime.rtl.toStr(t.s("\"annotations\"=>\\Runtime\\Collection::from(["));
 		t = t.levelInc();
-		for (var j = 0;j < f.annotations.count();j++)
+		for (var j = 0; j < f.annotations.count(); j++)
 		{
 			var annotation = f.annotations.item(j);
 			var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
@@ -17069,7 +16759,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("]);"));
 		t = t.levelDec();
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassBodyItemMethodsList
@@ -17081,7 +16771,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		{
 			if (Runtime.rtl.get(t.preprocessor_flags, item.condition.value) == true)
 			{
-				for (var i = 0;i < item.items.count();i++)
+				for (var i = 0; i < item.items.count(); i++)
 				{
 					var op_code = item.items.item(i);
 					var res = this.OpClassBodyItemMethodsList(t, op_code);
@@ -17097,7 +16787,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(item.name) + Runtime.rtl.toStr(",")));
 			}
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpClassBodyItemAnnotations
@@ -17109,7 +16799,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		{
 			if (Runtime.rtl.get(t.preprocessor_flags, item.condition.value) == true)
 			{
-				for (var i = 0;i < item.items.count();i++)
+				for (var i = 0; i < item.items.count(); i++)
 				{
 					var op_code = item.items.item(i);
 					var res = this.OpClassBodyItemAnnotations(t, op_code);
@@ -17124,7 +16814,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			t = Runtime.rtl.get(res, 0);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -17133,7 +16823,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	{
 		if (op_code.fn_create == null)
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		var open = "";
 		var content = "";
@@ -17165,7 +16855,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		}
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([save_t,content]);
+		return Runtime.Vector.from([save_t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -17182,7 +16872,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		/* Static variables */
 		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE && op_code.vars != null)
 		{
-			for (var i = 0;i < op_code.vars.count();i++)
+			for (var i = 0; i < op_code.vars.count(); i++)
 			{
 				var variable = op_code.vars.item(i);
 				if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
@@ -17195,7 +16885,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				}
 				var is_static = variable.flags.isFlag("static");
 				var is_const = variable.flags.isFlag("const");
-				for (var j = 0;j < variable.values.count();j++)
+				for (var j = 0; j < variable.values.count(); j++)
 				{
 					var value = variable.values.item(j);
 					var res = t.expression.constructor.Expression(t, value.expression);
@@ -17228,7 +16918,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		/* Functions */
 		if (op_code.functions != null)
 		{
-			for (var i = 0;i < op_code.functions.count();i++)
+			for (var i = 0; i < op_code.functions.count(); i++)
 			{
 				var f = op_code.functions.item(i);
 				var res = this.OpDeclareFunction(t, f);
@@ -17237,7 +16927,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			}
 		}
 		/* Class items */
-		for (var i = 0;i < op_code.items.count();i++)
+		for (var i = 0; i < op_code.items.count(); i++)
 		{
 			var item = op_code.items.item(i);
 			if (item instanceof Bayrell.Lang.OpCodes.OpPreprocessorIfCode)
@@ -17252,7 +16942,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			}
 			else if (item instanceof Bayrell.Lang.OpCodes.OpPreprocessorSwitch)
 			{
-				for (var j = 0;j < item.items.count();j++)
+				for (var j = 0; j < item.items.count(); j++)
 				{
 					var res = t.operator.constructor.OpPreprocessorIfCode(t, item.items.item(j));
 					var s = Runtime.rtl.get(res, 1);
@@ -17264,7 +16954,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				}
 			}
 		}
-		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE)
+		if (class_kind != Bayrell.Lang.OpCodes.OpDeclareClass.KIND_INTERFACE && op_code.is_component == false)
 		{
 			content += Runtime.rtl.toStr(t.s("/* ======================= Class Init Functions ======================= */"));
 		}
@@ -17284,7 +16974,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				{
 					content += Runtime.rtl.toStr(t.s("parent::_init($ctx);"));
 				}
-				for (var i = 0;i < op_code.vars.count();i++)
+				for (var i = 0; i < op_code.vars.count(); i++)
 				{
 					var variable = op_code.vars.item(i);
 					var is_static = variable.flags.isFlag("static");
@@ -17309,7 +16999,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 					{
 						prefix = "";
 					}
-					for (var j = 0;j < variable.values.count();j++)
+					for (var j = 0; j < variable.values.count(); j++)
 					{
 						var value = variable.values.item(j);
 						var res = t.expression.constructor.Expression(t, value.expression);
@@ -17321,11 +17011,11 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				content += Runtime.rtl.toStr(t.s("}"));
 			}
 			/* Struct */
-			if (class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT || t.enable_introspection)
+			if (op_code.is_component == false && class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT)
 			{
 				var is_struct = class_kind == Bayrell.Lang.OpCodes.OpDeclareClass.KIND_STRUCT;
 				var var_prefix = (is_struct) ? ("__") : ("");
-				if (!is_struct)
+				if (!is_struct && false)
 				{
 					/* Assign Object */
 					content += Runtime.rtl.toStr(t.s("function assignObject($ctx,$o)"));
@@ -17334,7 +17024,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 					content += Runtime.rtl.toStr(t.s("if ($o instanceof \\" + Runtime.rtl.toStr(Runtime.rs.replace("\\.", "\\", t.current_class_full_name)) + Runtime.rtl.toStr(")")));
 					content += Runtime.rtl.toStr(t.s("{"));
 					t = t.levelInc();
-					for (var i = 0;i < op_code.vars.count();i++)
+					for (var i = 0; i < op_code.vars.count(); i++)
 					{
 						var variable = op_code.vars.item(i);
 						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
@@ -17357,7 +17047,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 						{
 							continue;
 						}
-						for (var j = 0;j < variable.values.count();j++)
+						for (var j = 0; j < variable.values.count(); j++)
 						{
 							var value = variable.values.item(j);
 							content += Runtime.rtl.toStr(t.s("$this->" + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(" = $o->") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
@@ -17376,7 +17066,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 					content += Runtime.rtl.toStr(t.s("{"));
 					t = t.levelInc();
 					var flag = false;
-					for (var i = 0;i < op_code.vars.count();i++)
+					for (var i = 0; i < op_code.vars.count(); i++)
 					{
 						var variable = op_code.vars.item(i);
 						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
@@ -17399,7 +17089,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 						{
 							continue;
 						}
-						for (var j = 0;j < variable.values.count();j++)
+						for (var j = 0; j < variable.values.count(); j++)
 						{
 							var value = variable.values.item(j);
 							if (t.flag_struct_check_types)
@@ -17425,7 +17115,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				content += Runtime.rtl.toStr(t.s("{"));
 				t = t.levelInc();
 				var flag = false;
-				for (var i = 0;i < op_code.vars.count();i++)
+				for (var i = 0; i < op_code.vars.count(); i++)
 				{
 					var variable = op_code.vars.item(i);
 					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
@@ -17448,7 +17138,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 					{
 						continue;
 					}
-					for (var j = 0;j < variable.values.count();j++)
+					for (var j = 0; j < variable.values.count(); j++)
 					{
 						var value = variable.values.item(j);
 						content += Runtime.rtl.toStr(t.s(((flag) ? ("else ") : ("")) + Runtime.rtl.toStr("if ($k == ") + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(")return $this->") + Runtime.rtl.toStr(var_prefix) + Runtime.rtl.toStr(value.var_name) + Runtime.rtl.toStr(";")));
@@ -17486,230 +17176,234 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.toString(t.expression.constructor.findModuleName(t, t.current_class_extends_name))) + Runtime.rtl.toStr(";")));
 			t = t.levelDec();
 			content += Runtime.rtl.toStr(t.s("}"));
-			/* Class info */
-			content += Runtime.rtl.toStr(t.s("static function getClassInfo($ctx)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			t = t.constructor.clearSaveOpCode(t);
-			content += Runtime.rtl.toStr(t.s("return \\Runtime\\Dict::from(["));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("\"annotations\"=>\\Runtime\\Collection::from(["));
-			t = t.levelInc();
-			for (var j = 0;j < op_code.annotations.count();j++)
+			/* If not component */
+			if (op_code.is_component == false)
 			{
-				var annotation = op_code.annotations.item(j);
-				var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
-				t = Runtime.rtl.get(res, 0);
-				var name = Runtime.rtl.get(res, 1);
-				if (annotation.params != null)
+				/* Class info */
+				content += Runtime.rtl.toStr(t.s("static function getClassInfo($ctx)"));
+				content += Runtime.rtl.toStr(t.s("{"));
+				t = t.levelInc();
+				t = t.constructor.clearSaveOpCode(t);
+				content += Runtime.rtl.toStr(t.s("return \\Runtime\\Dict::from(["));
+				t = t.levelInc();
+				content += Runtime.rtl.toStr(t.s("\"annotations\"=>\\Runtime\\Collection::from(["));
+				t = t.levelInc();
+				for (var j = 0; j < op_code.annotations.count(); j++)
 				{
-					var res = t.expression.constructor.OpDict(t, annotation.params, true);
+					var annotation = op_code.annotations.item(j);
+					var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
 					t = Runtime.rtl.get(res, 0);
-					var params = Runtime.rtl.get(res, 1);
-					content += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("($ctx, ") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
-				}
-				else
-				{
-					content += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("($ctx),")));
-				}
-			}
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("]),"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("]);"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("}"));
-			/* Get fields list of the function */
-			content += Runtime.rtl.toStr(t.s("static function getFieldsList($ctx)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("$a = [];"));
-			if (op_code.vars != null)
-			{
-				var vars = new Runtime.Map();
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					var is_const = variable.flags.isFlag("const");
-					var is_static = variable.flags.isFlag("static");
-					var is_protected = variable.flags.isFlag("protected");
-					var is_private = variable.flags.isFlag("private");
-					var has_annotation = variable.annotations != null && variable.annotations.count() > 0;
-					if (is_const || is_static)
+					var name = Runtime.rtl.get(res, 1);
+					if (annotation.params != null)
 					{
-						continue;
-					}
-					if (is_protected || is_private)
-					{
-						continue;
-					}
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					for (var j = 0;j < variable.values.count();j++)
-					{
-						var value = variable.values.item(j);
-						content += Runtime.rtl.toStr(t.s("$a[]=" + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(";")));
-					}
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.getModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr("::from($a);")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("}"));
-			/* Get field info by name */
-			content += Runtime.rtl.toStr(t.s("static function getFieldInfoByName($ctx,$field_name)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			if (op_code.vars != null)
-			{
-				for (var i = 0;i < op_code.vars.count();i++)
-				{
-					var variable = op_code.vars.item(i);
-					if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
-					{
-						continue;
-					}
-					if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
-					{
-						continue;
-					}
-					var is_const = variable.flags.isFlag("const");
-					var is_static = variable.flags.isFlag("static");
-					var is_protected = variable.flags.isFlag("protected");
-					var is_private = variable.flags.isFlag("private");
-					if (is_const || is_static)
-					{
-						continue;
-					}
-					if (is_protected || is_private)
-					{
-						continue;
-					}
-					var v = variable.values.map((value) => 
-					{
-						return value.var_name;
-					});
-					v = v.map((var_name) => 
-					{
-						return "$field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(var_name));
-					});
-					var var_type = Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, variable.pattern.entity_name.names));
-					var var_sub_types = (variable.pattern.template != null) ? (variable.pattern.template.map((op_code) => 
-					{
-						return Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, op_code.entity_name.names));
-					})) : (Runtime.Collection.from([]));
-					var_sub_types = var_sub_types.map(t.expression.constructor.toString);
-					t = t.constructor.clearSaveOpCode(t);
-					content += Runtime.rtl.toStr(t.s("if (" + Runtime.rtl.toStr(Runtime.rs.join(" or ", v)) + Runtime.rtl.toStr(") ") + Runtime.rtl.toStr("return \\Runtime\\Dict::from([")));
-					t = t.levelInc();
-					content += Runtime.rtl.toStr(t.s("\"t\"=>" + Runtime.rtl.toStr(t.expression.constructor.toString(var_type)) + Runtime.rtl.toStr(",")));
-					if (var_sub_types.count() > 0)
-					{
-						content += Runtime.rtl.toStr(t.s("\"s\"=> [" + Runtime.rtl.toStr(Runtime.rs.join(", ", var_sub_types)) + Runtime.rtl.toStr("],")));
-					}
-					content += Runtime.rtl.toStr(t.s("\"annotations\"=>\\Runtime\\Collection::from(["));
-					t = t.levelInc();
-					for (var j = 0;j < variable.annotations.count();j++)
-					{
-						var annotation = variable.annotations.item(j);
-						var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
-						t = Runtime.rtl.get(res, 0);
-						var name = Runtime.rtl.get(res, 1);
 						var res = t.expression.constructor.OpDict(t, annotation.params, true);
 						t = Runtime.rtl.get(res, 0);
 						var params = Runtime.rtl.get(res, 1);
 						content += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("($ctx, ") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
 					}
-					t = t.levelDec();
-					content += Runtime.rtl.toStr(t.s("]),"));
-					t = t.levelDec();
-					content += Runtime.rtl.toStr(t.s("]);"));
-				}
-			}
-			content += Runtime.rtl.toStr(t.s("return null;"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("}"));
-			/* Get methods list of the function */
-			content += Runtime.rtl.toStr(t.s("static function getMethodsList($ctx)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			content += Runtime.rtl.toStr(t.s("$a=["));
-			t = t.levelInc();
-			if (op_code.functions != null && false)
-			{
-				for (var i = 0;i < op_code.functions.count();i++)
-				{
-					var f = op_code.functions.item(i);
-					if (f.flags.isFlag("declare"))
+					else
 					{
-						continue;
+						content += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("($ctx),")));
 					}
-					if (f.flags.isFlag("protected"))
-					{
-						continue;
-					}
-					if (f.flags.isFlag("private"))
-					{
-						continue;
-					}
-					if (f.annotations.count() == 0)
-					{
-						continue;
-					}
-					content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(f.name) + Runtime.rtl.toStr(",")));
 				}
-			}
-			if (op_code.items != null)
-			{
-				for (var i = 0;i < op_code.items.count();i++)
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("]),"));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("]);"));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("}"));
+				/* Get fields list of the function */
+				content += Runtime.rtl.toStr(t.s("static function getFieldsList($ctx)"));
+				content += Runtime.rtl.toStr(t.s("{"));
+				t = t.levelInc();
+				content += Runtime.rtl.toStr(t.s("$a = [];"));
+				if (op_code.vars != null)
 				{
-					var item = op_code.items.item(i);
-					var res = this.OpClassBodyItemMethodsList(t, item);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					var vars = new Runtime.Map();
+					for (var i = 0; i < op_code.vars.count(); i++)
+					{
+						var variable = op_code.vars.item(i);
+						var is_const = variable.flags.isFlag("const");
+						var is_static = variable.flags.isFlag("static");
+						var is_protected = variable.flags.isFlag("protected");
+						var is_private = variable.flags.isFlag("private");
+						var has_annotation = variable.annotations != null && variable.annotations.count() > 0;
+						if (is_const || is_static)
+						{
+							continue;
+						}
+						if (is_protected || is_private)
+						{
+							continue;
+						}
+						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+						{
+							continue;
+						}
+						if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+						{
+							continue;
+						}
+						for (var j = 0; j < variable.values.count(); j++)
+						{
+							var value = variable.values.item(j);
+							content += Runtime.rtl.toStr(t.s("$a[]=" + Runtime.rtl.toStr(t.expression.constructor.toString(value.var_name)) + Runtime.rtl.toStr(";")));
+						}
+					}
 				}
-			}
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("];"));
-			content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.getModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr("::from($a);")));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("}"));
-			/* Get method info by name */
-			content += Runtime.rtl.toStr(t.s("static function getMethodInfoByName($ctx,$field_name)"));
-			content += Runtime.rtl.toStr(t.s("{"));
-			t = t.levelInc();
-			if (op_code.functions != null)
-			{
-				for (var i = 0;i < op_code.functions.count();i++)
+				content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.getModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr("::from($a);")));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("}"));
+				/* Get field info by name */
+				content += Runtime.rtl.toStr(t.s("static function getFieldInfoByName($ctx,$field_name)"));
+				content += Runtime.rtl.toStr(t.s("{"));
+				t = t.levelInc();
+				if (op_code.vars != null)
 				{
-					var f = op_code.functions.item(i);
-					var res = this.OpFunctionAnnotations(t, f);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					for (var i = 0; i < op_code.vars.count(); i++)
+					{
+						var variable = op_code.vars.item(i);
+						if (variable.kind != Bayrell.Lang.OpCodes.OpAssign.KIND_DECLARE)
+						{
+							continue;
+						}
+						if (variable.condition && Runtime.rtl.get(t.preprocessor_flags, variable.condition.value) != true)
+						{
+							continue;
+						}
+						var is_const = variable.flags.isFlag("const");
+						var is_static = variable.flags.isFlag("static");
+						var is_protected = variable.flags.isFlag("protected");
+						var is_private = variable.flags.isFlag("private");
+						if (is_const || is_static)
+						{
+							continue;
+						}
+						if (is_protected || is_private)
+						{
+							continue;
+						}
+						var v = variable.values.map((value) => 
+						{
+							return value.var_name;
+						});
+						v = v.map((var_name) => 
+						{
+							return "$field_name == " + Runtime.rtl.toStr(t.expression.constructor.toString(var_name));
+						});
+						var var_type = Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, variable.pattern.entity_name.names));
+						var var_sub_types = (variable.pattern.template != null) ? (variable.pattern.template.map((op_code) => 
+						{
+							return Runtime.rs.join(".", t.expression.constructor.findModuleNames(t, op_code.entity_name.names));
+						})) : (Runtime.Vector.from([]));
+						var_sub_types = var_sub_types.map(t.expression.constructor.toString);
+						t = t.constructor.clearSaveOpCode(t);
+						content += Runtime.rtl.toStr(t.s("if (" + Runtime.rtl.toStr(Runtime.rs.join(" or ", v)) + Runtime.rtl.toStr(") ") + Runtime.rtl.toStr("return \\Runtime\\Dict::from([")));
+						t = t.levelInc();
+						content += Runtime.rtl.toStr(t.s("\"t\"=>" + Runtime.rtl.toStr(t.expression.constructor.toString(var_type)) + Runtime.rtl.toStr(",")));
+						if (var_sub_types.count() > 0)
+						{
+							content += Runtime.rtl.toStr(t.s("\"s\"=> [" + Runtime.rtl.toStr(Runtime.rs.join(", ", var_sub_types)) + Runtime.rtl.toStr("],")));
+						}
+						content += Runtime.rtl.toStr(t.s("\"annotations\"=>\\Runtime\\Collection::from(["));
+						t = t.levelInc();
+						for (var j = 0; j < variable.annotations.count(); j++)
+						{
+							var annotation = variable.annotations.item(j);
+							var res = t.expression.constructor.OpTypeIdentifier(t, annotation.name);
+							t = Runtime.rtl.get(res, 0);
+							var name = Runtime.rtl.get(res, 1);
+							var res = t.expression.constructor.OpDict(t, annotation.params, true);
+							t = Runtime.rtl.get(res, 0);
+							var params = Runtime.rtl.get(res, 1);
+							content += Runtime.rtl.toStr(t.s("new " + Runtime.rtl.toStr(name) + Runtime.rtl.toStr("($ctx, ") + Runtime.rtl.toStr(params) + Runtime.rtl.toStr("),")));
+						}
+						t = t.levelDec();
+						content += Runtime.rtl.toStr(t.s("]),"));
+						t = t.levelDec();
+						content += Runtime.rtl.toStr(t.s("]);"));
+					}
 				}
-			}
-			if (op_code.items != null)
-			{
-				for (var i = 0;i < op_code.items.count();i++)
+				content += Runtime.rtl.toStr(t.s("return null;"));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("}"));
+				/* Get methods list of the function */
+				content += Runtime.rtl.toStr(t.s("static function getMethodsList($ctx)"));
+				content += Runtime.rtl.toStr(t.s("{"));
+				t = t.levelInc();
+				content += Runtime.rtl.toStr(t.s("$a=["));
+				t = t.levelInc();
+				if (op_code.functions != null && false)
 				{
-					var item = op_code.items.item(i);
-					var res = this.OpClassBodyItemAnnotations(t, item);
-					t = Runtime.rtl.get(res, 0);
-					content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					for (var i = 0; i < op_code.functions.count(); i++)
+					{
+						var f = op_code.functions.item(i);
+						if (f.flags.isFlag("declare"))
+						{
+							continue;
+						}
+						if (f.flags.isFlag("protected"))
+						{
+							continue;
+						}
+						if (f.flags.isFlag("private"))
+						{
+							continue;
+						}
+						if (f.annotations.count() == 0)
+						{
+							continue;
+						}
+						content += Runtime.rtl.toStr(t.s(t.expression.constructor.toString(f.name) + Runtime.rtl.toStr(",")));
+					}
 				}
+				if (op_code.items != null)
+				{
+					for (var i = 0; i < op_code.items.count(); i++)
+					{
+						var item = op_code.items.item(i);
+						var res = this.OpClassBodyItemMethodsList(t, item);
+						t = Runtime.rtl.get(res, 0);
+						content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					}
+				}
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("];"));
+				content += Runtime.rtl.toStr(t.s("return " + Runtime.rtl.toStr(t.expression.constructor.getModuleName(t, "Runtime.Collection")) + Runtime.rtl.toStr("::from($a);")));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("}"));
+				/* Get method info by name */
+				content += Runtime.rtl.toStr(t.s("static function getMethodInfoByName($ctx,$field_name)"));
+				content += Runtime.rtl.toStr(t.s("{"));
+				t = t.levelInc();
+				if (op_code.functions != null)
+				{
+					for (var i = 0; i < op_code.functions.count(); i++)
+					{
+						var f = op_code.functions.item(i);
+						var res = this.OpFunctionAnnotations(t, f);
+						t = Runtime.rtl.get(res, 0);
+						content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					}
+				}
+				if (op_code.items != null)
+				{
+					for (var i = 0; i < op_code.items.count(); i++)
+					{
+						var item = op_code.items.item(i);
+						var res = this.OpClassBodyItemAnnotations(t, item);
+						t = Runtime.rtl.get(res, 0);
+						content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
+					}
+				}
+				content += Runtime.rtl.toStr(t.s("return null;"));
+				t = t.levelDec();
+				content += Runtime.rtl.toStr(t.s("}"));
 			}
-			content += Runtime.rtl.toStr(t.s("return null;"));
-			t = t.levelDec();
-			content += Runtime.rtl.toStr(t.s("}"));
 		}
 		t = t.levelDec();
 		content += Runtime.rtl.toStr(t.s("}"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClassFooter
@@ -17717,7 +17411,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	OpDeclareClassFooter: function(t, op_code)
 	{
 		var content = "";
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClass
@@ -17726,12 +17420,12 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	{
 		if (op_code.is_abstract)
 		{
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		if (op_code.is_declare)
 		{
 			throw new Bayrell.Lang.Exceptions.DeclaredClass()
-			return Runtime.Collection.from([t,""]);
+			return Runtime.Vector.from([t,""]);
 		}
 		var content = "";
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["current_class"]), op_code);
@@ -17784,7 +17478,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		/* Class footer */
 		var res = this.OpDeclareClassFooter(t, op_code);
 		content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-		return Runtime.Collection.from([t,t.s(content)]);
+		return Runtime.Vector.from([t,t.s(content)]);
 	},
 	/**
 	 * Translate item
@@ -17810,7 +17504,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		else if (op_code instanceof Bayrell.Lang.OpCodes.OpPreprocessorSwitch)
 		{
 			var content = "";
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var res = t.operator.constructor.OpPreprocessorIfCode(t, op_code.items.item(i));
 				var s = Runtime.rtl.get(res, 1);
@@ -17820,9 +17514,9 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 				}
 				content += Runtime.rtl.toStr(s);
 			}
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
-		return Runtime.Collection.from([t,""]);
+		return Runtime.Vector.from([t,""]);
 	},
 	/**
 	 * Translate program
@@ -17830,7 +17524,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	translateProgramHeader: function(t, op_code)
 	{
 		var content = "<?php";
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * Translate program
@@ -17840,7 +17534,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		var content = "";
 		if (op_code == null)
 		{
-			return Runtime.Collection.from([t,content]);
+			return Runtime.Vector.from([t,content]);
 		}
 		if (op_code.uses != null)
 		{
@@ -17850,7 +17544,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 		{
 			var res = this.translateProgramHeader(t, op_code);
 			content += Runtime.rtl.toStr(Runtime.rtl.get(res, 1));
-			for (var i = 0;i < op_code.items.count();i++)
+			for (var i = 0; i < op_code.items.count(); i++)
 			{
 				var item = op_code.items.item(i);
 				var res = this.translateItem(t, item);
@@ -17872,7 +17566,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			content = Runtime.rs.replace("\\(\\$ctx,", "(", content);
 			content = Runtime.rs.replace("\\,\\$ctx,", ",", content);
 		}
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -17889,22 +17583,22 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -17923,7 +17617,7 @@ Object.assign(Bayrell.Lang.LangPHP.TranslatorPHPProgram,
 			"translateProgramHeader",
 			"translateProgram",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -17995,10 +17689,10 @@ Object.assign(Bayrell.Lang.OpCodes.BaseOpCode,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18007,20 +17701,20 @@ Object.assign(Bayrell.Lang.OpCodes.BaseOpCode,
 		var a = [];
 		a.push("caret_start");
 		a.push("caret_end");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "caret_start") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "caret_start") return Map.from({
 			"t": "Bayrell.Lang.Caret",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "caret_end") return Dict.from({
+		if (field_name == "caret_end") return Map.from({
 			"t": "Bayrell.Lang.Caret",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18029,7 +17723,7 @@ Object.assign(Bayrell.Lang.OpCodes.BaseOpCode,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18102,10 +17796,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpAnnotation,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18115,25 +17809,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpAnnotation,
 		a.push("op");
 		a.push("name");
 		a.push("params");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "params") return Dict.from({
+		if (field_name == "params") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDict",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18142,7 +17836,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpAnnotation,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18232,10 +17926,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssign,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18252,64 +17946,64 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssign,
 		a.push("names");
 		a.push("expression");
 		a.push("condition");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "kind") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "var_name") return Dict.from({
+		if (field_name == "var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "flags") return Dict.from({
+		if (field_name == "flags") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpFlags",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pattern") return Dict.from({
+		if (field_name == "pattern") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpTypeIdentifier",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "annotations") return Dict.from({
+		if (field_name == "annotations") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAnnotation"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "comments") return Dict.from({
+		if (field_name == "comments") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpComment"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "values") return Dict.from({
+		if (field_name == "values") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAssignValue"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "names") return Dict.from({
+		if (field_name == "names") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18318,7 +18012,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssign,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18395,10 +18089,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignStruct,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18410,38 +18104,38 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignStruct,
 		a.push("comments");
 		a.push("names");
 		a.push("expression");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "var_name") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "annotations") return Dict.from({
+		if (field_name == "annotations") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAnnotation"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "comments") return Dict.from({
+		if (field_name == "comments") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpComment"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "names") return Dict.from({
+		if (field_name == "names") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["var"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18450,7 +18144,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignStruct,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18525,10 +18219,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignValue,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18539,30 +18233,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignValue,
 		a.push("var_name");
 		a.push("op_code");
 		a.push("expression");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "var_name") return Dict.from({
+		if (field_name == "var_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "op_code") return Dict.from({
+		if (field_name == "op_code") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18571,7 +18265,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpAssignValue,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18652,10 +18346,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpAttr,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18667,36 +18361,36 @@ Object.assign(Bayrell.Lang.OpCodes.OpAttr,
 		a.push("obj");
 		a.push("value");
 		a.push("attrs");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "obj") return Dict.from({
+		if (field_name == "obj") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "attrs") return Dict.from({
+		if (field_name == "attrs") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18705,7 +18399,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpAttr,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18774,10 +18468,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpBreak,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18785,15 +18479,15 @@ Object.assign(Bayrell.Lang.OpCodes.OpBreak,
 	{
 		var a = [];
 		a.push("op");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18802,7 +18496,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpBreak,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -18881,10 +18575,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpCall,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -18897,41 +18591,41 @@ Object.assign(Bayrell.Lang.OpCodes.OpCall,
 		a.push("is_await");
 		a.push("is_context");
 		a.push("is_html");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "obj") return Dict.from({
+		if (field_name == "obj") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "args") return Dict.from({
+		if (field_name == "args") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_await") return Dict.from({
+		if (field_name == "is_await") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_context") return Dict.from({
+		if (field_name == "is_context") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html") return Dict.from({
+		if (field_name == "is_html") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -18940,7 +18634,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpCall,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19011,10 +18705,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassOf,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19023,20 +18717,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassOf,
 		var a = [];
 		a.push("op");
 		a.push("entity_name");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "entity_name") return Dict.from({
+		if (field_name == "entity_name") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpEntityName",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19045,7 +18739,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassOf,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19116,10 +18810,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassRef,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19128,20 +18822,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassRef,
 		var a = [];
 		a.push("op");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19150,7 +18844,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpClassRef,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19221,10 +18915,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpCollection,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19233,21 +18927,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpCollection,
 		var a = [];
 		a.push("op");
 		a.push("values");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "values") return Dict.from({
+		if (field_name == "values") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19256,7 +18950,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpCollection,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19327,10 +19021,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpComment,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19339,20 +19033,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpComment,
 		var a = [];
 		a.push("op");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19361,7 +19055,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpComment,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19430,10 +19124,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpContinue,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19441,15 +19135,15 @@ Object.assign(Bayrell.Lang.OpCodes.OpContinue,
 	{
 		var a = [];
 		a.push("op");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19458,7 +19152,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpContinue,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19531,10 +19225,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurry,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19544,26 +19238,26 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurry,
 		a.push("op");
 		a.push("obj");
 		a.push("args");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "obj") return Dict.from({
+		if (field_name == "obj") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "args") return Dict.from({
+		if (field_name == "args") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19572,7 +19266,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurry,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19643,10 +19337,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurryArg,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19655,20 +19349,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurryArg,
 		var a = [];
 		a.push("op");
 		a.push("pos");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pos") return Dict.from({
+		if (field_name == "pos") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19677,7 +19371,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpCurryArg,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -19737,6 +19431,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareClass.prototype,
 		this.is_abstract = false;
 		this.is_static = false;
 		this.is_declare = false;
+		this.is_component = false;
 	},
 	takeValue: function(k,d)
 	{
@@ -19759,6 +19454,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareClass.prototype,
 		else if (k == "is_abstract")return this.is_abstract;
 		else if (k == "is_static")return this.is_static;
 		else if (k == "is_declare")return this.is_declare;
+		else if (k == "is_component")return this.is_component;
 		return Bayrell.Lang.OpCodes.BaseOpCode.prototype.takeValue.call(this,k,d);
 	},
 });
@@ -19783,10 +19479,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareClass,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -19811,107 +19507,113 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareClass,
 		a.push("is_abstract");
 		a.push("is_static");
 		a.push("is_declare");
-		return Runtime.Collection.from(a);
+		a.push("is_component");
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "extend_name") return Dict.from({
+		if (field_name == "extend_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "annotations") return Dict.from({
+		if (field_name == "annotations") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAnnotation"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "comments") return Dict.from({
+		if (field_name == "comments") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpComment"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "template") return Dict.from({
+		if (field_name == "template") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpTypeIdentifier"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "flags") return Dict.from({
+		if (field_name == "flags") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpFlags",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "fn_create") return Dict.from({
+		if (field_name == "fn_create") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDeclareFunction",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "fn_destroy") return Dict.from({
+		if (field_name == "fn_destroy") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpDeclareFunction",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "class_extends") return Dict.from({
+		if (field_name == "class_extends") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpTypeIdentifier",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "class_implements") return Dict.from({
+		if (field_name == "class_implements") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpTypeIdentifier"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "vars") return Dict.from({
+		if (field_name == "vars") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAssign"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "functions") return Dict.from({
+		if (field_name == "functions") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpDeclareFunction"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_abstract") return Dict.from({
+		if (field_name == "is_abstract") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_static") return Dict.from({
+		if (field_name == "is_static") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_declare") return Dict.from({
+		if (field_name == "is_declare") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
+			]),
+		});
+		if (field_name == "is_component") return Map.from({
+			"t": "bool",
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -19920,7 +19622,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareClass,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20027,10 +19729,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunction,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20050,79 +19752,79 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunction,
 		a.push("is_context");
 		a.push("is_html");
 		a.push("is_html_default_args");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "annotations") return Dict.from({
+		if (field_name == "annotations") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpAnnotation"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "comments") return Dict.from({
+		if (field_name == "comments") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpComment"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "args") return Dict.from({
+		if (field_name == "args") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpDeclareFunctionArg"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "vars") return Dict.from({
+		if (field_name == "vars") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "result_type") return Dict.from({
+		if (field_name == "result_type") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "flags") return Dict.from({
+		if (field_name == "flags") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpFlags",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_context") return Dict.from({
+		if (field_name == "is_context") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html") return Dict.from({
+		if (field_name == "is_html") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_html_default_args") return Dict.from({
+		if (field_name == "is_html_default_args") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20133,7 +19835,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunction,
 			"isStatic",
 			"isFlag",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20208,10 +19910,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunctionArg,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20222,30 +19924,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunctionArg,
 		a.push("pattern");
 		a.push("name");
 		a.push("expression");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pattern") return Dict.from({
+		if (field_name == "pattern") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20254,7 +19956,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDeclareFunctionArg,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20325,10 +20027,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDelete,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20337,20 +20039,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpDelete,
 		var a = [];
 		a.push("op");
 		a.push("op_code");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "op_code") return Dict.from({
+		if (field_name == "op_code") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20359,7 +20061,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDelete,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20430,10 +20132,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDict,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20442,21 +20144,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpDict,
 		var a = [];
 		a.push("op");
 		a.push("values");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "values") return Dict.from({
+		if (field_name == "values") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20465,7 +20167,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDict,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20538,10 +20240,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpDictPair,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20551,25 +20253,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpDictPair,
 		a.push("key");
 		a.push("value");
 		a.push("condition");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "key") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "key") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20578,7 +20280,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpDictPair,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20649,10 +20351,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpEntityName,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20661,21 +20363,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpEntityName,
 		var a = [];
 		a.push("op");
 		a.push("names");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "names") return Dict.from({
+		if (field_name == "names") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20684,7 +20386,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpEntityName,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20751,6 +20453,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags.prototype,
 		this.p_memorize = false;
 		this.p_lambda = false;
 		this.p_pure = false;
+		this.p_props = false;
 	},
 	takeValue: function(k,d)
 	{
@@ -20769,6 +20472,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags.prototype,
 		else if (k == "p_memorize")return this.p_memorize;
 		else if (k == "p_lambda")return this.p_lambda;
 		else if (k == "p_pure")return this.p_pure;
+		else if (k == "p_props")return this.p_props;
 		return Runtime.BaseStruct.prototype.takeValue.call(this,k,d);
 	},
 });
@@ -20780,14 +20484,14 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags,
 	 */
 	getFlags: function()
 	{
-		return Runtime.Collection.from(["async","export","static","const","public","private","declare","protected","serializable","cloneable","assignable","memorize","pure"]);
+		return Runtime.Vector.from(["async","export","static","const","public","private","declare","protected","serializable","cloneable","assignable","memorize","pure","props"]);
 	},
 	/**
 	 * Get flags
 	 */
 	hasFlag: function(flag_name)
 	{
-		if (flag_name == "async" || flag_name == "export" || flag_name == "static" || flag_name == "const" || flag_name == "public" || flag_name == "private" || flag_name == "declare" || flag_name == "protected" || flag_name == "serializable" || flag_name == "cloneable" || flag_name == "assignable" || flag_name == "memorize" || flag_name == "lambda" || flag_name == "pure")
+		if (flag_name == "async" || flag_name == "export" || flag_name == "static" || flag_name == "const" || flag_name == "public" || flag_name == "private" || flag_name == "declare" || flag_name == "protected" || flag_name == "serializable" || flag_name == "cloneable" || flag_name == "assignable" || flag_name == "memorize" || flag_name == "lambda" || flag_name == "pure" || flag_name == "props")
 		{
 			return true;
 		}
@@ -20808,10 +20512,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -20832,80 +20536,86 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags,
 		a.push("p_memorize");
 		a.push("p_lambda");
 		a.push("p_pure");
-		return Runtime.Collection.from(a);
+		a.push("p_props");
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "p_async") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "p_async") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_export") return Dict.from({
+		if (field_name == "p_export") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_static") return Dict.from({
+		if (field_name == "p_static") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_const") return Dict.from({
+		if (field_name == "p_const") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_public") return Dict.from({
+		if (field_name == "p_public") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_private") return Dict.from({
+		if (field_name == "p_private") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_protected") return Dict.from({
+		if (field_name == "p_protected") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_declare") return Dict.from({
+		if (field_name == "p_declare") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_serializable") return Dict.from({
+		if (field_name == "p_serializable") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_cloneable") return Dict.from({
+		if (field_name == "p_cloneable") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_assignable") return Dict.from({
+		if (field_name == "p_assignable") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_memorize") return Dict.from({
+		if (field_name == "p_memorize") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_lambda") return Dict.from({
+		if (field_name == "p_lambda") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "p_pure") return Dict.from({
+		if (field_name == "p_pure") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
+			]),
+		});
+		if (field_name == "p_props") return Map.from({
+			"t": "bool",
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -20917,7 +20627,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpFlags,
 			"getFlags",
 			"hasFlag",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -20994,10 +20704,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpFor,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21009,35 +20719,35 @@ Object.assign(Bayrell.Lang.OpCodes.OpFor,
 		a.push("expr2");
 		a.push("expr3");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expr1") return Dict.from({
+		if (field_name == "expr1") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expr2") return Dict.from({
+		if (field_name == "expr2") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expr3") return Dict.from({
+		if (field_name == "expr3") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21046,7 +20756,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpFor,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21121,10 +20831,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlAttribute,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21135,30 +20845,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlAttribute,
 		a.push("key");
 		a.push("value");
 		a.push("is_spread");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "key") return Dict.from({
+		if (field_name == "key") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_spread") return Dict.from({
+		if (field_name == "is_spread") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21167,7 +20877,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlAttribute,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21238,10 +20948,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlContent,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21250,20 +20960,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlContent,
 		var a = [];
 		a.push("op");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21272,7 +20982,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlContent,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21343,10 +21053,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlItems,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21355,21 +21065,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlItems,
 		var a = [];
 		a.push("op");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21378,7 +21088,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlItems,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21457,10 +21167,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlTag,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21473,42 +21183,42 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlTag,
 		a.push("attrs");
 		a.push("spreads");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "tag_name") return Dict.from({
+		if (field_name == "tag_name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "op_code_name") return Dict.from({
+		if (field_name == "op_code_name") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "attrs") return Dict.from({
+		if (field_name == "attrs") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpHtmlAttribute"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "spreads") return Dict.from({
+		if (field_name == "spreads") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["primitive"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpHtmlItems",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21517,7 +21227,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlTag,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21593,10 +21303,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlValue,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21606,25 +21316,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlValue,
 		a.push("op");
 		a.push("kind");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21633,7 +21343,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpHtmlValue,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21715,10 +21425,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpIdentifier,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21728,25 +21438,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpIdentifier,
 		a.push("op");
 		a.push("value");
 		a.push("kind");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21755,7 +21465,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpIdentifier,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21832,10 +21542,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpIf,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21847,36 +21557,36 @@ Object.assign(Bayrell.Lang.OpCodes.OpIf,
 		a.push("if_true");
 		a.push("if_false");
 		a.push("if_else");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_true") return Dict.from({
+		if (field_name == "if_true") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_false") return Dict.from({
+		if (field_name == "if_false") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_else") return Dict.from({
+		if (field_name == "if_else") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpIfElse"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21885,7 +21595,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpIf,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -21956,10 +21666,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpIfElse,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -21968,20 +21678,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpIfElse,
 		var a = [];
 		a.push("condition");
 		a.push("if_true");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "condition") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_true") return Dict.from({
+		if (field_name == "if_true") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -21990,7 +21700,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpIfElse,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22067,10 +21777,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpInc,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22080,25 +21790,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpInc,
 		a.push("op");
 		a.push("kind");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22107,7 +21817,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpInc,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22178,10 +21888,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpItems,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22190,21 +21900,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpItems,
 		var a = [];
 		a.push("op");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22213,7 +21923,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpItems,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22288,10 +21998,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpMath,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22302,30 +22012,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpMath,
 		a.push("value1");
 		a.push("value2");
 		a.push("math");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value1") return Dict.from({
+		if (field_name == "value1") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value2") return Dict.from({
+		if (field_name == "value2") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "math") return Dict.from({
+		if (field_name == "math") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22334,7 +22044,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpMath,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22412,10 +22122,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpMethod,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22426,30 +22136,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpMethod,
 		a.push("value1");
 		a.push("value2");
 		a.push("kind");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value1") return Dict.from({
+		if (field_name == "value1") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value2") return Dict.from({
+		if (field_name == "value2") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22458,7 +22168,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpMethod,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22529,10 +22239,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpModule,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22541,22 +22251,22 @@ Object.assign(Bayrell.Lang.OpCodes.OpModule,
 		var a = [];
 		a.push("uses");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "uses") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "uses") return Map.from({
 			"t": "Runtime.Dict",
 			"s": ["string"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22565,7 +22275,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpModule,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22636,10 +22346,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpNamespace,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22648,20 +22358,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpNamespace,
 		var a = [];
 		a.push("op");
 		a.push("name");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22670,7 +22380,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpNamespace,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22743,10 +22453,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpNew,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22756,26 +22466,26 @@ Object.assign(Bayrell.Lang.OpCodes.OpNew,
 		a.push("op");
 		a.push("args");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "args") return Dict.from({
+		if (field_name == "args") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpTypeIdentifier",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22784,7 +22494,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpNew,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22857,10 +22567,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpNumber,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22870,25 +22580,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpNumber,
 		a.push("op");
 		a.push("value");
 		a.push("negative");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "int",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "negative") return Dict.from({
+		if (field_name == "negative") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -22897,7 +22607,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpNumber,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -22979,10 +22689,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpPipe,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -22995,40 +22705,40 @@ Object.assign(Bayrell.Lang.OpCodes.OpPipe,
 		a.push("value");
 		a.push("is_async");
 		a.push("is_monad");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "kind") return Dict.from({
+		if (field_name == "kind") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "obj") return Dict.from({
+		if (field_name == "obj") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_async") return Dict.from({
+		if (field_name == "is_async") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "is_monad") return Dict.from({
+		if (field_name == "is_monad") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23037,7 +22747,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpPipe,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23110,10 +22820,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfCode,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23123,25 +22833,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfCode,
 		a.push("op");
 		a.push("condition");
 		a.push("content");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "content") return Dict.from({
+		if (field_name == "content") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23150,7 +22860,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfCode,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23227,10 +22937,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfDef,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23240,26 +22950,26 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfDef,
 		a.push("op");
 		a.push("condition");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.BaseOpCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23268,7 +22978,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorIfDef,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23339,10 +23049,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorSwitch,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23351,21 +23061,21 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorSwitch,
 		var a = [];
 		a.push("op");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpPreprocessorIfCode"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23374,7 +23084,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpPreprocessorSwitch,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23445,10 +23155,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpReturn,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23457,20 +23167,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpReturn,
 		var a = [];
 		a.push("op");
 		a.push("expression");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23479,7 +23189,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpReturn,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23552,10 +23262,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpSafe,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23565,25 +23275,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpSafe,
 		a.push("op");
 		a.push("obj");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "obj") return Dict.from({
+		if (field_name == "obj") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23592,7 +23302,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpSafe,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23663,10 +23373,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpString,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23675,20 +23385,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpString,
 		var a = [];
 		a.push("op");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23697,7 +23407,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpString,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23772,10 +23482,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpTernary,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23786,30 +23496,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpTernary,
 		a.push("condition");
 		a.push("if_true");
 		a.push("if_false");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_true") return Dict.from({
+		if (field_name == "if_true") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "if_false") return Dict.from({
+		if (field_name == "if_false") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23818,7 +23528,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpTernary,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23889,10 +23599,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpThrow,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -23901,20 +23611,20 @@ Object.assign(Bayrell.Lang.OpCodes.OpThrow,
 		var a = [];
 		a.push("op");
 		a.push("expression");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -23923,7 +23633,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpThrow,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -23996,10 +23706,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatch,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24009,26 +23719,26 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatch,
 		a.push("op");
 		a.push("op_try");
 		a.push("items");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "op_try") return Dict.from({
+		if (field_name == "op_try") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "items") return Dict.from({
+		if (field_name == "items") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpTryCatchItem"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24037,7 +23747,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatch,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24112,10 +23822,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatchItem,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24126,30 +23836,30 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatchItem,
 		a.push("name");
 		a.push("pattern");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pattern") return Dict.from({
+		if (field_name == "pattern") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpTypeIdentifier",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24158,7 +23868,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpTryCatchItem,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24231,10 +23941,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeConvert,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24244,25 +23954,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeConvert,
 		a.push("op");
 		a.push("pattern");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "pattern") return Dict.from({
+		if (field_name == "pattern") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpTypeIdentifier",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24271,7 +23981,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeConvert,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24344,10 +24054,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeIdentifier,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24357,26 +24067,26 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeIdentifier,
 		a.push("op");
 		a.push("entity_name");
 		a.push("template");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "entity_name") return Dict.from({
+		if (field_name == "entity_name") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.OpEntityName",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "template") return Dict.from({
+		if (field_name == "template") return Map.from({
 			"t": "Runtime.Collection",
 			"s": ["Bayrell.Lang.OpCodes.OpTypeIdentifier"],
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24385,7 +24095,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpTypeIdentifier,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24458,10 +24168,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpUse,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24471,25 +24181,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpUse,
 		a.push("op");
 		a.push("alias");
 		a.push("name");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "alias") return Dict.from({
+		if (field_name == "alias") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "name") return Dict.from({
+		if (field_name == "name") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24498,7 +24208,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpUse,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24571,10 +24281,10 @@ Object.assign(Bayrell.Lang.OpCodes.OpWhile,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24584,25 +24294,25 @@ Object.assign(Bayrell.Lang.OpCodes.OpWhile,
 		a.push("op");
 		a.push("condition");
 		a.push("value");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "op") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "op") return Map.from({
 			"t": "string",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "condition") return Dict.from({
+		if (field_name == "condition") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "value") return Dict.from({
+		if (field_name == "value") return Map.from({
 			"t": "Bayrell.Lang.OpCodes.BaseOpCode",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24611,7 +24321,7 @@ Object.assign(Bayrell.Lang.OpCodes.OpWhile,
 	{
 		var a=[
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24691,7 +24401,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNode,
 		t = Bayrell.Lang.LangES6.TranslatorES6.reset.bind(this)(t);
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["expression"]), new Bayrell.Lang.LangNode.TranslatorNodeExpression());
 		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["program"]), new Bayrell.Lang.LangNode.TranslatorNodeProgram());
-		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["preprocessor_flags"]), t.preprocessor_flags.copy(Runtime.Dict.from({"BACKEND":true,"NODEJS":true,"ES6":false})));
+		t = Runtime.rtl.setAttr(t, Runtime.Collection.from(["preprocessor_flags"]), t.preprocessor_flags.copy(Runtime.Map.from({"BACKEND":true,"NODEJS":true,"ES6":false})));
 		return t;
 	},
 	/**
@@ -24717,10 +24427,10 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNode,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
@@ -24737,60 +24447,60 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNode,
 		a.push("emulate_async_await");
 		a.push("enable_introspection");
 		a.push("enable_context");
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		if (field_name == "async_await") return Dict.from({
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		if (field_name == "async_await") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6AsyncAwait",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "expression") return Dict.from({
+		if (field_name == "expression") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Expression",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "html") return Dict.from({
+		if (field_name == "html") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Html",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "operator") return Dict.from({
+		if (field_name == "operator") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Operator",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "program") return Dict.from({
+		if (field_name == "program") return Map.from({
 			"t": "Bayrell.Lang.LangES6.TranslatorES6Program",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "use_module_name") return Dict.from({
+		if (field_name == "use_module_name") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_async_await") return Dict.from({
+		if (field_name == "enable_async_await") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "emulate_async_await") return Dict.from({
+		if (field_name == "emulate_async_await") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_introspection") return Dict.from({
+		if (field_name == "enable_introspection") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
-		if (field_name == "enable_context") return Dict.from({
+		if (field_name == "enable_context") return Map.from({
 			"t": "bool",
-			"annotations": Collection.from([
+			"annotations": Vector.from([
 			]),
 		});
 		return null;
@@ -24801,7 +24511,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNode,
 			"reset",
 			"translate",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24840,22 +24550,6 @@ Bayrell.Lang.LangNode.TranslatorNodeExpression.prototype = Object.create(Bayrell
 Bayrell.Lang.LangNode.TranslatorNodeExpression.prototype.constructor = Bayrell.Lang.LangNode.TranslatorNodeExpression;
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangNode.TranslatorNodeExpression)
-		{
-		}
-		Bayrell.Lang.LangES6.TranslatorES6Expression.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Bayrell.Lang.LangES6.TranslatorES6Expression.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Bayrell.Lang.LangES6.TranslatorES6Expression.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression, Bayrell.Lang.LangES6.TranslatorES6Expression);
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
@@ -24867,15 +24561,15 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 	{
 		if (op_code.value == "@")
 		{
-			return Runtime.Collection.from([t,"ctx"]);
+			return Runtime.Vector.from([t,"ctx"]);
 		}
 		if (op_code.value == "_")
 		{
-			return Runtime.Collection.from([t,"ctx.constructor.translate"]);
+			return Runtime.Vector.from([t,"ctx.constructor.translate"]);
 		}
 		if (op_code.value == "log")
 		{
-			return Runtime.Collection.from([t,"console.log"]);
+			return Runtime.Vector.from([t,"console.log"]);
 		}
 		if (t.modules.has(op_code.value) || op_code.kind == Bayrell.Lang.OpCodes.OpIdentifier.KIND_SYS_TYPE)
 		{
@@ -24883,13 +24577,13 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 			var new_module_name = this.findModuleName(t, module_name);
 			if (module_name != new_module_name)
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"op_code":op_code,"var_content":this.useModuleName(t, module_name)}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"op_code":op_code,"var_content":this.useModuleName(t, module_name)}));
 				t = Runtime.rtl.get(res, 0);
 				var var_name = Runtime.rtl.get(res, 1);
-				return Runtime.Collection.from([t,var_name]);
+				return Runtime.Vector.from([t,var_name]);
 			}
 		}
-		return Runtime.Collection.from([t,op_code.value]);
+		return Runtime.Vector.from([t,op_code.value]);
 	},
 	/**
 	 * OpTypeIdentifier
@@ -24903,7 +24597,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 			var new_module_name = this.findModuleName(t, module_name);
 			if (module_name != new_module_name)
 			{
-				var res = t.constructor.addSaveOpCode(t, Runtime.Dict.from({"var_content":this.useModuleName(t, module_name)}));
+				var res = t.constructor.addSaveOpCode(t, Runtime.Map.from({"var_content":this.useModuleName(t, module_name)}));
 				t = Runtime.rtl.get(res, 0);
 				var_name = Runtime.rtl.get(res, 1);
 			}
@@ -24912,7 +24606,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 		{
 			var_name = Runtime.rs.join(".", op_code.entity_name.names);
 		}
-		return Runtime.Collection.from([t,var_name]);
+		return Runtime.Vector.from([t,var_name]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -24929,22 +24623,22 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -24953,7 +24647,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeExpression,
 			"OpIdentifier",
 			"OpTypeIdentifier",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -24992,22 +24686,6 @@ Bayrell.Lang.LangNode.TranslatorNodeProgram.prototype = Object.create(Bayrell.La
 Bayrell.Lang.LangNode.TranslatorNodeProgram.prototype.constructor = Bayrell.Lang.LangNode.TranslatorNodeProgram;
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.LangNode.TranslatorNodeProgram)
-		{
-		}
-		Bayrell.Lang.LangES6.TranslatorES6Program.prototype.assignObject.call(this,o);
-	},
-	assignValue: function(k,v)
-	{
-		Bayrell.Lang.LangES6.TranslatorES6Program.prototype.assignValue.call(this,k,v);
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-		return Bayrell.Lang.LangES6.TranslatorES6Program.prototype.takeValue.call(this,k,d);
-	},
 });
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram, Bayrell.Lang.LangES6.TranslatorES6Program);
 Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
@@ -25019,7 +24697,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
 	{
 		var content = "\"use strict;\"";
 		content += Runtime.rtl.toStr(t.s("var use = require('bay-lang').use;"));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/**
 	 * OpDeclareClassFooter
@@ -25031,7 +24709,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
 		content += Runtime.rtl.toStr("use.add(" + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(");"));
 		/*
 		content ~= t.s("if (module.exports == undefined) module.exports = {};");
-		Collection<string> arr = rs::split("\\.", t.current_namespace_name);
+		Collection<string> arr = rs::split(".", t.current_namespace_name);
 		for (int i=0; i<arr.count(); i++)
 		{
 			name = name ~ ((i == 0) ? "" : ".") ~ arr.item(i);
@@ -25043,7 +24721,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
 			t.current_class_full_name ~ " = " ~ t.current_class_full_name ~ ";");
 		*/
 		content += Runtime.rtl.toStr(t.s("module.exports = " + Runtime.rtl.toStr(t.current_class_full_name) + Runtime.rtl.toStr(";")));
-		return Runtime.Collection.from([t,content]);
+		return Runtime.Vector.from([t,content]);
 	},
 	/* ======================= Class Init Functions ======================= */
 	getNamespace: function()
@@ -25060,22 +24738,22 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -25084,7 +24762,7 @@ Object.assign(Bayrell.Lang.LangNode.TranslatorNodeProgram,
 			"translateProgramHeader",
 			"OpDeclareClassFooter",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
@@ -25119,19 +24797,6 @@ Bayrell.Lang.ModuleDescription = function()
 };
 Object.assign(Bayrell.Lang.ModuleDescription.prototype,
 {
-	assignObject: function(o)
-	{
-		if (o instanceof Bayrell.Lang.ModuleDescription)
-		{
-		}
-	},
-	assignValue: function(k,v)
-	{
-	},
-	takeValue: function(k,d)
-	{
-		if (d == undefined) d = null;
-	},
 });
 Object.assign(Bayrell.Lang.ModuleDescription,
 {
@@ -25149,7 +24814,7 @@ Object.assign(Bayrell.Lang.ModuleDescription,
 	 */
 	getModuleVersion: function()
 	{
-		return "0.11.6";
+		return "0.12.0";
 	},
 	/**
 	 * Returns required modules
@@ -25157,7 +24822,7 @@ Object.assign(Bayrell.Lang.ModuleDescription,
 	 */
 	requiredModules: function()
 	{
-		return Runtime.Dict.from({"Runtime":">=0.11 <1.0"});
+		return Runtime.Map.from({"Runtime":">=0.11 <1.0"});
 	},
 	/**
 	 * Returns enities
@@ -25181,22 +24846,22 @@ Object.assign(Bayrell.Lang.ModuleDescription,
 	},
 	getClassInfo: function()
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
-		return Dict.from({
-			"annotations": Collection.from([
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
+		return Map.from({
+			"annotations": Vector.from([
 			]),
 		});
 	},
 	getFieldsList: function()
 	{
 		var a = [];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getFieldInfoByName: function(field_name)
 	{
-		var Collection = Runtime.Collection;
-		var Dict = Runtime.Dict;
+		var Vector = Runtime.Vector;
+		var Map = Runtime.Map;
 		return null;
 	},
 	getMethodsList: function()
@@ -25207,7 +24872,7 @@ Object.assign(Bayrell.Lang.ModuleDescription,
 			"requiredModules",
 			"entities",
 		];
-		return Runtime.Collection.from(a);
+		return Runtime.Vector.from(a);
 	},
 	getMethodInfoByName: function(field_name)
 	{
