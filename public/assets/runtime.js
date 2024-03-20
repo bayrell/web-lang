@@ -6857,8 +6857,6 @@ Object.assign(Runtime.BaseObject,
 	getMethodsList: function()
 	{
 		var a=[
-			"constructor",
-			"newInstance",
 		];
 		return Runtime.Vector.from(a);
 	},

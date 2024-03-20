@@ -4,9 +4,9 @@
 [submodule "lib/Runtime.Console"]
 	path = lib/Runtime.Console
 	url = https://github.com/bayrell/Runtime.Console
-[submodule "lib/Bayrell.Lang"]
-	path = lib/Bayrell.Lang
-	url = https://github.com/bayrell/Bayrell.Lang
+[submodule "lib/BayLang"]
+	path = lib/BayLang
+	url = https://github.com/bayrell/BayLang
 [submodule "bay-lang"]
 	path = bay-lang
 	url = https://github.com/bayrell/bay-lang-nodejs

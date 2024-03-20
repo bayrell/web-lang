@@ -15,7 +15,7 @@
 			"dest": "public/assets/lang.js",
 			"modules":
 			[
-				"Bayrell.Lang"
+				"BayLang"
 			]
 		}
 	],
